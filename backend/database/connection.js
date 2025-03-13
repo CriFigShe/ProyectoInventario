@@ -2,7 +2,7 @@ const mysql2 = require("mysql2/promise");
 
 let pool = null;
 
-const { MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE } = process.env;
+const { MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE,MYSQL_PORT } = process.env;
 
 function createPool(database) {
   return mysql2.createPool({
@@ -10,6 +10,7 @@ function createPool(database) {
     user: MYSQL_USER,
     database: database,
     password: MYSQL_PASSWORD,
+    port: MYSQL_PORT
   });
 }
 
