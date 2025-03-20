@@ -6,6 +6,14 @@ function invalidCredentials(){
     };
 }
 
+function emailNotValidated() {
+    throw {
+        status: 400,
+        code: "EMAIL_NOT_VALIDATED",
+        message: "El email no ha sido validado",
+    };
+}
+
 function notAuthenticated(){
     throw{
         status: 401,
@@ -58,6 +66,14 @@ function handleAsyncError(controllerFn){
     };
 }
 
+function emailAlreadyRegistered() {
+    throw {
+        status: 400,
+        code: "EMAIL_ALREADY_REGISTERED",
+        message: "El email ya está registrado",
+    };
+}
+
 module.exports = {
     invalidCredentials,
     notAuthenticated,
@@ -65,5 +81,7 @@ module.exports = {
     notFound,
     invalidValidationCode,
     sendError,
-    handleAsyncError
+    handleAsyncError,
+    emailNotValidated,
+    emailAlreadyRegistered
 };

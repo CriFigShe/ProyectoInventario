@@ -3,12 +3,13 @@ const { getConection } = require("../connection.js");
 const db = getConection();
 
 async function saveUser(user){
-    const stmt = `INSERT INTO users(id, name, password) VALUES (?, ?, ?)`;
+    const stmt = `INSERT INTO users(id, name, password, email) VALUES (?, ?, ?, ?)`;
 
     await db.execute(stmt, [
         user.id,
         user.name,
-        user.password
+        user.password,
+        user.email
     ]);
 }
 
@@ -26,8 +27,8 @@ async function getUserById(userId){
     return user;
 }
 
-async function getPassword(name){
-    const stmt = `SELECT password FROM users WHERE name = ?`;
+async function getPassword(email){
+    const stmt = `SELECT password FROM users WHERE email = ?`;
 
     const [rows] = await db.execute(stmt, [email]);
 
@@ -35,18 +36,31 @@ async function getPassword(name){
 }
 
 async function updateUser(user){
-    const stmt = `UPDATE users SET name = ?, password = ? WHERE id = ?`;
+    const stmt = `UPDATE users SET name = ?, password = ?, email = ? WHERE id = ?`;
 
     await db.execute(stmt, [
         user.name,
         user.password,
-        user.id
+        user.id,
+        user.email
     ]);
+}
+
+async function getUserByEmail(email) {
+    const statement = `
+      SELECT id,name, email
+      FROM users
+      WHERE users.email = ?
+    `;
+    const [rows] = await db.execute(statement, [email]);
+
+    return rows[0];
 }
 
 module.exports = {
     saveUser,
     getUserById,
     getPassword,
-    updateUser
+    updateUser,
+    getUserByEmail
 };

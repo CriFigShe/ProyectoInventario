@@ -2,7 +2,8 @@ async function createTables(pool) {
   await pool.query(`CREATE TABLE users(
     id VARCHAR(100) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    password VARCHAR(100) NOT NULL
+    password VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL
     )`);
 
   await pool.query(`CREATE TABLE suppliers(
