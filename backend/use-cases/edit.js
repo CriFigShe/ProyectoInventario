@@ -22,7 +22,7 @@ async function editUser(userId, userPayload){
     await updateUser(updatedUser);
 }
 
-async function editProduct(productId, userId, payload, supplierId){
+async function editProduct(productId, userId, payload){
     const product = await getProductById(productId);
 
     if(!product){

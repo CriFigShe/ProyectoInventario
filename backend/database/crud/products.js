@@ -54,9 +54,17 @@ async function getProductById(id){
     return product;
 }
 
+async function getAllProducts(){
+    const stmt = `SELECT * FROM products ORDER BY name DESC`;
+
+    const [rows] = await db.execute(stmt);
+    return rows;
+}
+
 module.exports = {
     addProduct,
     deleteProduct,
     updateProduct,
-    getProductById
+    getProductById,
+    getAllProducts
 };
