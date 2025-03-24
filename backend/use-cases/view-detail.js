@@ -2,6 +2,7 @@ const { getProductById } = require("../database/crud/products");
 const { getUserById } = require("../database/crud/users");
 const { getEventById } = require("../database/crud/events");
 const { getSaleById } = require("../database/crud/sales");
+const { getSupplierById } = require("../database/crud/suppliers");
 const { notFound } = require("../services/errors");
 
 async function viewProduct(productId){
@@ -60,6 +61,21 @@ async function viewSale(saleId){
     return view;
 }
 
+async function viewSupplier(supplierId){
+    const supplier = await getSupplierById(supplierId);
+
+    if(!supplier){
+        notFound();
+    }
+
+    const view = {
+        name: supplier.name,
+        contact: supplier.contact,
+    }
+
+    return view;
+}
+
 async function viewUser(userId){
     const user = await getUserById(userId);
 
@@ -79,5 +95,6 @@ module.exports = {
     viewProduct,
     viewEvent,
     viewSale,
+    viewSupplier,
     viewUser
 };
