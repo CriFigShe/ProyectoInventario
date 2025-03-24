@@ -50,9 +50,17 @@ async function getSaleById(id){
     return sale;
 }
 
+async function getAllSales(){
+    const stmt = `SELECT * FROM sales ORDER BY date DESC`;
+
+    const [rows] = await db.execute(stmt);
+    return rows;
+}
+
 module.exports = {
     addSale,
     deleteSale,
     updateSale,
+    getAllSales,
     getSaleById
 };
