@@ -8,7 +8,7 @@ const postEventPayload = require("../validators/events");
 const { editEvent } = require("../use-cases/edit");
 const { viewEvent } = require("../use-cases/view-detail");
 const { addEvent } = require("../use-cases/add");
-const { deleteEvent } = require("../database/crud/events");
+const { removeEvent } = require("../use-cases/remove");
 const { listEvents } = require("../use-cases/list");
 const router = Router();
 
@@ -52,7 +52,7 @@ router.delete(
     "/events/:id",
     authGuard,
     handleAsyncError(async (req, res) => {
-        await deleteEvent(req.params.id);
+        await removeEvent(req.params.id);
         sendResponse(res);
     })
 );

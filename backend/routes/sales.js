@@ -8,7 +8,7 @@ const postSalePayload = require("../validators/sales");
 const { editSale } = require("../use-cases/edit");
 const { viewSale } = require("../use-cases/view-detail");
 const { addSale } = require("../use-cases/add");
-const { deleteSale } = require("../database/crud/sales");
+const { removeSale } = require("../use-cases/remove");
 const { listSales } = require("../use-cases/list");
 const router = Router();
 
@@ -52,7 +52,7 @@ router.delete(
     "/sales/:id",
     authGuard,
     handleAsyncError(async (req, res) => {
-        await deleteSale(req.params.id);
+        await removeSale(req.params.id);
         sendResponse(res);
     })
 );

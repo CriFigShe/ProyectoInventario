@@ -8,7 +8,7 @@ const postSupplierPayload = require("../validators/suppliers");
 const { editSupplier } = require("../use-cases/edit");
 const { viewSupplier } = require("../use-cases/view-detail");
 const { addSupplier } = require("../use-cases/add");
-const { deleteSupplier } = require("../database/crud/suppliers");
+const { removeSupplier } = require("../use-cases/remove");
 const { listSuppliers } = require("../use-cases/list");
 const router = Router();
 
@@ -52,7 +52,7 @@ router.delete(
     "/suppliers/:id",
     authGuard,
     handleAsyncError(async (req, res) => {
-        await deleteSupplier(req.params.id);
+        await removeSupplier(req.params.id);
         sendResponse(res);
     })
 );
