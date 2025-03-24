@@ -46,9 +46,17 @@ async function getEventById(eventId){
     return event;
 }
 
+async function getAllEvents(){
+    const stmt = `SELECT * FROM events ORDER BY name DESC`;
+
+    const [rows] = await db.execute(stmt);
+    return rows;
+}
+
 module.exports = {
     addEvent,
     deleteEvent,
     updateEvent,
-    getEventById
+    getEventById,
+    getAllEvents
 };

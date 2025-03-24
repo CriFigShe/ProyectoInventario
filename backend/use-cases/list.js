@@ -1,11 +1,19 @@
 const { getAllProducts } = require("../database/crud/products");
+const { getAllEvents } = require("../database/crud/events");
 
 async function listProducts(){
-    const posts = await getAllProducts();
+    const products = await getAllProducts();
 
-    return posts;
+    return products;
+}
+
+async function listEvents(){
+    const events = await getAllEvents();
+
+    return events;
 }
 
 module.exports = {
-    listProducts
+    listProducts,
+    listEvents
 };
