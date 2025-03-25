@@ -14,9 +14,9 @@ async function editUser(userId, userPayload){
 
     const updatedUser = {
         id: userId,
-        name: userPayload.name || user.name,
-        password: userPayload.password || user.password,
-        email: userPayload.email || user.email,
+        name: userPayload?.name || user.name,
+        password: userPayload?.password || user.password,
+        email: userPayload?.email || user.email,
     };
 
     await updateUser(updatedUser);

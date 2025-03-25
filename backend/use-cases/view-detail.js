@@ -76,7 +76,7 @@ async function viewSupplier(supplierId){
     return view;
 }
 
-async function viewUser(userId){
+async function viewUserById(userId){
     const user = await getUserById(userId);
 
     if(!user){
@@ -84,6 +84,7 @@ async function viewUser(userId){
     }
 
     const view = {
+        id: user.id,
         name: user.name,
         password: user.password,
         email: user.email,
@@ -96,5 +97,5 @@ module.exports = {
     viewEvent,
     viewSale,
     viewSupplier,
-    viewUser
+    viewUserById,
 };

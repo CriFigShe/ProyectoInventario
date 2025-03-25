@@ -4,15 +4,12 @@ const { hashPassword, generateUUID, generateValidationCode } = require("../servi
 const { getTimestampMinutesFromNow } = require("../services/time");
 
 async function registerUser(userData){
-    const oldUser = await getUserByEmail(userData.email);
-    if(oldUser){
-        emailAlreadyRegistered();
-    }
+    // const oldUser = await getUserByEmail(userData.email);
+    // if(oldUser){
+    //     emailAlreadyRegistered();
+    // }
 
     const hashedPassword = await hashPassword(userData.password);
-
-    const randomCode = generateValidationCode();
-
     const newUserId = generateUUID();
 
     const user = {
@@ -22,15 +19,6 @@ async function registerUser(userData){
     };
 
     await saveUser(user);
-
-    const expirationTimestamp = getTimestampMinutesFromNow(5);
-    const validationCode = {
-        id: generateUUID(),
-        userId: user.id,
-        code: randomCode,
-        expirationTimestamp,
-    };
-
 }
 
 module.exports = {

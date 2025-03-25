@@ -2,6 +2,8 @@ const { getConection } = require("../connection.js");
 
 const db = getConection();
 
+
+//funciona
 async function saveUser(user){
     const stmt = `INSERT INTO users(id, name, password, email) VALUES (?, ?, ?, ?)`;
 
@@ -27,6 +29,28 @@ async function getUserById(userId){
     return user;
 }
 
+async function updateUser(user){
+    const stmt = `UPDATE users SET name = ?, password = ?, email = ? WHERE id = ?`;
+
+    console.log(user);
+
+    await db.execute(stmt, [
+        user.name,
+        user.password,
+        user.email,
+        user.id,
+    ]);
+}
+
+async function deleteUser(userId) {
+    const statement = `
+    DELETE FROM users
+    WHERE id = ?
+    `;
+    await db.execute(statement, [userId]);
+}
+
+//Funciones utilizadas en el login
 async function getPassword(email){
     const stmt = `SELECT password FROM users WHERE email = ?`;
 
@@ -35,20 +59,9 @@ async function getPassword(email){
     return rows[0];
 }
 
-async function updateUser(user){
-    const stmt = `UPDATE users SET name = ?, password = ?, email = ? WHERE id = ?`;
-
-    await db.execute(stmt, [
-        user.name,
-        user.password,
-        user.id,
-        user.email
-    ]);
-}
-
 async function getUserByEmail(email) {
     const statement = `
-      SELECT id,name, email
+      SELECT *
       FROM users
       WHERE users.email = ?
     `;
@@ -62,5 +75,6 @@ module.exports = {
     getUserById,
     getPassword,
     updateUser,
-    getUserByEmail
+    getUserByEmail,
+    deleteUser
 };
