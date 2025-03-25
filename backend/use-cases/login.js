@@ -5,7 +5,6 @@ const { validatePassword } = require("../services/crypto");
 const { generateToken } = require("../services/JWT");
 
 async function login(email, plainPassword){
-    console.log(email)
     const user = await getUserByEmail(email);
 
     if(!user){

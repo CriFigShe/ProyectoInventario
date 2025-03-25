@@ -32,8 +32,6 @@ async function getUserById(userId){
 async function updateUser(user){
     const stmt = `UPDATE users SET name = ?, password = ?, email = ? WHERE id = ?`;
 
-    console.log(user);
-
     await db.execute(stmt, [
         user.name,
         user.password,
