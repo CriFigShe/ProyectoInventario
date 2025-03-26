@@ -4,7 +4,7 @@ const { addEvent } = require("../database/crud/events");
 const { addSale } = require("../database/crud/sales");
 const { addSupplier } = require("../database/crud/suppliers");
 
-async function addProduct(currentUserId, postPayload){
+async function createProduct(currentUserId, postPayload){
     const post = {
         id: generateUUID(),
         name: postPayload.name,
@@ -19,7 +19,7 @@ async function addProduct(currentUserId, postPayload){
     await addProduct(post);
 }
 
-async function addEvent(postPayload){
+async function createEvent(postPayload){
     const post = {
         id: generateUUID(),
         name: postPayload.name,
@@ -30,7 +30,7 @@ async function addEvent(postPayload){
     await addEvent(post);
 }
 
-async function addSale(postPayload){
+async function createSale(postPayload){
     const post = {
         id: generateUUID(),
         date: postPayload.date,
@@ -44,7 +44,7 @@ async function addSale(postPayload){
     await addSale(post);
 }
 
-async function addSupplier(postPayload){
+async function createSupplier(postPayload){
     const post = {
         id: generateUUID(),
         name: postPayload.name,
@@ -55,8 +55,8 @@ async function addSupplier(postPayload){
 }
 
 module.exports = {
-    addProduct,
-    addEvent,
-    addSale,
-    addSupplier
+    createProduct,
+    createEvent,
+    createSale,
+    createSupplier
 };

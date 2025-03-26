@@ -1,4 +1,4 @@
-const { Router } = require("express");
+const { Router, json } = require("express");
 const { authGuard } = require("../middleware/auth-guard");
 const { validateBody } = require("../middleware/validate-body");
 const { handleAsyncError } = require("../services/errors");
@@ -7,17 +7,18 @@ const editSalePayload = require("../validators/sales");
 const postSalePayload = require("../validators/sales");
 const { editSale } = require("../use-cases/edit");
 const { viewSale } = require("../use-cases/view-detail");
-const { addSale } = require("../use-cases/add");
+const { createSale } = require("../use-cases/add");
 const { removeSale } = require("../use-cases/remove");
 const { listSales } = require("../use-cases/list");
 const router = Router();
 
 router.post(
     "/sales",
+    json(),
     authGuard,
     validateBody(postSalePayload),
     handleAsyncError(async (req, res) => {
-        await addSale(req.body);
+        await createSale(req.body);
         sendResponse(res, undefined, 201);
     })
 );
@@ -33,17 +34,18 @@ router.get(
 router.get(
     "/sales",
     handleAsyncError(async (req, res) => {
-        const sales = await listSales(req.currentUser?.id);
-        sendResponse(res, sale);
+       const sales = await listSales(req.currentUser?.id);
+        sendResponse(res, sales);
     })
 );
 
 router.put(
     "/sales/:id",
+    json(),
     authGuard,
     validateBody(editSalePayload),
     handleAsyncError(async (req, res) => {
-        await editSale(req.params.id, req.currentUser.id, req.body);
+        await editSale(req.body, req.params.id);
         sendResponse(res);
     })
 );

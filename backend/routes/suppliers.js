@@ -7,7 +7,7 @@ const editSupplierPayload = require("../validators/suppliers");
 const postSupplierPayload = require("../validators/suppliers");
 const { editSupplier } = require("../use-cases/edit");
 const { viewSupplier } = require("../use-cases/view-detail");
-const { addSupplier } = require("../use-cases/add");
+const { createSupplier } = require("../use-cases/add");
 const { removeSupplier } = require("../use-cases/remove");
 const { listSuppliers } = require("../use-cases/list");
 const router = Router();
@@ -17,7 +17,7 @@ router.post(
     authGuard,
     validateBody(postSupplierPayload),
     handleAsyncError(async (req, res) => {
-        await addSupplier(req.body);
+        await createSupplier(req.body);
         sendResponse(res, undefined, 201);
     })
 );

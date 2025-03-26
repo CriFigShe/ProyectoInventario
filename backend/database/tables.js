@@ -29,7 +29,7 @@ async function createTables(pool) {
   await pool.query(`CREATE TABLE sales(
     id VARCHAR(100) PRIMARY KEY,
     date DATE NOT NULL,
-    payment FLOAT NOT NULL,
+    payment VARCHAR(100) NOT NULL,
     taxes FLOAT NOT NULL,
     package_price FLOAT NOT NULL,
     shipping_price FLOAT NOT NULL,

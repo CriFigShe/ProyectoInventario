@@ -7,7 +7,7 @@ const editProductPayload = require("../validators/products");
 const postProductPayload = require("../validators/products");
 const { editProduct } = require("../use-cases/edit");
 const { viewProduct } = require("../use-cases/view-detail");
-const { addProduct } = require("../use-cases/add");
+const { createProduct } = require("../use-cases/add");
 const { removeProduct } = require("../use-cases/remove");
 const { listProducts } = require("../use-cases/list");
 const router = Router();
@@ -17,7 +17,7 @@ router.post(
     authGuard,
     validateBody(postProductPayload),
     handleAsyncError(async (req, res) => {
-        await addProduct(req.body);
+        await createProduct(req.body);
         sendResponse(res, undefined, 201);
     })
 );
