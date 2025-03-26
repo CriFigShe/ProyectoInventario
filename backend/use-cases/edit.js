@@ -22,15 +22,11 @@ async function editUser(userId, userPayload){
     await updateUser(updatedUser);
 }
 
-async function editProduct(productId, userId, payload){
+async function editProduct(payload, productId){
     const product = await getProductById(productId);
 
     if(!product){
         notFound();
-    }
-
-    if(product.userId != userId){
-        unauthorizedUser();
     }
 
     const updatedProduct = {
@@ -93,7 +89,7 @@ async function editSupplier(payload, supplierId){
     }
 
     const updatedSupplier = {
-        id: saleId,
+        id: supplierId,
         name: payload.name || supplier.name,
         contact: payload.contact || supplier.contact,
     }

@@ -4,7 +4,7 @@ const { addEvent } = require("../database/crud/events");
 const { addSale } = require("../database/crud/sales");
 const { addSupplier } = require("../database/crud/suppliers");
 
-async function createProduct(currentUserId, postPayload){
+async function createProduct(postPayload){
     const post = {
         id: generateUUID(),
         name: postPayload.name,
@@ -13,7 +13,8 @@ async function createProduct(currentUserId, postPayload){
         cost: postPayload.cost,
         pvp: postPayload.pvp,
         notes: postPayload.notes,
-        userId: currentUserId,
+        userId: postPayload.userId,
+        supplierId: postPayload.supplierId
     };
 
     await addProduct(post);

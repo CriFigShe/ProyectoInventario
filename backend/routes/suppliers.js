@@ -1,4 +1,4 @@
-const { Router } = require("express");
+const { Router, json } = require("express");
 const { authGuard } = require("../middleware/auth-guard");
 const { validateBody } = require("../middleware/validate-body");
 const { handleAsyncError } = require("../services/errors");
@@ -14,6 +14,7 @@ const router = Router();
 
 router.post(
     "/suppliers",
+    json(),
     authGuard,
     validateBody(postSupplierPayload),
     handleAsyncError(async (req, res) => {
@@ -24,6 +25,7 @@ router.post(
 
 router.get(
     "/suppliers/:id",
+    authGuard,
     handleAsyncError(async (req, res) => {
         const supplier = await viewSupplier(req.params.id);
         sendResponse(res, supplier);
@@ -32,6 +34,7 @@ router.get(
 
 router.get(
     "/suppliers",
+    authGuard,
     handleAsyncError(async (req, res) => {
         const suppliers = await listSuppliers(req.currentUser?.id);
         sendResponse(res, suppliers);
@@ -40,10 +43,11 @@ router.get(
 
 router.put(
     "/suppliers/:id",
+    json(),
     authGuard,
     validateBody(editSupplierPayload),
     handleAsyncError(async (req, res) => {
-        await editSupplier(req.params.id, req.currentUser.id, req.body);
+        await editSupplier(req.body, req.params.id);
         sendResponse(res);
     })
 );

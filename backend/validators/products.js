@@ -6,5 +6,7 @@ module.exports = Joi.object({
     stock: Joi.number().required(),
     cost: Joi.number().required(),
     pvp: Joi.number().required(),
-    notes: Joi.number().required()
+    notes: Joi.string(),
+    userId: Joi.string().required(),
+    supplierId: Joi.string().required()
 });

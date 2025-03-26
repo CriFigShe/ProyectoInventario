@@ -1,4 +1,4 @@
-const { Router } = require("express");
+const { Router, json } = require("express");
 const { authGuard } = require("../middleware/auth-guard");
 const { validateBody } = require("../middleware/validate-body");
 const { handleAsyncError } = require("../services/errors");
@@ -14,6 +14,7 @@ const router = Router();
 
 router.post(
     "/products",
+    json(),
     authGuard,
     validateBody(postProductPayload),
     handleAsyncError(async (req, res) => {
@@ -24,6 +25,7 @@ router.post(
 
 router.get(
     "/products/:id",
+    authGuard,
     handleAsyncError(async (req, res) => {
         const product = await viewProduct(req.params.id);
         sendResponse(res, product);
@@ -32,6 +34,7 @@ router.get(
 
 router.get(
     "/products",
+    authGuard,
     handleAsyncError(async (req, res) => {
         const products = await listProducts(req.currentUser?.id);
         sendResponse(res, products);
@@ -40,10 +43,11 @@ router.get(
 
 router.put(
     "/products/:id",
+    json(),
     authGuard,
     validateBody(editProductPayload),
-    handleAsyncError(async (req, res) => {
-        await editProduct(req.params.id, req.currentUser.id, req.body);
+        handleAsyncError(async (req, res) => {
+        await editProduct(req.body, req.params.id);
         sendResponse(res);
     })
 );

@@ -2,7 +2,7 @@ const { getProductById, deleteProduct } = require("../database/crud/products");
 const { getEventById, deleteEvent } = require("../database/crud/events");
 const { getSaleById, deleteSale } = require("../database/crud/sales");
 const { getSupplierById, deleteSupplier } = require("../database/crud/suppliers");
-const { notFound, unauthorizedUser } = require("../services/errors");
+const { notFound } = require("../services/errors");
 const { getUserById, deleteUser } = require("../database/crud/users");
 
 async function removeUser(userId){
@@ -15,15 +15,11 @@ async function removeUser(userId){
     await deleteUser(userId);
 }
 
-async function removeProduct(productId, userId){
+async function removeProduct(productId){
     const product = await getProductById(productId);
 
     if(!product){
         notFound();
-    }
-
-    if(product.userId != userId){
-        unauthorizedUser();
     }
 
     await deleteProduct(productId);
