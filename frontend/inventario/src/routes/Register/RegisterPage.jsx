@@ -1,20 +1,84 @@
 import "./RegisterPage.css";
+import { useState } from "react";
+import axios from "axios";
+import { IconX, IconCheck } from "@tabler/icons-react";
+import { Notification, Button } from "@mantine/core";
 
 export default function Register() {
+  const [payload, setPayload] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const [registerSucceed, setRegisterSucceed] = useState();
+
+  const xIcon = <IconX size={20} />;
+  const checkIcon = <IconCheck size={20} />;
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      console.log(payload);
+      await axios.post("http://localhost:5000/users/register", payload);
+      setRegisterSucceed(true);
+    } catch (error) {
+      setRegisterSucceed(false);
+    }
+  };
+
   return (
     <div className="divRegister">
+      <div className="notificationContainer">
+        {registerSucceed == false && (
+          <Notification
+            icon={xIcon}
+            color="red"
+            title="Ha habido un error"
+            withCloseButton={false}
+          />
+        )}
+        {registerSucceed == true && (
+          <Notification
+            icon={checkIcon}
+            color="teal"
+            title="Usuario creado con éxito"
+            withCloseButton={false}
+          />
+        )}
+      </div>
       <main className="mainRegister">
         <div className="contentWrapper">
           <div className="leftSide">
-            <h2 className="registerTitle">Registrarse</h2>
-            <form action="post" className="formRegister">
+            <h2 className="registerTitle">REGISTRATE</h2>
+            <form
+              action="post"
+              className="formRegister"
+              onSubmit={handleSubmit}
+            >
               <div className="divFormRegister">
                 <label htmlFor="name">Nombre</label>
-                <input type="text" name="name" id="name" autoFocus/>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  autoFocus
+                  onChange={(event) =>
+                    setPayload({ ...payload, name: event.target.value })
+                  }
+                />
               </div>
               <div className="divFormRegister">
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email"/>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  onChange={(event) =>
+                    setPayload({ ...payload, email: event.target.value })
+                  }
+                />
               </div>
               <div className="divFormRegister">
                 <label htmlFor="password">Contraseña</label>
@@ -22,13 +86,16 @@ export default function Register() {
                   type="password"
                   name="password"
                   id="password"
+                  onChange={(event) =>
+                    setPayload({ ...payload, password: event.target.value })
+                  }
                 />
               </div>
-              <button type="submit">Registarse</button>
+              <button type="submit">Registrarse</button>
             </form>
             <div className="separator">o</div>
             <div className="loginLink">
-                ¿Ya tienes cuenta? <a href="#">Iniciar sesión</a>
+              ¿Ya tienes cuenta? <a href="#">Iniciar sesión</a>
             </div>
           </div>
           <div className="imageContainer">
