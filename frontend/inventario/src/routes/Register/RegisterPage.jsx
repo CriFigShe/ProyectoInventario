@@ -6,7 +6,7 @@ export default function Register() {
       <main className="mainRegister">
         <div className="contentWrapper">
           <div className="leftSide">
-            <h2 className="registerTitle">Sign in</h2>
+            <h2 className="registerTitle">Registrarse</h2>
             <form action="post" className="formRegister">
               <div className="divFormRegister">
                 <label htmlFor="name">Nombre</label>
