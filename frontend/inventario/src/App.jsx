@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import Register from "./routes/Register/RegisterPage";
+import Login from "./routes/Login/LoginPage";
 
 function App() {
   const [data, setData] = useState([]);
@@ -21,7 +22,8 @@ function App() {
 
   return (
     <main className="mainApp">
-        <Register />
+        {/* <Register /> */}
+        <Login/>
     </main>
   );
 }

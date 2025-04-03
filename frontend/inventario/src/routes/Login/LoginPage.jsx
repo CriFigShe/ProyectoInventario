@@ -1,22 +1,18 @@
-import "./RegisterPage.css";
+import "./LoginPage.css";
 
-export default function Register() {
+export default function Login() {
   return (
-    <div className="divRegister">
-      <main className="mainRegister">
+    <div className="divLogin">
+      <main className="mainLogin">
         <div className="contentWrapper">
           <div className="leftSide">
-            <h2 className="registerTitle">Registrarse</h2>
-            <form action="post" className="formRegister">
-              <div className="divFormRegister">
-                <label htmlFor="name">Nombre</label>
-                <input type="text" name="name" id="name" autoFocus/>
-              </div>
-              <div className="divFormRegister">
+            <h2 className="loginTitle">Iniciar Sesión</h2>
+            <form action="post" className="formLogin">
+              <div className="divFormLogin">
                 <label htmlFor="email">Email</label>
                 <input type="email" name="email" id="email"/>
               </div>
-              <div className="divFormRegister">
+              <div className="divFormLogin">
                 <label htmlFor="password">Contraseña</label>
                 <input
                   type="password"
@@ -27,8 +23,8 @@ export default function Register() {
               <button type="submit">Registarse</button>
             </form>
             <div className="separator">o</div>
-            <div className="loginLink">
-                ¿Ya tienes cuenta? <a href="#">Iniciar sesión</a>
+            <div className="registerLink">
+                ¿No tienes una cuenta? <a href="#">Registrarse</a>
             </div>
           </div>
           <div className="imageContainer">
