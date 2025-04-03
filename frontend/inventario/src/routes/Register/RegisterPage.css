@@ -1,0 +1,122 @@
+@font-face {
+    font-family: 'Winter Minie';
+    src: url('../../../public/fonts/Winter\ Minie.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    background-color: #f5c858;
+}
+
+.divRegister {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 20px;
+}
+
+.mainRegister {
+    width: 80%;
+    max-width: 900px;
+    min-height: 400px;
+    box-shadow: 0px 0px 60px 10px rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 30px;
+    margin: auto;
+    background-color: white;
+}
+
+.contentWrapper {
+    display: flex;
+    height: 100%;
+    gap: 30px;
+}
+
+.leftSide {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.registerTitle {
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 40px;
+    color: #00bcd9;
+    font-family: 'Winter Minie', cursive;
+}
+
+.formRegister {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.divFormRegister {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.divFormRegister label{
+    padding-left: 5px;
+    color: #00bcd9;
+    font-family: 'Winter Minie', cursive;
+}
+
+.formRegister input {
+    width: 100%;
+    border-radius: 20px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+.formRegister button {
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #00bcd9;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    width: 40%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Winter Minie', cursive;
+}
+
+.formRegister button:hover {
+    background-color: #0192a8;
+}
+
+.imageContainer {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageContainer img {
+    max-width: 100%;
+    max-height: 100%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}

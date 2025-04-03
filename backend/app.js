@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const cors = require("cors");
 const express = require("express");
 const indexRouter = require("./routes/index-router")
 const { sendError } = require("./services/errors.js");
@@ -11,6 +12,8 @@ const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Server iniciado en el puerto ${PORT}...`);
 });
+
+app.use(cors({ origin: "http://localhost:5173" }));
 
 app.use(validateToken);
 app.use(indexRouter);
