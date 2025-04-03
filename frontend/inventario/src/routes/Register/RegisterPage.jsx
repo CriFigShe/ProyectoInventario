@@ -32,7 +32,7 @@ export default function Register() {
             </div>
           </div>
           <div className="imageContainer">
-            <img src="/descarga.jpeg" alt="Imagen Login" />
+            <img src="img/descarga.jpeg" alt="Imagen Login" />
           </div>
         </div>
       </main>
