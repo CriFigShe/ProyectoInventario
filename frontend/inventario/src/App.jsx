@@ -22,8 +22,8 @@ function App() {
 
   return (
     <main className="mainApp">
-        <Register />
-        {/* <Login/> */}
+        {/* <Register /> */}
+        <Login/>
     </main>
   );
 }

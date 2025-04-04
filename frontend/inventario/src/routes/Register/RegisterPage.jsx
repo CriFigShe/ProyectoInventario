@@ -1,8 +1,8 @@
 import "./RegisterPage.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { IconX, IconCheck } from "@tabler/icons-react";
-import { Notification, Button } from "@mantine/core";
+import { Notification } from "@mantine/core";
 
 export default function Register() {
   const [payload, setPayload] = useState({
@@ -20,13 +20,22 @@ export default function Register() {
     event.preventDefault();
 
     try {
-      console.log(payload);
       await axios.post("http://localhost:5000/users/register", payload);
       setRegisterSucceed(true);
     } catch (error) {
       setRegisterSucceed(false);
     }
   };
+
+  useEffect(() => {
+    if (registerSucceed !== undefined) {
+      const timer = setTimeout(() => {
+        setRegisterSucceed(undefined);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [registerSucceed]);
 
   return (
     <div className="divRegister">
