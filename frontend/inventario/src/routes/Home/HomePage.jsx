@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { Burger, Drawer, Button, Stack } from "@mantine/core";
 
 export default function HomePage() {
   const { token } = useAuth();
@@ -11,6 +12,8 @@ export default function HomePage() {
   const [suppliers, setSuppliers] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [opened, setOpened] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -70,9 +73,62 @@ export default function HomePage() {
     <div className="divHome">
       <div className="header">
         <h1 className="homeTitle">Productos</h1>
+        <Burger
+          opened={opened}
+          onClick={() => setOpened((o) => !o)}
+          aria-label="Toggle Navigation"
+          color="#00bcd9"
+          style={{ position: "absolute", left: 20 }}
+          transitionDuration={250}
+        />
         <Link className="logout" to={"/"}>
           Cerrar Sesión
         </Link>
+        <Drawer
+          opened={opened}
+          onClose={() => setOpened(false)}
+          title="Menú"
+          padding="md"
+          size="md"
+          closeButtonProps={{
+            style: {
+              color: "white",
+              transition: "color 0.3s ease",
+            },
+            onMouseEnter: (e) => (e.currentTarget.style.color = "#00bcd9"),
+            onMouseLeave: (e) => (e.currentTarget.style.color = "white"),
+          }}
+          styles={{
+            content: {
+              backgroundColor: "#00bcd9",
+            },
+            header: {
+              backgroundColor: "#00bcd9",
+            },
+            body: {
+              backgroundColor: "#00bcd9",
+            },
+            title: {
+              color: "white",
+              fontWeight: "bold",
+            },
+          }}
+        >
+          <Stack>
+            <Link className="drawerLink" to="/home">
+              Inicio
+            </Link>
+            <Link className="drawerLink" to="#">
+              a
+            </Link>
+            <Link className="drawerLink" to="#">
+              a
+            </Link>
+            <Link className="drawerLink" to="#">
+              a
+            </Link>
+          </Stack>
+        </Drawer>
       </div>
       <div className="listTitles">
         <h3>Nombre</h3>
