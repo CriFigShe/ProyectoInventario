@@ -149,10 +149,10 @@ export default function HomePage() {
             <p>{product.pvp}</p>
             <p>{renderTextWithEllipsis(product.notes)}</p>
             <p>{suppliers[product.supplierId]}</p>
-            <div>
+            <p>
               <button>U</button>
               <button>D</button>
-            </div>
+            </p>
           </div>
         ))}
       </div>
