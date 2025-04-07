@@ -137,6 +137,7 @@ export default function HomePage() {
         <h3>Precio(€)</h3>
         <h3>Notas</h3>
         <h3>Proveedor</h3>
+        <h3>Acciones</h3>
       </div>
       <div className="productsList">
         {products.map((product) => (
@@ -148,7 +149,10 @@ export default function HomePage() {
             <p>{product.pvp}</p>
             <p>{renderTextWithEllipsis(product.notes)}</p>
             <p>{suppliers[product.supplierId]}</p>
-            {/* <Link to={`/products/${product.id}`}>Ver detalles</Link> */}
+            <div>
+              <button>U</button>
+              <button>D</button>
+            </div>
           </div>
         ))}
       </div>
