@@ -48,6 +48,13 @@ async function deleteUser(userId) {
     await db.execute(statement, [userId]);
 }
 
+async function getAllUsers(){
+    const stmt = "SELECT * FROM users ORDER BY name DESC";
+
+    const [rows] = await db.execute(stmt);
+    return rows;
+}
+
 //Funciones utilizadas en el login
 async function getPassword(email){
     const stmt = `SELECT password FROM users WHERE email = ?`;
@@ -74,5 +81,6 @@ module.exports = {
     getPassword,
     updateUser,
     getUserByEmail,
-    deleteUser
+    deleteUser,
+    getAllUsers
 };

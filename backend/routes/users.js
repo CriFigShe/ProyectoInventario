@@ -11,6 +11,7 @@ const editUserPayload = require("../validators/edit-user");
 const { editUser } = require("../use-cases/edit");
 const { viewUserById } = require("../use-cases/view-detail");
 const { removeUser } = require("../use-cases/remove");
+const { listUsers } = require("../use-cases/list");
 
 /////////////////////////////////////////////////////////////////////////
 const router = Router();
@@ -31,6 +32,15 @@ router.get(
     handleAsyncError(async (req, res) => {
         const user = await viewUserById(req.params.id);
         sendResponse(res, user);
+    })
+);
+
+router.get(
+    "/users",
+    authGuard,
+    handleAsyncError(async (req, res) => {
+        const users = await listUsers(req.currentUser?.id);
+        sendResponse(res, users);
     })
 );
 
