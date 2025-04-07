@@ -21,9 +21,36 @@ body, html{
     padding: 20px;
 }
 
-.homeTitle{
-    color: #00bcd9;
+.header {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    margin-bottom: 20px;
 }
+
+.homeTitle {
+    color: #00bcd9;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+}
+
+.logout {
+    position: absolute;
+    right: 20px;
+    color: #00bcd9;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logout:hover{
+    text-decoration: underline;
+}
+
 
 .listTitles{
     width: 80%;

@@ -68,7 +68,12 @@ export default function HomePage() {
 
   return (
     <div className="divHome">
-      <h1 className="homeTitle">Productos</h1>
+      <div className="header">
+        <h1 className="homeTitle">Productos</h1>
+        <Link className="logout" to={"/"}>
+          Cerrar Sesión
+        </Link>
+      </div>
       <div className="listTitles">
         <h3>Nombre</h3>
         <h3>Tipo</h3>
