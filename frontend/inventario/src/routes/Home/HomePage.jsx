@@ -4,7 +4,6 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Burger, Drawer, Stack } from "@mantine/core";
-import { BsHouse } from 'react-icons/bs'
 
 export default function HomePage() {
   const { token } = useAuth();
@@ -82,9 +81,6 @@ export default function HomePage() {
           style={{ position: "absolute", left: 20 }}
           transitionDuration={250}
         />
-        <Link className="logout" to={"/"}>
-          Cerrar Sesión
-        </Link>
         <Drawer
           opened={opened}
           onClose={() => setOpened(false)}
@@ -117,8 +113,7 @@ export default function HomePage() {
         >
           <Stack>
             <Link className="drawerLink" to="/home">
-            <BsHouse style={{ marginRight: '8px', paddingTop: '5px', fontSize: '20px' }}/>
-            Inicio
+              Inicio
             </Link>
             <Link className="drawerLink" to="#">
               a
@@ -128,6 +123,9 @@ export default function HomePage() {
             </Link>
             <Link className="drawerLink" to="#">
               a
+            </Link>
+            <Link className="drawerLink" to={"/"}>
+              Cerrar Sesión
             </Link>
           </Stack>
         </Drawer>

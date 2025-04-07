@@ -40,18 +40,6 @@ html {
   font-size: 30px;
 }
 
-.logout {
-  position: absolute;
-  right: 20px;
-  color: #00bcd9;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.logout:hover {
-  text-decoration: underline;
-}
-
 .listTitles {
   width: 80%;
   max-width: 900px;
