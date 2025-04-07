@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { IconX, IconCheck } from "@tabler/icons-react";
 import { Notification } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [payload, setPayload] = useState({
@@ -13,6 +13,7 @@ export default function Register() {
   });
 
   const [registerSucceed, setRegisterSucceed] = useState();
+  const navigate = useNavigate();
 
   const xIcon = <IconX size={20} />;
   const checkIcon = <IconCheck size={20} />;
@@ -23,6 +24,7 @@ export default function Register() {
     try {
       await axios.post("http://localhost:5000/users/register", payload);
       setRegisterSucceed(true);
+      setTimeout(() => navigate('/'), 1000);
     } catch (error) {
       setRegisterSucceed(false);
     }

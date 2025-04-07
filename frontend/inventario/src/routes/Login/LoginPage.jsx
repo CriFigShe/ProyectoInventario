@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { IconX, IconCheck } from "@tabler/icons-react";
 import { Notification } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
@@ -15,6 +15,7 @@ export default function Login() {
   });
 
   const [registerSucceed, setRegisterSucceed] = useState();
+  const navigate = useNavigate();
 
   const xIcon = <IconX size={20} />;
   const checkIcon = <IconCheck size={20} />;
@@ -24,8 +25,9 @@ export default function Login() {
 
     try {
       const response = await axios.post("http://localhost:5000/users/login", payload);
-      setAuthToken(response.data.data.token)
+      setAuthToken(response.data.data.token);
       setRegisterSucceed(true);
+      setTimeout(() => navigate('/home'), 1000);
     } catch (error) {
       setRegisterSucceed(false);
     }
