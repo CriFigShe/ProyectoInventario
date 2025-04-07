@@ -109,12 +109,17 @@ export default function Suppliers() {
       <div className="suppliersListTitles">
         <h3>Nombre</h3>
         <h3>Contacto</h3>
+        <h3>Acciones</h3>
       </div>
       <div className="suppliersList">
         {suppliers.map((supplier) => (
           <div key={supplier.id} className="supplierCard">
             <p>{supplier.name}</p>
             <p>{supplier.contact}</p>
+            <p>
+              <button>U</button>
+              <button>D</button>
+            </p>
           </div>
         ))}
       </div>
