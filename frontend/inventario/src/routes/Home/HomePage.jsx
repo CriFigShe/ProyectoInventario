@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { Burger, Drawer, Button, Stack } from "@mantine/core";
+import { Burger, Drawer, Stack } from "@mantine/core";
+import { BsHouse } from 'react-icons/bs'
 
 export default function HomePage() {
   const { token } = useAuth();
@@ -116,7 +117,8 @@ export default function HomePage() {
         >
           <Stack>
             <Link className="drawerLink" to="/home">
-              Inicio
+            <BsHouse style={{ marginRight: '8px', paddingTop: '5px', fontSize: '20px' }}/>
+            Inicio
             </Link>
             <Link className="drawerLink" to="#">
               a
