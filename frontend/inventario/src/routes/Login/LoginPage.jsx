@@ -3,8 +3,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { IconX, IconCheck } from "@tabler/icons-react";
 import { Notification } from "@mantine/core";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
+  const { setAuthToken } = useAuth();
+
   const [payload, setPayload] = useState({
     email: "",
     password: "",
@@ -16,10 +20,11 @@ export default function Login() {
   const checkIcon = <IconCheck size={20} />;
 
   const handleSubmit = async (event) => {
-    event.preventDefualt();
+    event.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/users/login", payload);
+      const response = await axios.post("http://localhost:5000/users/login", payload);
+      setAuthToken(response.data.data.token)
       setRegisterSucceed(true);
     } catch (error) {
       setRegisterSucceed(false);
@@ -83,11 +88,11 @@ export default function Login() {
                   }
                 />
               </div>
-              <button type="submit">Registarse</button>
+              <button type="submit">Iniciar Sesión</button>
             </form>
             <div className="separator">o</div>
             <div className="registerLink">
-              ¿No tienes una cuenta? <a href="#">Registrarse</a>
+              ¿No tienes una cuenta? <Link to="/register">Registrarse</Link>
             </div>
           </div>
           <div className="imageContainer">

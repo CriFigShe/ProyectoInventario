@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { IconX, IconCheck } from "@tabler/icons-react";
 import { Notification } from "@mantine/core";
+import { Link } from "react-router-dom";
 
 export default function Register() {
   const [payload, setPayload] = useState({
@@ -104,7 +105,7 @@ export default function Register() {
             </form>
             <div className="separator">o</div>
             <div className="loginLink">
-              ¿Ya tienes cuenta? <a href="#">Iniciar sesión</a>
+              ¿Ya tienes cuenta? <Link to="/">Iniciar sesión</Link>
             </div>
           </div>
           <div className="imageContainer">
