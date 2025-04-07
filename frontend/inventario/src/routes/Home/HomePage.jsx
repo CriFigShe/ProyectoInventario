@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 export default function HomePage() {
   const { token } = useAuth();
   const [products, setProducts] = useState([]);
-  const [users, setUsers] = useState({});
   const [suppliers, setSuppliers] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,11 +29,6 @@ export default function HomePage() {
             },
           }
         );
-        const usersResponse = await axios.get("http://localhost:5000/users", {
-          headers: {
-            Authorization: `${token}`,
-          },
-        });
         const suppliersResponse = await axios.get(
           "http://localhost:5000/suppliers",
           {
@@ -43,15 +37,10 @@ export default function HomePage() {
             },
           }
         );
-        const usersMap = {};
-        usersResponse.data.data.forEach((user) => {
-          usersMap[user.id] = user.name;
-        });
         const suppliersMap = {};
         suppliersResponse.data.data.forEach((supplier) => {
           suppliersMap[supplier.id] = supplier.name;
         });
-        setUsers(usersMap);
         setSuppliers(suppliersMap);
         setProducts(productsResponse.data.data);
       } catch (error) {
@@ -147,7 +136,6 @@ export default function HomePage() {
         <h3>Coste(€)</h3>
         <h3>Precio(€)</h3>
         <h3>Notas</h3>
-        <h3>Usuario</h3>
         <h3>Proveedor</h3>
       </div>
       <div className="productsList">
@@ -159,7 +147,6 @@ export default function HomePage() {
             <p>{product.cost}</p>
             <p>{product.pvp}</p>
             <p>{renderTextWithEllipsis(product.notes)}</p>
-            <p>{users[product.userId]}</p>
             <p>{suppliers[product.supplierId]}</p>
             {/* <Link to={`/products/${product.id}`}>Ver detalles</Link> */}
           </div>

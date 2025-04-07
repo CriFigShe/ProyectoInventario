@@ -44,7 +44,7 @@ html {
   width: 80%;
   max-width: 900px;
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   background-color: white;
   padding: 15px 30px;
   margin-bottom: -1px;
@@ -72,7 +72,7 @@ html {
 .productCard {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   padding: 15px 30px;
   border-top: 1px solid #eee;
   color: #00bcd9;
