@@ -3,6 +3,7 @@ import Login from "./Login/LoginPage";
 import Register from "./Register/RegisterPage";
 import HomePage from "./Home/HomePage";
 import Suppliers from "./Suppliers/Suppliers";
+import EditProduct from "./Home/EditProduct";
 
 const Router = () => {
   return (
@@ -11,6 +12,7 @@ const Router = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/home" element={<HomePage />}/>
       <Route path="/suppliers" element={<Suppliers />}/>
+      <Route path="/editProduct/:id" element={<EditProduct />}/>
     </Routes>
   );
 };

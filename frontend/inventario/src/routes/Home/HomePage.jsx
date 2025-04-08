@@ -171,7 +171,9 @@ export default function HomePage() {
             <p>{renderTextWithEllipsis(product.notes)}</p>
             <p>{suppliers[product.supplierId]}</p>
             <p>
-              <button>U</button>
+              <Link to={`/editProduct/${product.id}`}>
+                <button>U</button>
+              </Link>
               <button onClick={() => handleDeleteProduct(product.id)}>D</button>
             </p>
           </div>
