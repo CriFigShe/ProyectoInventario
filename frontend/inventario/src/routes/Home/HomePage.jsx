@@ -56,6 +56,27 @@ export default function HomePage() {
   if (loading) return <div>Cargando productos...</div>;
   if (error) return <div>Error: {error}</div>;
 
+  const handleDeleteProduct = async (productId) => {
+    if(!window.confirm("Estas seguro de eliminar este producto")){
+      return;
+    }
+
+    try{
+      setLoading(true);
+      await axios.delete(`http://localhost:5000/products/${productId}`, {
+        headers: {
+          'Authorization' : `${token}`,
+        },
+      });
+      setProducts(products.filter((product) => product.id !== productId));
+      setError(null);
+    } catch (error){
+      setError(`Error al eliminar el producto: ${error}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const renderTextWithEllipsis = (text) => (
     <span title={text} className="truncatedText">
       {text}
@@ -151,7 +172,7 @@ export default function HomePage() {
             <p>{suppliers[product.supplierId]}</p>
             <p>
               <button>U</button>
-              <button>D</button>
+              <button onClick={() => handleDeleteProduct(product.id)}>D</button>
             </p>
           </div>
         ))}
