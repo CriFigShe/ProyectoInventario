@@ -5,6 +5,7 @@ import HomePage from "./Home/HomePage";
 import Suppliers from "./Suppliers/Suppliers";
 import EditProduct from "./Home/EditProduct";
 import AddProduct from "./Home/AddProduct";
+import Events from "./Events/Events";
 
 const Router = () => {
   return (
@@ -15,6 +16,7 @@ const Router = () => {
       <Route path="/suppliers" element={<Suppliers />}/>
       <Route path="/editProduct/:id" element={<EditProduct />}/>
       <Route path="/addProduct" element={<AddProduct />}/>
+      <Route path="/events" element={<Events />}/>
     </Routes>
   );
 };

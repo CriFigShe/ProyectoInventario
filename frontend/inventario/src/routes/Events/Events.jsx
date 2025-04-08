@@ -1,18 +1,17 @@
-import "./HomePage.css";
-import { useState, useEffect } from "react";
+import "./Events.css";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router";
 import { Burger, Drawer, Stack } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
 
 import { CiTrash } from "react-icons/ci";
 import { GoPencil } from "react-icons/go";
 
-export default function HomePage() {
+export default function Events() {
   const { token } = useAuth();
-  const [products, setProducts] = useState([]);
-  const [suppliers, setSuppliers] = useState({});
+  const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -22,30 +21,14 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchEvents = async () => {
       try {
-        const productsResponse = await axios.get(
-          "http://localhost:5000/products",
-          {
-            headers: {
-              Authorization: `${token}`,
-            },
-          }
-        );
-        const suppliersResponse = await axios.get(
-          "http://localhost:5000/suppliers",
-          {
-            headers: {
-              Authorization: `${token}`,
-            },
-          }
-        );
-        const suppliersMap = {};
-        suppliersResponse.data.data.forEach((supplier) => {
-          suppliersMap[supplier.id] = supplier.name;
+        const response = await axios.get("http://localhost:5000/events", {
+          headers: {
+            Authorization: `${token}`,
+          },
         });
-        setSuppliers(suppliersMap);
-        setProducts(productsResponse.data.data);
+        setEvents(response.data.data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -53,25 +36,25 @@ export default function HomePage() {
       }
     };
 
-    fetchProducts();
+    fetchEvents();
   }, [token]);
 
   if (loading) return <div>Cargando productos...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  const handleDeleteProduct = async (productId) => {
-    if (!window.confirm("Estas seguro de eliminar este producto")) {
+  const handleDeleteEvent = async (eventId) => {
+    if (!window.confirm("Estas seguro de eliminar este evento")) {
       return;
     }
 
     try {
       setLoading(true);
-      await axios.delete(`http://localhost:5000/products/${productId}`, {
+      await axios.delete(`http://localhost:5000/events/${eventId}`, {
         headers: {
           Authorization: `${token}`,
         },
       });
-      setProducts(products.filter((product) => product.id !== productId));
+      setEvents(events.filter((event) => event.id !== eventId));
       setError(null);
     } catch (error) {
       setError(`Error al eliminar el producto: ${error}`);
@@ -87,9 +70,9 @@ export default function HomePage() {
   );
 
   return (
-    <div className="divHome">
-      <div className="header">
-        <h1 className="homeTitle">Productos</h1>
+    <div className="divEvents">
+      <div className="eventsHeader">
+        <h1 className="eventsTitle">Eventos</h1>
         <Burger
           opened={opened}
           onClick={() => setOpened((o) => !o)}
@@ -135,8 +118,8 @@ export default function HomePage() {
             <Link className="drawerLink" to="/suppliers">
               Proveedores
             </Link>
-            <Link className="drawerLink" to="/events">
-              Eventos
+            <Link className="drawerLink" to="#">
+              a
             </Link>
             <Link className="drawerLink" to="#">
               a
@@ -152,45 +135,37 @@ export default function HomePage() {
             </div>
           </Stack>
         </Drawer>
-      </div>
-      <Link to="/addProduct">
-        <button className="addProduct">+</button>
-      </Link>
-      <div className="listTitles">
-        <h3>Nombre</h3>
-        <h3>Tipo</h3>
-        <h3>Stock</h3>
-        <h3>Coste(€)</h3>
-        <h3>Precio(€)</h3>
-        <h3>Notas</h3>
-        <h3>Proveedor</h3>
-        <h3>Acciones</h3>
-      </div>
-      <div className="productsList">
-        {products.map((product) => (
-          <div key={product.id} className="productCard">
-            <p>{product.name}</p>
-            <p>{product.type}</p>
-            <p>{product.stock}</p>
-            <p>{product.cost}</p>
-            <p>{product.pvp}</p>
-            <p>{renderTextWithEllipsis(product.notes)}</p>
-            <p>{suppliers[product.supplierId]}</p>
-            <p>
-              <Link to={`/editProduct/${product.id}`}>
-                <button className="productActionButton">
-                  <GoPencil />
+        <Link to="/addEvents">
+          <button className="addEvent">+</button>
+        </Link>
+        <div className="eventListTitles">
+          <h3>Nombre</h3>
+          <h3>Fecha</h3>
+          <h3>Descripción</h3>
+          <h3>Acciones</h3>
+        </div>
+        <div className="eventsList">
+          {events.map((event) => (
+            <div key={event.id} className="eventCard">
+              <p>{event.name}</p>
+              <p>{event.date}</p>
+              <p>{renderTextWithEllipsis(event.description)}</p>
+              <p>
+                <Link>
+                  <button className="eventActionButton">
+                    <GoPencil />
+                  </button>
+                </Link>
+                <button
+                  className="eventActionButton"
+                  onClick={() => handleDeleteEvent(event.id)}
+                >
+                  <CiTrash />
                 </button>
-              </Link>
-              <button
-                className="productActionButton"
-                onClick={() => handleDeleteProduct(product.id)}
-              >
-                <CiTrash />
-              </button>
-            </p>
-          </div>
-        ))}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
