@@ -6,6 +6,9 @@ import { useAuth } from "../../context/AuthContext";
 import { Burger, Drawer, Stack } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 
+import { CiTrash } from "react-icons/ci";
+import { GoPencil } from "react-icons/go";
+
 export default function HomePage() {
   const { token } = useAuth();
   const [products, setProducts] = useState([]);
@@ -57,20 +60,20 @@ export default function HomePage() {
   if (error) return <div>Error: {error}</div>;
 
   const handleDeleteProduct = async (productId) => {
-    if(!window.confirm("Estas seguro de eliminar este producto")){
+    if (!window.confirm("Estas seguro de eliminar este producto")) {
       return;
     }
 
-    try{
+    try {
       setLoading(true);
       await axios.delete(`http://localhost:5000/products/${productId}`, {
         headers: {
-          'Authorization' : `${token}`,
+          Authorization: `${token}`,
         },
       });
       setProducts(products.filter((product) => product.id !== productId));
       setError(null);
-    } catch (error){
+    } catch (error) {
       setError(`Error al eliminar el producto: ${error}`);
     } finally {
       setLoading(false);
@@ -150,6 +153,9 @@ export default function HomePage() {
           </Stack>
         </Drawer>
       </div>
+      <Link to="/addProduct">
+        <button className="addProduct">+</button>
+      </Link>
       <div className="listTitles">
         <h3>Nombre</h3>
         <h3>Tipo</h3>
@@ -172,9 +178,16 @@ export default function HomePage() {
             <p>{suppliers[product.supplierId]}</p>
             <p>
               <Link to={`/editProduct/${product.id}`}>
-                <button>U</button>
+                <button className="productActionButton">
+                  <GoPencil />
+                </button>
               </Link>
-              <button onClick={() => handleDeleteProduct(product.id)}>D</button>
+              <button
+                className="productActionButton"
+                onClick={() => handleDeleteProduct(product.id)}
+              >
+                <CiTrash />
+              </button>
             </p>
           </div>
         ))}

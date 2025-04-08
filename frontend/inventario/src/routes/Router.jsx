@@ -4,6 +4,7 @@ import Register from "./Register/RegisterPage";
 import HomePage from "./Home/HomePage";
 import Suppliers from "./Suppliers/Suppliers";
 import EditProduct from "./Home/EditProduct";
+import AddProduct from "./Home/AddProduct";
 
 const Router = () => {
   return (
@@ -13,6 +14,7 @@ const Router = () => {
       <Route path="/home" element={<HomePage />}/>
       <Route path="/suppliers" element={<Suppliers />}/>
       <Route path="/editProduct/:id" element={<EditProduct />}/>
+      <Route path="/addProduct" element={<AddProduct />}/>
     </Routes>
   );
 };

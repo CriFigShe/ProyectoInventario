@@ -129,7 +129,6 @@ export default function EditProduct() {
         <div className="formGroup">
           <label>Notas</label>
           <textarea
-            type="text"
             name="notes"
             value={product.notes}
             onChange={handleChange}
