@@ -11,11 +11,12 @@ export default function EditProduct() {
   const [product, setProduct] = useState({
     name: "",
     type: "",
-    stock: "",
-    cost: "",
-    pvp: "",
+    stock: 0,
+    cost: 0,
+    pvp: 0,
     notes: "",
     supplierId: "",
+    userId: null,
   });
   const [suppliers, setSuppliers] = useState([]);
 
@@ -56,6 +57,7 @@ export default function EditProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(product);
       await axios.put(`http://localhost:5000/products/${id}`, product, {
         headers: {
           Authorization: `${token}`,
