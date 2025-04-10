@@ -69,7 +69,7 @@ export default function Events() {
           opened={opened}
           onClick={() => setOpened((o) => !o)}
           aria-label="Toggle Navigation"
-          color="#00bcd9"
+          color="#eee"
           style={{ position: "absolute", left: 20 }}
           transitionDuration={250}
         />

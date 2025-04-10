@@ -63,98 +63,103 @@ export default function Suppliers() {
   return (
     <div className="divSuppliers">
       <div className="suppliersHeader">
-        <h1 className="suppliersTitle">Proveedores</h1>
         <Burger
           opened={opened}
           onClick={() => setOpened((o) => !o)}
           aria-label="Toggle Navigation"
-          color="#00bcd9"
+          color="#eee"
           style={{ position: "absolute", left: 20 }}
           transitionDuration={250}
         />
-        <Drawer
-          opened={opened}
-          onClose={() => setOpened(false)}
-          title="Menú"
-          padding="md"
-          size="md"
-          closeButtonProps={{
-            style: {
-              color: "white",
-              transition: "color 0.3s ease",
-            },
-            onMouseEnter: (e) => (e.currentTarget.style.color = "#00bcd9"),
-            onMouseLeave: (e) => (e.currentTarget.style.color = "white"),
-          }}
-          styles={{
-            content: {
-              backgroundColor: "#00bcd9",
-            },
-            header: {
-              backgroundColor: "#00bcd9",
-            },
-            body: {
-              backgroundColor: "#00bcd9",
-            },
-            title: {
-              color: "white",
-              fontWeight: "bold",
-            },
-          }}
-        >
-          <Stack>
-            <Link className="drawerLink" to="/home">
-              Inicio
-            </Link>
-            <Link className="drawerLink" to="/events">
-              Eventos
-            </Link>
-            <Link className="drawerLink" to="#">
-              a
-            </Link>
-            <Link className="drawerLink" to="#">
-              a
-            </Link>
-            <div
-              className="drawerLink"
-              onClick={() => {
-                logout();
-                navigate("/");
-              }}
-            >
-              Cerrar Sesión
-            </div>
-          </Stack>
-        </Drawer>
+        <h1 className="suppliersTitle">Proveedores</h1>
+        <Link to="/addSupplier">
+          <button className="addSupplier">+</button>
+        </Link>
       </div>
-      <Link to="/addSupplier">
-        <button className="addSupplier">+</button>
-      </Link>
-      <div className="suppliersListTitles">
-        <h3>Nombre</h3>
-        <h3>Contacto</h3>
-        <h3>Acciones</h3>
-      </div>
-      <div className="suppliersList">
-        {suppliers.map((supplier) => (
-          <div key={supplier.id} className="supplierCard">
-            <p>{supplier.name}</p>
-            <p>{supplier.contact}</p>
-            <p>
-              <Link to={`/editSupplier/${supplier.id}`}>
-                <button className="supplierActionButton">
-                  <GoPencil />
-                </button>
-              </Link>
-              <button
-                className="supplierActionButton"
-                onClick={() => handleDeleteSupplier(supplier.id, supplier.name)}
-              >
-                <CiTrash />
-              </button>
-            </p>
+
+      <Drawer
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="Menú"
+        padding="md"
+        size="md"
+        closeButtonProps={{
+          style: {
+            color: "white",
+            transition: "color 0.3s ease",
+          },
+          onMouseEnter: (e) => (e.currentTarget.style.color = "#00bcd9"),
+          onMouseLeave: (e) => (e.currentTarget.style.color = "white"),
+        }}
+        styles={{
+          content: {
+            backgroundColor: "#00bcd9",
+          },
+          header: {
+            backgroundColor: "#00bcd9",
+          },
+          body: {
+            backgroundColor: "#00bcd9",
+          },
+          title: {
+            color: "white",
+            fontWeight: "bold",
+          },
+        }}
+      >
+        <Stack>
+          <Link className="drawerLink" to="/home">
+            Inicio
+          </Link>
+          <Link className="drawerLink" to="/events">
+            Eventos
+          </Link>
+          <Link className="drawerLink" to="#">
+            a
+          </Link>
+          <Link className="drawerLink" to="#">
+            a
+          </Link>
+          <div
+            className="drawerLink"
+            onClick={() => {
+              logout();
+              navigate("/");
+            }}
+          >
+            Cerrar Sesión
           </div>
-        ))}
+        </Stack>
+      </Drawer>
+      <div className="suppliersContainer">
+        <div className="suppliersListTitles">
+          <h3>Nombre</h3>
+          <h3>Contacto</h3>
+          <h3>Acciones</h3>
+        </div>
+        <div className="suppliersList">
+          {suppliers.map((supplier) => (
+            <div key={supplier.id} className="supplierCard">
+              <p>{supplier.name}</p>
+              <p>{supplier.contact}</p>
+              <p>
+                <Link to={`/editSupplier/${supplier.id}`}>
+                  <button className="supplierActionButton">
+                    <GoPencil />
+                  </button>
+                </Link>
+                <button
+                  className="supplierActionButton"
+                  onClick={() =>
+                    handleDeleteSupplier(supplier.id, supplier.name)
+                  }
+                >
+                  <CiTrash />
+                </button>
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

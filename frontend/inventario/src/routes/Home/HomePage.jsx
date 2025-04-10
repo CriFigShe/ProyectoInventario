@@ -82,108 +82,112 @@ export default function HomePage() {
   return (
     <div className="divHome">
       <div className="header">
-        <h1 className="homeTitle">Productos</h1>
         <Burger
           opened={opened}
           onClick={() => setOpened((o) => !o)}
           aria-label="Toggle Navigation"
-          color="#00bcd9"
+          color="#eee"
           style={{ position: "absolute", left: 20 }}
           transitionDuration={250}
         />
-        <Drawer
-          opened={opened}
-          onClose={() => setOpened(false)}
-          title="Menú"
-          padding="md"
-          size="md"
-          closeButtonProps={{
-            style: {
-              color: "white",
-              transition: "color 0.3s ease",
-            },
-            onMouseEnter: (e) => (e.currentTarget.style.color = "#00bcd9"),
-            onMouseLeave: (e) => (e.currentTarget.style.color = "white"),
-          }}
-          styles={{
-            content: {
-              backgroundColor: "#00bcd9",
-            },
-            header: {
-              backgroundColor: "#00bcd9",
-            },
-            body: {
-              backgroundColor: "#00bcd9",
-            },
-            title: {
-              color: "white",
-              fontWeight: "bold",
-            },
-          }}
-        >
-          <Stack>
-            <Link className="drawerLink" to="/home">
-              Inicio
-            </Link>
-            <Link className="drawerLink" to="/suppliers">
-              Proveedores
-            </Link>
-            <Link className="drawerLink" to="/events">
-              Eventos
-            </Link>
-            <Link className="drawerLink" to="#">
-              a
-            </Link>
-            <div
-              className="drawerLink"
-              onClick={() => {
-                logout();
-                navigate("/");
-              }}
-            >
-              Cerrar Sesión
-            </div>
-          </Stack>
-        </Drawer>
+        <h1 className="homeTitle">Productos</h1>
+        <Link to="/addProduct">
+          <button className="addProduct">+</button>
+        </Link>
       </div>
-      <Link to="/addProduct">
-        <button className="addProduct">+</button>
-      </Link>
-      <div className="listTitles">
-        <h3>Nombre</h3>
-        <h3>Tipo</h3>
-        <h3>Stock</h3>
-        <h3>Coste(€)</h3>
-        <h3>Precio(€)</h3>
-        <h3>Notas</h3>
-        <h3>Proveedor</h3>
-        <h3>Acciones</h3>
-      </div>
-      <div className="productsList">
-        {products.map((product) => (
-          <div key={product.id} className="productCard">
-            <p>{product.name}</p>
-            <p>{product.type}</p>
-            <p>{product.stock}</p>
-            <p>{product.cost}</p>
-            <p>{product.pvp}</p>
-            <p>{renderTextWithEllipsis(product.notes)}</p>
-            <p>{suppliers[product.supplierId]}</p>
-            <p>
-              <Link to={`/editProduct/${product.id}`}>
-                <button className="productActionButton">
-                  <GoPencil />
-                </button>
-              </Link>
-              <button
-                className="productActionButton"
-                onClick={() => handleDeleteProduct(product.id)}
-              >
-                <CiTrash />
-              </button>
-            </p>
+
+      <Drawer
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="Menú"
+        padding="md"
+        size="md"
+        closeButtonProps={{
+          style: {
+            color: "white",
+            transition: "color 0.3s ease",
+          },
+          onMouseEnter: (e) => (e.currentTarget.style.color = "#00bcd9"),
+          onMouseLeave: (e) => (e.currentTarget.style.color = "white"),
+        }}
+        styles={{
+          content: {
+            backgroundColor: "#00bcd9",
+          },
+          header: {
+            backgroundColor: "#00bcd9",
+          },
+          body: {
+            backgroundColor: "#00bcd9",
+          },
+          title: {
+            color: "white",
+            fontWeight: "bold",
+          },
+        }}
+      >
+        <Stack>
+          <Link className="drawerLink" to="/home">
+            Inicio
+          </Link>
+          <Link className="drawerLink" to="/suppliers">
+            Proveedores
+          </Link>
+          <Link className="drawerLink" to="/events">
+            Eventos
+          </Link>
+          <Link className="drawerLink" to="#">
+            a
+          </Link>
+          <div
+            className="drawerLink"
+            onClick={() => {
+              logout();
+              navigate("/");
+            }}
+          >
+            Cerrar Sesión
           </div>
-        ))}
+        </Stack>
+      </Drawer>
+
+      <div className="productsContainer">
+        <div className="listTitles">
+          <h3>Nombre</h3>
+          <h3>Tipo</h3>
+          <h3>Stock</h3>
+          <h3>Coste(€)</h3>
+          <h3>Precio(€)</h3>
+          <h3>Notas</h3>
+          <h3>Proveedor</h3>
+          <h3>Acciones</h3>
+        </div>
+        <div className="productsList">
+          {products.map((product) => (
+            <div key={product.id} className="productCard">
+              <p>{product.name}</p>
+              <p>{product.type}</p>
+              <p>{product.stock}</p>
+              <p>{product.cost}</p>
+              <p>{product.pvp}</p>
+              <p>{renderTextWithEllipsis(product.notes)}</p>
+              <p>{suppliers[product.supplierId]}</p>
+              <p>
+                <Link to={`/editProduct/${product.id}`}>
+                  <button className="productActionButton">
+                    <GoPencil />
+                  </button>
+                </Link>
+                <button
+                  className="productActionButton"
+                  onClick={() => handleDeleteProduct(product.id)}
+                >
+                  <CiTrash />
+                </button>
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

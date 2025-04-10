@@ -14,8 +14,8 @@ html {
 .divEvents {
   background-color: #f5c858;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
   min-height: 100vh;
   width: 100%;
   padding: 20px;
@@ -32,7 +32,7 @@ html {
 }
 
 .eventsTitle {
-  color: #00bcd9;
+  color: #eee;
   font-size: 30px;
   margin: 0 auto;
 }
@@ -147,4 +147,20 @@ html {
   color: white;
   background-color: #00bcd9;
   cursor: pointer;
+}
+
+.addEvent{
+  color: #eee;
+  border: 2px solid #eee;
+  background-color: #f5c858;
+  padding: 0 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.addEvent:hover{
+  background-color: #eee;
+  color: #f5c858;
+  border: 2px solid #f5c858;
 }

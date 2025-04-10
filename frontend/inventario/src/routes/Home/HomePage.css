@@ -14,7 +14,6 @@ html {
 .divHome {
   background-color: #f5c858;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
@@ -24,48 +23,41 @@ html {
 
 .header {
   width: 100%;
-  position: relative;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
   padding: 10px 20px;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .homeTitle {
-  color: #00bcd9;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  color: #eee;
   font-size: 30px;
+  margin: 0 auto;
+}
+
+.productsContainer{
+  width: 80%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
 }
 
 .listTitles {
-  width: 80%;
-  max-width: 900px;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   background-color: white;
   padding: 15px 30px;
-  margin-bottom: -1px;
   border-radius: 15px 15px 0 0;
   box-shadow: 0px 0px 60px 10px rgba(255, 255, 255, 0.3);
   color: #00bcd9;
 }
 
-.listTitles h3 {
-  text-align: center;
-  padding: 10px;
-  font-size: 0.9rem;
-}
-
 .productsList {
-  width: 80%;
-  max-width: 900px;
+  width: 100%;
   box-shadow: 0px 0px 60px 10px rgba(255, 255, 255, 0.3);
   border-radius: 0 0 15px 15px;
-  padding: 0;
-  margin: 0 auto 20px;
   background-color: white;
 }
 
@@ -76,7 +68,6 @@ html {
   padding: 15px 30px;
   border-top: 1px solid #eee;
   color: #00bcd9;
-  align-items: center;
 }
 
 .productCard p {
@@ -165,4 +156,20 @@ html {
   color: white;
   background-color: #00bcd9;
   cursor: pointer;
+}
+
+.addProduct{
+  color: #eee;
+  border: 2px solid #eee;
+  background-color: #f5c858;
+  padding: 0 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.addProduct:hover{
+  background-color: #eee;
+  color: #f5c858;
+  border: 2px solid #f5c858;
 }
