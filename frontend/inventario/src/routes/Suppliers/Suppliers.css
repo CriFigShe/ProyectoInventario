@@ -110,3 +110,19 @@ html {
   background-size: 100% 100%;
   color: #00bcd9;
 }
+
+.supplierActionButton{
+  padding: 0 7px;
+  margin: 0 5px;
+  border: 2px solid #00bcd9;
+  border-radius: 5px;
+  color: #00bcd9;
+  background-color: white;
+  align-items: center;
+}
+
+.supplierActionButton:hover{
+  color: white;
+  background-color: #00bcd9;
+  cursor: pointer;
+}

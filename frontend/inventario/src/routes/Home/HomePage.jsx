@@ -13,7 +13,6 @@ export default function HomePage() {
   const { token } = useAuth();
   const [products, setProducts] = useState([]);
   const [suppliers, setSuppliers] = useState({});
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const [opened, setOpened] = useState(false);
@@ -48,15 +47,12 @@ export default function HomePage() {
         setProducts(productsResponse.data.data);
       } catch (error) {
         setError(error.message);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchProducts();
   }, [token]);
 
-  if (loading) return <div>Cargando productos...</div>;
   if (error) return <div>Error: {error}</div>;
 
   const handleDeleteProduct = async (productId) => {
@@ -65,7 +61,6 @@ export default function HomePage() {
     }
 
     try {
-      setLoading(true);
       await axios.delete(`http://localhost:5000/products/${productId}`, {
         headers: {
           Authorization: `${token}`,
@@ -75,8 +70,6 @@ export default function HomePage() {
       setError(null);
     } catch (error) {
       setError(`Error al eliminar el producto: ${error}`);
-    } finally {
-      setLoading(false);
     }
   };
 

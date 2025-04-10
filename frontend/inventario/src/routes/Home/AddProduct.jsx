@@ -17,7 +17,6 @@ export default function AddProduct() {
     supplierId: "",
   });
   const [suppliers, setSuppliers] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,9 +29,7 @@ export default function AddProduct() {
         setSuppliers(supplierRes.data.data);
       } catch (error) {
         console.error("Error recogiendo los proveedores", error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
 
     fetchData();
@@ -58,7 +55,6 @@ export default function AddProduct() {
     }
   };
 
-  if (loading) return <div>Cargando...</div>;
 
   return (
     <div className="addForm">

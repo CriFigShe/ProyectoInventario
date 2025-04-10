@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Burger, Drawer, Stack } from "@mantine/core";
 
+import { CiTrash } from "react-icons/ci";
+import { GoPencil } from "react-icons/go";
+
 export default function Suppliers() {
   const { token } = useAuth();
   const [suppliers, setSuppliers] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const [opened, setOpened] = useState(false);
@@ -28,16 +30,35 @@ export default function Suppliers() {
         setSuppliers(response.data.data);
       } catch (error) {
         setError(error.message);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchSuppliers();
   }, [token]);
 
-  if (loading) return <div>Cargendo proveedores...</div>;
   if (error) return <div>Error: {error}</div>;
+
+  const handleDeleteSupplier = async (supplierId, supplierName) => {
+    if (
+      !window.confirm(
+        `Estas seguro de eliminar este proveedor: ${supplierName}`
+      )
+    ) {
+      return;
+    }
+
+    try {
+      await axios.delete(`http://localhost:5000/suppliers/${supplierId}`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      setSuppliers(suppliers.filter((supplier) => supplier.id !== supplierId));
+      setError(null);
+    } catch (error) {
+      setError(`Error al eliminar el proveedor: ${error}`);
+    }
+  };
 
   return (
     <div className="divSuppliers">
@@ -85,8 +106,8 @@ export default function Suppliers() {
             <Link className="drawerLink" to="/home">
               Inicio
             </Link>
-            <Link className="drawerLink" to="#">
-              a
+            <Link className="drawerLink" to="/events">
+              Eventos
             </Link>
             <Link className="drawerLink" to="#">
               a
@@ -106,6 +127,9 @@ export default function Suppliers() {
           </Stack>
         </Drawer>
       </div>
+      <Link to="/addSupplier">
+        <button className="addSupplier">+</button>
+      </Link>
       <div className="suppliersListTitles">
         <h3>Nombre</h3>
         <h3>Contacto</h3>
@@ -117,8 +141,17 @@ export default function Suppliers() {
             <p>{supplier.name}</p>
             <p>{supplier.contact}</p>
             <p>
-              <button>U</button>
-              <button>D</button>
+              <Link to={`/editSupplier/${supplier.id}`}>
+                <button className="supplierActionButton">
+                  <GoPencil />
+                </button>
+              </Link>
+              <button
+                className="supplierActionButton"
+                onClick={() => handleDeleteSupplier(supplier.id, supplier.name)}
+              >
+                <CiTrash />
+              </button>
             </p>
           </div>
         ))}

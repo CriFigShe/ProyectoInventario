@@ -18,7 +18,6 @@ export default function EditProduct() {
     supplierId: "",
   });
   const [suppliers, setSuppliers] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,8 +42,6 @@ export default function EditProduct() {
         setSuppliers(suppliersRes.data.data);
       } catch (error) {
         console.error("Error fetching data: ", error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -69,8 +66,6 @@ export default function EditProduct() {
       console.error("Error editando el producto: ", error);
     }
   };
-
-  if (loading) return <div>Cargando...</div>;
 
   return (
     <div className="editForm">

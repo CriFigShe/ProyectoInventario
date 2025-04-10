@@ -12,7 +12,6 @@ import { GoPencil } from "react-icons/go";
 export default function Events() {
   const { token } = useAuth();
   const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const [opened, setOpened] = useState(false);
@@ -31,15 +30,12 @@ export default function Events() {
         setEvents(response.data.data);
       } catch (error) {
         setError(error.message);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchEvents();
   }, [token]);
 
-  if (loading) return <div>Cargando productos...</div>;
   if (error) return <div>Error: {error}</div>;
 
   const handleDeleteEvent = async (eventId) => {
@@ -48,7 +44,6 @@ export default function Events() {
     }
 
     try {
-      setLoading(true);
       await axios.delete(`http://localhost:5000/events/${eventId}`, {
         headers: {
           Authorization: `${token}`,
@@ -58,8 +53,6 @@ export default function Events() {
       setError(null);
     } catch (error) {
       setError(`Error al eliminar el producto: ${error}`);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -72,7 +65,6 @@ export default function Events() {
   return (
     <div className="divEvents">
       <div className="eventsHeader">
-        <h1 className="eventsTitle">Eventos</h1>
         <Burger
           opened={opened}
           onClick={() => setOpened((o) => !o)}
@@ -81,63 +73,67 @@ export default function Events() {
           style={{ position: "absolute", left: 20 }}
           transitionDuration={250}
         />
-        <Drawer
-          opened={opened}
-          onClose={() => setOpened(false)}
-          title="Menú"
-          padding="md"
-          size="md"
-          closeButtonProps={{
-            style: {
-              color: "white",
-              transition: "color 0.3s ease",
-            },
-            onMouseEnter: (e) => (e.currentTarget.style.color = "#00bcd9"),
-            onMouseLeave: (e) => (e.currentTarget.style.color = "white"),
-          }}
-          styles={{
-            content: {
-              backgroundColor: "#00bcd9",
-            },
-            header: {
-              backgroundColor: "#00bcd9",
-            },
-            body: {
-              backgroundColor: "#00bcd9",
-            },
-            title: {
-              color: "white",
-              fontWeight: "bold",
-            },
-          }}
-        >
-          <Stack>
-            <Link className="drawerLink" to="/home">
-              Inicio
-            </Link>
-            <Link className="drawerLink" to="/suppliers">
-              Proveedores
-            </Link>
-            <Link className="drawerLink" to="#">
-              a
-            </Link>
-            <Link className="drawerLink" to="#">
-              a
-            </Link>
-            <div
-              className="drawerLink"
-              onClick={() => {
-                logout();
-                navigate("/");
-              }}
-            >
-              Cerrar Sesión
-            </div>
-          </Stack>
-        </Drawer>
+        <h1 className="eventsTitle">Eventos</h1>
         <Link to="/addEvents">
           <button className="addEvent">+</button>
         </Link>
+      </div>
+
+      <Drawer
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="Menú"
+        padding="md"
+        size="md"
+        closeButtonProps={{
+          style: {
+            color: "white",
+            transition: "color 0.3s ease",
+          },
+          onMouseEnter: (e) => (e.currentTarget.style.color = "#00bcd9"),
+          onMouseLeave: (e) => (e.currentTarget.style.color = "white"),
+        }}
+        styles={{
+          content: {
+            backgroundColor: "#00bcd9",
+          },
+          header: {
+            backgroundColor: "#00bcd9",
+          },
+          body: {
+            backgroundColor: "#00bcd9",
+          },
+          title: {
+            color: "white",
+            fontWeight: "bold",
+          },
+        }}
+      >
+        <Stack>
+          <Link className="drawerLink" to="/home">
+            Inicio
+          </Link>
+          <Link className="drawerLink" to="/suppliers">
+            Proveedores
+          </Link>
+          <Link className="drawerLink" to="#">
+            a
+          </Link>
+          <Link className="drawerLink" to="#">
+            a
+          </Link>
+          <div
+            className="drawerLink"
+            onClick={() => {
+              logout();
+              navigate("/");
+            }}
+          >
+            Cerrar Sesión
+          </div>
+        </Stack>
+      </Drawer>
+      <div className="eventsContainer">
         <div className="eventListTitles">
           <h3>Nombre</h3>
           <h3>Fecha</h3>
@@ -151,7 +147,7 @@ export default function Events() {
               <p>{event.date}</p>
               <p>{renderTextWithEllipsis(event.description)}</p>
               <p>
-                <Link>
+                <Link to={`/editEvent/${event.id}`}>
                   <button className="eventActionButton">
                     <GoPencil />
                   </button>
