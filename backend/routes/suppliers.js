@@ -33,10 +33,10 @@ router.get(
 );
 
 router.get(
-    "/suppliers",
+    "/suppliers/users/:userId",
     authGuard,
     handleAsyncError(async (req, res) => {
-        const suppliers = await listSuppliers(req.currentUser?.id);
+        const suppliers = await listSuppliers(req.params.userId);
         sendResponse(res, suppliers);
     })
 );

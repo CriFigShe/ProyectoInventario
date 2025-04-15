@@ -1,13 +1,11 @@
 import "./EditProduct.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useAuth } from "../../context/AuthContext";
 import { useNavigate, useParams } from "react-router";
 
 export default function EditProduct() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { token } = useAuth();
   const [product, setProduct] = useState({
     name: "",
     type: "",
@@ -47,7 +45,7 @@ export default function EditProduct() {
     };
 
     fetchData();
-  }, [token, id]);
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,7 +55,6 @@ export default function EditProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(product);
       await axios.put(`http://localhost:5000/products/${id}`, product, {
         headers: {
           Authorization: `${token}`,

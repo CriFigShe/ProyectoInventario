@@ -1,70 +1,65 @@
-import "./Events.css";
-import { useEffect, useState } from "react";
+import "./Suppliers.css";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router";
-import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Burger, Drawer, Stack } from "@mantine/core";
 
 import { CiTrash } from "react-icons/ci";
 import { GoPencil } from "react-icons/go";
 
-export default function Events() {
-  const { token } = useAuth();
-  const [events, setEvents] = useState([]);
+export default function Suppliers() {
+  const [suppliers, setSuppliers] = useState([]);
   const [error, setError] = useState(null);
 
   const [opened, setOpened] = useState(false);
 
-  const { logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    const fetchSuppliers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/events", {
+        const response = await axios.get("http://localhost:5000/suppliers", {
           headers: {
             Authorization: `${token}`,
           },
         });
-        setEvents(response.data.data);
+        setSuppliers(response.data.data);
       } catch (error) {
         setError(error.message);
       }
     };
 
-    fetchEvents();
-  }, [token]);
+    fetchSuppliers();
+  }, []);
 
   if (error) return <div>Error: {error}</div>;
 
-  const handleDeleteEvent = async (eventId) => {
-    if (!window.confirm("Estas seguro de eliminar este evento")) {
+  const handleDeleteSupplier = async (supplierId, supplierName) => {
+    if (
+      !window.confirm(
+        `Estas seguro de eliminar este proveedor: ${supplierName}`
+      )
+    ) {
       return;
     }
 
     try {
-      await axios.delete(`http://localhost:5000/events/${eventId}`, {
+      await axios.delete(`http://localhost:5000/suppliers/${supplierId}`, {
         headers: {
           Authorization: `${token}`,
         },
       });
-      setEvents(events.filter((event) => event.id !== eventId));
+      setSuppliers(suppliers.filter((supplier) => supplier.id !== supplierId));
       setError(null);
     } catch (error) {
-      setError(`Error al eliminar el producto: ${error}`);
+      setError(`Error al eliminar el proveedor: ${error}`);
     }
   };
 
-  const renderTextWithEllipsis = (text) => (
-    <span title={text} className="truncatedText">
-      {text}
-    </span>
-  );
-
   return (
-    <div className="divEvents">
-      <div className="eventsHeader">
+    <div className="divSuppliers">
+      <div className="suppliersHeader">
         <Burger
           opened={opened}
           onClick={() => setOpened((o) => !o)}
@@ -73,9 +68,9 @@ export default function Events() {
           style={{ position: "absolute", left: 20 }}
           transitionDuration={250}
         />
-        <h1 className="eventsTitle">Eventos</h1>
-        <Link to="/addEvents">
-          <button className="addEvent">+</button>
+        <h1 className="suppliersTitle">Proveedores</h1>
+        <Link to="/addSupplier">
+          <button className="addSupplier">+</button>
         </Link>
       </div>
 
@@ -113,8 +108,8 @@ export default function Events() {
           <Link className="drawerLink" to="/home">
             Inicio
           </Link>
-          <Link className="drawerLink" to="/suppliers">
-            Proveedores
+          <Link className="drawerLink" to="/events">
+            Eventos
           </Link>
           <Link className="drawerLink" to="#">
             a
@@ -133,28 +128,28 @@ export default function Events() {
           </div>
         </Stack>
       </Drawer>
-      <div className="eventsContainer">
-        <div className="eventListTitles">
+      <div className="suppliersContainer">
+        <div className="suppliersListTitles">
           <h3>Nombre</h3>
-          <h3>Fecha</h3>
-          <h3>Descripción</h3>
+          <h3>Contacto</h3>
           <h3>Acciones</h3>
         </div>
-        <div className="eventsList">
-          {events.map((event) => (
-            <div key={event.id} className="eventCard">
-              <p>{event.name}</p>
-              <p>{event.date}</p>
-              <p>{renderTextWithEllipsis(event.description)}</p>
+        <div className="suppliersList">
+          {suppliers.map((supplier) => (
+            <div key={supplier.id} className="supplierCard">
+              <p>{supplier.name}</p>
+              <p>{supplier.contact}</p>
               <p>
-                <Link to={`/editEvent/${event.id}`}>
-                  <button className="eventActionButton">
+                <Link to={`/editSupplier/${supplier.id}`}>
+                  <button className="supplierActionButton">
                     <GoPencil />
                   </button>
                 </Link>
                 <button
-                  className="eventActionButton"
-                  onClick={() => handleDeleteEvent(event.id)}
+                  className="supplierActionButton"
+                  onClick={() =>
+                    handleDeleteSupplier(supplier.id, supplier.name)
+                  }
                 >
                   <CiTrash />
                 </button>

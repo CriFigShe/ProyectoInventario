@@ -1,13 +1,11 @@
 import "./EditSupplier.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useAuth } from "../../context/AuthContext";
 import { useNavigate, useParams } from "react-router";
 
 export default function EditSupplier() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { token } = useAuth();
   const [supplier, setSupplier] = useState({
     name: "",
     contact: "",
@@ -31,7 +29,7 @@ export default function EditSupplier() {
     };
 
     fetchData();
-  }, [token]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

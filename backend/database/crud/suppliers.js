@@ -44,6 +44,18 @@ async function getSupplierById(supplierId){
     return supplier;
 }
 
+async function getSuppliersByUser(userId){
+    const stmt = `SELECT * FROM suppliers WHERE userId = ?`;
+
+    const [suppliersRows] = await db.execute(stmt, [userId]);
+
+    if(suppliersRows === 0){
+        return null;
+    }
+
+    return suppliersRows;
+}
+
 async function getAllSuppliers(){
     const stmt = `SELECT * FROM suppliers ORDER BY name DESC`;
 
@@ -56,5 +68,6 @@ module.exports = {
     deleteSupplier,
     updateSupplier,
     getAllSuppliers,
-    getSupplierById
+    getSupplierById,
+    getSuppliersByUser
 };

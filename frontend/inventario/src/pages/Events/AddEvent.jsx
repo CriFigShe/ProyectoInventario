@@ -1,12 +1,10 @@
 import "./AddEvent.css";
 import { useState } from "react";
 import axios from "axios";
-import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router";
 
 export default function AddEvent() {
   const navigate = useNavigate();
-  const { token } = useAuth();
   const [event, setEvent] = useState({
     name: "",
     date: "",

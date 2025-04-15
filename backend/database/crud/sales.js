@@ -50,6 +50,18 @@ async function getSaleById(id){
     return sale;
 }
 
+async function getSalesByUser(userId){
+    const stmt = `SELECT * FROM sales WHERE userId = ?`;
+
+    const [salesRows] = await db.execute(stmt, [userId]);
+
+    if(salesRows === 0){
+        return null;
+    }
+
+    return salesRows;
+}
+
 async function getAllSales(){
     const stmt = `SELECT * FROM sales ORDER BY date DESC`;
 
@@ -62,5 +74,6 @@ module.exports = {
     deleteSale,
     updateSale,
     getAllSales,
-    getSaleById
+    getSaleById,
+    getSalesByUser
 };

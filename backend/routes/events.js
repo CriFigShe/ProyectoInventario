@@ -34,9 +34,9 @@ router.get(
 );
 
 router.get(
-    "/events",
+    "/events/users/:userId",
     handleAsyncError(async (req, res) => {
-        const events = await listEvents(req.currentUser?.id);
+        const events = await listEvents(req.params.userId);
         sendResponse(res, events)
     })
 );

@@ -1,29 +1,29 @@
-const { getAllProducts } = require("../database/crud/products");
-const { getAllEvents } = require("../database/crud/events");
-const { getAllSales } = require("../database/crud/sales");
-const { getAllSuppliers } = require("../database/crud/suppliers");
+const { getProductsByUser } = require("../database/crud/products");
+const { getEventsByUser } = require("../database/crud/events");
+const { getSalesByUser } = require("../database/crud/sales");
+const { getSuppliersByUser } = require("../database/crud/suppliers");
 const { getAllUsers } = require("../database/crud/users");
 
-async function listProducts(){
-    const products = await getAllProducts();
+async function listProducts(userId){
+    const products = await getProductsByUser(userId);
 
     return products;
 }
 
-async function listEvents(){
-    const events = await getAllEvents();
+async function listEvents(userId){
+    const events = await getEventsByUser(userId);
 
     return events;
 }
 
-async function listSales(){
-    const sales = await getAllSales();
+async function listSales(userId){
+    const sales = await getSalesByUser(userId);
 
     return sales;
 }
 
-async function listSuppliers(){
-    const suppliers = await getAllSuppliers();
+async function listSuppliers(userId){
+    const suppliers = await getSuppliersByUser(userId);
 
     return suppliers;
 }

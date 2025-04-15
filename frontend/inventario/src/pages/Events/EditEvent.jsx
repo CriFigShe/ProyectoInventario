@@ -1,13 +1,11 @@
 import "./EditEvent.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useAuth } from "../../context/AuthContext";
 import { useNavigate, useParams } from "react-router";
 
 export default function EditEvent() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { token } = useAuth();
   const [event, setEvent] = useState({
     name: "",
     date: "",
@@ -29,7 +27,7 @@ export default function EditEvent() {
     };
 
     fetchData();
-  }, [token]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

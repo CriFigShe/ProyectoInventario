@@ -46,6 +46,18 @@ async function getEventById(eventId){
     return event;
 }
 
+async function getEventsByUser(userId){
+    const stmt = `SELECT * FROM events WHERE userId = ?`;
+
+    const [eventRows] = await db.execute(stmt, [userId]);
+    
+    if(eventRows === 0){
+        return null;
+    }
+
+    return eventRows;
+}
+
 async function getAllEvents(){
     const stmt = `SELECT * FROM events ORDER BY name DESC`;
 
@@ -58,5 +70,6 @@ module.exports = {
     deleteEvent,
     updateEvent,
     getEventById,
-    getAllEvents
+    getAllEvents,
+    getEventsByUser
 };

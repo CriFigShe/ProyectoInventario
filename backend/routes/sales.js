@@ -32,9 +32,9 @@ router.get(
 );
 
 router.get(
-    "/sales",
+    "/sales/users/:userId",
     handleAsyncError(async (req, res) => {
-       const sales = await listSales(req.currentUser?.id);
+       const sales = await listSales(req.params.userId);
         sendResponse(res, sales);
     })
 );

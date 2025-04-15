@@ -53,6 +53,18 @@ async function getProductById(id){
     return product;
 }
 
+async function getProductsByUser(userId){
+    const stmt = `SELECT * FROM products WHERE userId = ?`;
+
+    const [productRows] = await db.execute(stmt, [userId]);
+
+    if(productRows === 0){
+        return null;
+    }
+
+    return productRows;
+}
+
 async function getAllProducts(){
     const stmt = `SELECT * FROM products ORDER BY name DESC`;
 
@@ -65,5 +77,6 @@ module.exports = {
     deleteProduct,
     updateProduct,
     getProductById,
-    getAllProducts
+    getAllProducts,
+    getProductsByUser
 };

@@ -9,7 +9,9 @@ async function createTables(pool) {
   await pool.query(`CREATE TABLE suppliers(
     id VARCHAR(100) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    contact TEXT NOT NULL
+    contact TEXT NOT NULL,
+    userId VARCHAR(100),
+    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
     )`);
 
   await pool.query(`CREATE TABLE products(
@@ -33,7 +35,9 @@ async function createTables(pool) {
     taxes FLOAT NOT NULL,
     package_price FLOAT NOT NULL,
     shipping_price FLOAT NOT NULL,
-    profit FLOAT NOT NULL
+    profit FLOAT NOT NULL,
+    userId VARCHAR(100),
+    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
     )`);
 
   await pool.query(`CREATE TABLE product_sales(
@@ -48,7 +52,9 @@ async function createTables(pool) {
     id VARCHAR(100) PRIMARY KEY,
     name VARCHAR (100) NOT NULL,
     date DATE NOT NULL,
-    description VARCHAR(255)
+    description VARCHAR(255),
+    userId VARCHAR(100),
+    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
     )`);
 }
 

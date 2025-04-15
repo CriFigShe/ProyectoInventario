@@ -1,41 +1,42 @@
 import "./HomePage.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
 import { Burger, Drawer, Stack } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../../context/AuthContext";
 
 import { CiTrash } from "react-icons/ci";
 import { GoPencil } from "react-icons/go";
 
 export default function HomePage() {
-  const { token } = useAuth();
   const [products, setProducts] = useState([]);
   const [suppliers, setSuppliers] = useState({});
   const [error, setError] = useState(null);
 
-  const [opened, setOpened] = useState(false);
-
-  const { logout } = useAuth();
   const navigate = useNavigate();
+
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        if(!currentUser.token){
+          navigate('/');
+        }
         const productsResponse = await axios.get(
-          "http://localhost:5000/products",
+          `http://localhost:5000/products/users/${currentUser.userId}`,
           {
             headers: {
-              Authorization: `${token}`,
+              Authorization: `${currentUser.token}`,
             },
           }
         );
         const suppliersResponse = await axios.get(
-          "http://localhost:5000/suppliers",
+          `http://localhost:5000/suppliers/users/${currentUser.userId}`,
           {
             headers: {
-              Authorization: `${token}`,
+              Authorization: `${currentUser.token}`,
             },
           }
         );
@@ -51,7 +52,7 @@ export default function HomePage() {
     };
 
     fetchProducts();
-  }, [token]);
+  }, [currentUser]);
 
   if (error) return <div>Error: {error}</div>;
 
@@ -82,76 +83,13 @@ export default function HomePage() {
   return (
     <div className="divHome">
       <div className="header">
-        <Burger
-          opened={opened}
-          onClick={() => setOpened((o) => !o)}
-          aria-label="Toggle Navigation"
-          color="#eee"
-          style={{ position: "absolute", left: 20 }}
-          transitionDuration={250}
-        />
         <h1 className="homeTitle">Productos</h1>
         <Link to="/addProduct">
           <button className="addProduct">+</button>
         </Link>
       </div>
 
-      <Drawer
-        opened={opened}
-        onClose={() => setOpened(false)}
-        title="Menú"
-        padding="md"
-        size="md"
-        closeButtonProps={{
-          style: {
-            color: "white",
-            transition: "color 0.3s ease",
-          },
-          onMouseEnter: (e) => (e.currentTarget.style.color = "#00bcd9"),
-          onMouseLeave: (e) => (e.currentTarget.style.color = "white"),
-        }}
-        styles={{
-          content: {
-            backgroundColor: "#00bcd9",
-          },
-          header: {
-            backgroundColor: "#00bcd9",
-          },
-          body: {
-            backgroundColor: "#00bcd9",
-          },
-          title: {
-            color: "white",
-            fontWeight: "bold",
-          },
-        }}
-      >
-        <Stack>
-          <Link className="drawerLink" to="/home">
-            Inicio
-          </Link>
-          <Link className="drawerLink" to="/suppliers">
-            Proveedores
-          </Link>
-          <Link className="drawerLink" to="/events">
-            Eventos
-          </Link>
-          <Link className="drawerLink" to="#">
-            a
-          </Link>
-          <div
-            className="drawerLink"
-            onClick={() => {
-              logout();
-              navigate("/");
-            }}
-          >
-            Cerrar Sesión
-          </div>
-        </Stack>
-      </Drawer>
-
-      <div className="productsContainer">
+      {products.length > 0 && <div className="productsContainer">
         <div className="listTitles">
           <h3>Nombre</h3>
           <h3>Tipo</h3>
@@ -188,7 +126,8 @@ export default function HomePage() {
             </div>
           ))}
         </div>
-      </div>
+      </div>}
+      {products.length == 0 && <p>No hay productos guardados.</p>}
     </div>
   );
 }

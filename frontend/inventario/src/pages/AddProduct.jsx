@@ -1,12 +1,10 @@
 import "./AddProduct.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router";
 
 export default function AddProduct() {
   const navigate = useNavigate();
-  const { token } = useAuth();
   const [product, setProduct] = useState({
     name: "",
     type: "",
@@ -33,7 +31,7 @@ export default function AddProduct() {
     };
 
     fetchData();
-  }, [token]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +40,6 @@ export default function AddProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Enviando datos:", product); 
     try {
       await axios.post("http://localhost:5000/products", product, {
         headers: {

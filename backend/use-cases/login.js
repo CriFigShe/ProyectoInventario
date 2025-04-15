@@ -6,7 +6,6 @@ const { generateToken } = require("../services/JWT");
 
 async function login(email, plainPassword){
     const user = await getUserByEmail(email);
-
     if(!user){
         invalidCredentials();
     }
@@ -25,7 +24,7 @@ async function login(email, plainPassword){
         email: user.email,
     });
 
-    return token;
+    return {token, user: user.id};
 }
 
 module.exports = {

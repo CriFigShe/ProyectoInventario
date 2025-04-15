@@ -1,12 +1,10 @@
 import "./AddSupplier.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router";
 
 export default function AddSupplier() {
   const navigate = useNavigate();
-  const { token } = useAuth();
   const [supplier, setSupplier] = useState({
     name: "",
     contact: "",

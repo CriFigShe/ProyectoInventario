@@ -1,14 +1,12 @@
 import "./LoginPage.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { IconX, IconCheck } from "@tabler/icons-react";
 import { Notification } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import AuthContext from "../../context/AuthContext";
 
 export default function Login() {
-  const { setAuthToken } = useAuth();
-
   const [payload, setPayload] = useState({
     email: "",
     password: "",
@@ -16,6 +14,7 @@ export default function Login() {
 
   const [registerSucceed, setRegisterSucceed] = useState();
   const navigate = useNavigate();
+  const {setCurrentUser} = useContext(AuthContext)
 
   const xIcon = <IconX size={20} />;
   const checkIcon = <IconCheck size={20} />;
@@ -24,11 +23,18 @@ export default function Login() {
     event.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/users/login", payload);
-      setAuthToken(response.data.data.token);
+      const response = await axios.post(
+        "http://localhost:5000/users/login",
+        payload
+      );
+      console.log(response.data);
+      localStorage.setItem('userId', response.data.data.token.user);
+      localStorage.setItem('token', response.data.data.token.token);
+      setCurrentUser({ userId:response.data.data.token.user , token:response.data.data.token.token });
       setRegisterSucceed(true);
-      setTimeout(() => navigate('/home'), 1000);
+      navigate("/home");
     } catch (error) {
+      console.log(error.message)
       setRegisterSucceed(false);
     }
   };
@@ -49,7 +55,7 @@ export default function Login() {
           <Notification
             icon={xIcon}
             color="red"
-            title="Ha habido un error"
+            title="Error iniciando sesion"
             withCloseButton={false}
           />
         )}

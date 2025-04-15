@@ -12,6 +12,7 @@ const { removeProduct } = require("../use-cases/remove");
 const { listProducts } = require("../use-cases/list");
 const router = Router();
 
+
 router.post(
     "/products",
     json(),
@@ -24,20 +25,20 @@ router.post(
 );
 
 router.get(
+    "/products/users/:userId",
+    authGuard,
+    handleAsyncError(async (req, res) => {
+        const products = await listProducts(req.params.userId);
+        sendResponse(res, products);
+    })
+);
+
+router.get(
     "/products/:id",
     authGuard,
     handleAsyncError(async (req, res) => {
         const product = await viewProduct(req.params.id);
         sendResponse(res, product);
-    })
-);
-
-router.get(
-    "/products",
-    authGuard,
-    handleAsyncError(async (req, res) => {
-        const products = await listProducts(req.currentUser?.id);
-        sendResponse(res, products);
     })
 );
 
