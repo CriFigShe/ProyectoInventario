@@ -1,0 +1,17 @@
+.header{
+    background-color: #f5c858;
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+h1{
+    color: white ;
+}

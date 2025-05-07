@@ -1,20 +1,21 @@
 import { Burger, Drawer, Stack } from "@mantine/core";
 import { useState } from "react";
 import { Link } from "react-router";
+import "./Header.css";
 
-export default function BugerMenu() {
-    const [opened, setOpened] = useState(false);
-    return (
-        <>
-        <Burger
-          opened={opened}
-          onClick={() => setOpened((o) => !o)}
-          aria-label="Toggle Navigation"
-          color="#eee"
-          style={{ position: "absolute", left: 20 }}
-          transitionDuration={250}
-        />
-        <Drawer
+export default function Header() {
+  const [opened, setOpened] = useState(false);
+  return (
+    <header className="header">
+      <Burger
+        opened={opened}
+        onClick={() => setOpened((o) => !o)}
+        aria-label="Toggle Navigation"
+        color="#eee"
+        style={{ position: "absolute", left: 20 }}
+        transitionDuration={250}
+      />
+      <Drawer
         opened={opened}
         onClose={() => setOpened(false)}
         title="Menú"
@@ -68,6 +69,9 @@ export default function BugerMenu() {
           </div>
         </Stack>
       </Drawer>
-        </>
-    )
+      <p className="hidden">Espanol , Ingles</p>
+      <h1>Inventario</h1>
+      <p className="hidden">Espanol , Ingles</p>
+    </header>
+  );
 }

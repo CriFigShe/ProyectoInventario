@@ -4,7 +4,7 @@ import Register from "./Register/RegisterPage";
 
 /////////////
 
-import HomePage from "./HomePage/HomePage";
+import ProductPage from "./HomePage/ProductPage";
 import EditProduct from "./EditProduct";
 import AddProduct from "./AddProduct";
 
@@ -20,18 +20,15 @@ import Events from "./Events/Events";
 import EditEvent from "./Events/EditEvent";
 import AddEvent from "./Events/AddEvent";
 
-import { Burger, Drawer } from "@mantine/core";
-import { useState } from "react";
 
 
 
 const Router = () => {
-  const [opened, setOpened] = useState(false);
   return (
     <Routes>
       <Route path="/" element={<Login />}/>
       <Route path="/register" element={<Register />}/>
-      <Route path="/home" element={<HomePage />}/>
+      <Route path="/home" element={<ProductPage />}/>
       <Route path="/editProduct/:id" element={<EditProduct />}/>
       <Route path="/addProduct" element={<AddProduct />}/>
       <Route path="/suppliers" element={<Suppliers />}/>

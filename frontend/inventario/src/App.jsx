@@ -1,5 +1,5 @@
 import Router from "./pages/Router";
-import BurgerMenu from "./pages/BurgerMenu"
+import Header from "./pages/Header"
 import { useLocation } from "react-router";
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
 
   return (
     <main className="mainApp">
-      {!isHidden && <BurgerMenu />}
+      {!isHidden && <Header />}
       <Router />
     </main>
   );

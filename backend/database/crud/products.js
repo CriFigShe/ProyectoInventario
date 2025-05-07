@@ -3,7 +3,7 @@ const { getConection } = require("../connection.js");
 const db = getConection();
 
 async function addProduct(product){
-    const stmt = `INSERT INTO products(id, name, type, stock, cost, pvp, notes, supplierId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    const stmt = `INSERT INTO products(id, name, type, stock, cost, pvp, notes, userId, supplierId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     await db.execute(stmt, [
         product.id,
@@ -13,6 +13,7 @@ async function addProduct(product){
         product.cost,
         product.pvp,
         product.notes,
+        product.userId,
         product.supplierId
     ]);
 }

@@ -1,4 +1,4 @@
-import "./HomePage.css";
+import "./ProductPage.css";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ import AuthContext from "../../context/AuthContext";
 import { CiTrash } from "react-icons/ci";
 import { GoPencil } from "react-icons/go";
 
-export default function HomePage() {
+export default function ProductPage() {
   const [products, setProducts] = useState([]);
   const [suppliers, setSuppliers] = useState({});
   const [error, setError] = useState(null);
@@ -21,8 +21,8 @@ export default function HomePage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        if(!currentUser.token){
-          navigate('/');
+        if (!currentUser.token) {
+          navigate("/");
         }
         const productsResponse = await axios.get(
           `http://localhost:5000/products/users/${currentUser.userId}`,
@@ -81,53 +81,56 @@ export default function HomePage() {
   );
 
   return (
-    <div className="divHome">
-      <div className="header">
-        <h1 className="homeTitle">Productos</h1>
+    <main className="productPage">
+      <div className="productsTitle">
+        <h2>Productos</h2>
         <Link to="/addProduct">
           <button className="addProduct">+</button>
         </Link>
       </div>
-
-      {products.length > 0 && <div className="productsContainer">
-        <div className="listTitles">
-          <h3>Nombre</h3>
-          <h3>Tipo</h3>
-          <h3>Stock</h3>
-          <h3>Coste(€)</h3>
-          <h3>Precio(€)</h3>
-          <h3>Notas</h3>
-          <h3>Proveedor</h3>
-          <h3>Acciones</h3>
-        </div>
-        <div className="productsList">
-          {products.map((product) => (
-            <div key={product.id} className="productCard">
-              <p>{product.name}</p>
-              <p>{product.type}</p>
-              <p>{product.stock}</p>
-              <p>{product.cost}</p>
-              <p>{product.pvp}</p>
-              <p>{renderTextWithEllipsis(product.notes)}</p>
-              <p>{suppliers[product.supplierId]}</p>
-              <p>
-                <Link to={`/editProduct/${product.id}`}>
-                  <button className="productActionButton">
-                    <GoPencil />
-                  </button>
-                </Link>
-                <button
-                  className="productActionButton"
-                  onClick={() => handleDeleteProduct(product.id)}
-                >
-                  <CiTrash />
-                </button>
-              </p>
+      <div>
+        {products.length > 0 && (
+          <div className="productsContainer">
+            <div className="listTitles">
+              <h3>Nombre</h3>
+              <h3>Tipo</h3>
+              <h3>Stock</h3>
+              <h3>Coste(€)</h3>
+              <h3>Precio(€)</h3>
+              <h3>Notas</h3>
+              <h3>Proveedor</h3>
+              <h3>Acciones</h3>
             </div>
-          ))}
-        </div>
-      </div>}
-      {products.length == 0 && <p>No hay productos guardados.</p>}
-    </div>
+            <div className="productsList">
+              {products.map((product) => (
+                <div key={product.id} className="productCard">
+                  <p>{product.name}</p>
+                  <p>{product.type}</p>
+                  <p>{product.stock}</p>
+                  <p>{product.cost}</p>
+                  <p>{product.pvp}</p>
+                  <p>{renderTextWithEllipsis(product.notes)}</p>
+                  <p>{suppliers[product.supplierId]}</p>
+                  <p>
+                    <Link to={`/editProduct/${product.id}`}>
+                      <button className="productActionButton">
+                        <GoPencil />
+                      </button>
+                    </Link>
+                    <button
+                      className="productActionButton"
+                      onClick={() => handleDeleteProduct(product.id)}
+                    >
+                      <CiTrash />
+                    </button>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        {products.length == 0 && <p>No hay productos guardados.</p>}
+      </div>
+    </main>
   );
 }

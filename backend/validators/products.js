@@ -7,5 +7,6 @@ module.exports = Joi.object({
     cost: Joi.number().required(),
     pvp: Joi.number().required(),
     notes: Joi.string(),
-    supplierId: Joi.string().required()
+    userId: Joi.string().required(),
+    supplierId: Joi.string()
 });

@@ -56,7 +56,7 @@ export default function AddProduct() {
   return (
     <div className="addForm">
       <h2>Añadir un producto</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <div className="formGroup">
           <label>Nombre</label>
           <input type="text" name="name" onChange={handleChange} required />
