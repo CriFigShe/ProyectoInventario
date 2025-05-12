@@ -14,6 +14,7 @@ export default function EditSupplier() {
     userId: currentUser.userId
   });
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,7 +27,6 @@ export default function EditSupplier() {
           }
         );
         setSupplier(response.data.data);
-        console.log(response.data.data);
       } catch (error) {
         console.error("Error fetching supplier para editar: ", error);
       }

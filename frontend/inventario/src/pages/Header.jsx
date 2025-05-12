@@ -47,7 +47,7 @@ export default function Header() {
       >
         <Stack>
           <Link className="drawerLink" to="/home">
-            Inicio
+            Productos
           </Link>
           <Link className="drawerLink" to="/suppliers">
             Proveedores

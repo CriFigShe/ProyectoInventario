@@ -71,6 +71,7 @@ async function viewSupplier(supplierId){
     const view = {
         name: supplier.name,
         contact: supplier.contact,
+        userId: supplier.userId
     }
 
     return view;

@@ -108,7 +108,7 @@ export default function Events() {
       >
         <Stack>
           <Link className="drawerLink" to="/home">
-            Inicio
+            Productos
           </Link>
           <Link className="drawerLink" to="/suppliers">
             Proveedores

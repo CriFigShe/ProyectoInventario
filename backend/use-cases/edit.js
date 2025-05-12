@@ -92,6 +92,7 @@ async function editSupplier(payload, supplierId){
         id: supplierId,
         name: payload.name || supplier.name,
         contact: payload.contact || supplier.contact,
+        userId: payload.userId,
     }
 
     await updateSupplier(updatedSupplier);

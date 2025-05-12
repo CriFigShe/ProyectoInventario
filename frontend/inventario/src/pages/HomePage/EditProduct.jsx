@@ -72,7 +72,7 @@ export default function EditProduct() {
   return (
     <div className="editForm">
       <h2>Editar Producto - {product.name}</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <div className="formGroup">
           <label>Nombre</label>
           <input
