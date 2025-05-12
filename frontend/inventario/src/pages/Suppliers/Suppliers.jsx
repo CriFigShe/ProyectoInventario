@@ -123,7 +123,7 @@ export default function Suppliers() {
                   <p>{supplier.name}</p>
                   <p>{supplier.contact}</p>
                   <p>
-                    <Link to={`/editsupplier/${supplier.id}`}>
+                    <Link to={`/editSupplier/${supplier.id}`}>
                       <button className="supplierActionButton">
                         <GoPencil />
                       </button>
