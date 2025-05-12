@@ -2,11 +2,12 @@ import "./EditProduct.css";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
-import AuthContext from "../context/AuthContext";
+import AuthContext from "../../context/AuthContext";
 
 export default function EditProduct() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { currentUser } = useContext(AuthContext);
   const [product, setProduct] = useState({
     name: "",
     type: "",
@@ -15,11 +16,9 @@ export default function EditProduct() {
     pvp: 0,
     notes: "",
     supplierId: "",
-    userId: null,
+    userId: currentUser.userId,
   });
   const [suppliers, setSuppliers] = useState([]);
-
-  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,6 +57,7 @@ export default function EditProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(product);
       await axios.put(`http://localhost:5000/products/${id}`, product, {
         headers: {
           Authorization: `${currentUser.token}`,

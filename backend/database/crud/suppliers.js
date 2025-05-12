@@ -22,11 +22,12 @@ async function deleteSupplier(id){
 }
 
 async function updateSupplier(supplier){
-    const stmt = `UPDATE suppliers SET name = ?, contact = ? WHERE id = ?`;
+    const stmt = `UPDATE suppliers SET name = ?, contact = ?, userId = ? WHERE id = ?`;
 
     await db.execute(stmt, [
         supplier.name,
         supplier.contact,
+        supplier.userId,
         supplier.id
     ]);
 }

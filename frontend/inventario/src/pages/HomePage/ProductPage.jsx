@@ -164,7 +164,7 @@ export default function ProductPage() {
             </div>
           </div>
         )}
-        {products.length == 0 && <p>No hay productos guardados.</p>}
+        {products.length == 0 && <p className="noProducts">No hay productos guardados.</p>}
       </div>
     </main>
   );

@@ -1,24 +1,49 @@
-.addSupplierForm {
+.addForm {
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
-  background: #f9f9f9;
+  background: #ffffff;
+  border: 2px solid #f5c858;
   border-radius: 8px;
+  color: #00bcd9;
 }
 
-.formSupplierGroup {
+.addForm h2{
+  padding-bottom: 15px;
+  text-align: center;
+}
+
+.formGroup {
   margin-bottom: 15px;
 }
 
-.formSupplierGroup label {
+.formGroup label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-.formSupplierGroup input {
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #00bcd9;
   border-radius: 4px;
+  color: #00bcd9;
+}
+
+.addSupplierButton{
+  padding: 3px 5px;
+  background-color: #ffffff;
+  color: #f5c858;
+  border: 2px solid #f5c858;
+  border-radius: 5px;
+}
+
+.addSupplierButton:hover{
+  background-color: #f5c858;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  cursor: pointer;
 }

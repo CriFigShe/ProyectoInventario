@@ -1,14 +1,17 @@
 import "./EditSupplier.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
+import AuthContext from "../../context/AuthContext";
 
 export default function EditSupplier() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { currentUser } = useContext(AuthContext);
   const [supplier, setSupplier] = useState({
     name: "",
     contact: "",
+    userId: currentUser.userId
   });
 
   useEffect(() => {
@@ -18,7 +21,7 @@ export default function EditSupplier() {
           `http://localhost:5000/suppliers/${id}`,
           {
             headers: {
-              Authorization: `${token}`,
+              Authorization: `${currentUser.token}`,
             },
           }
         );
@@ -29,7 +32,7 @@ export default function EditSupplier() {
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,9 +42,10 @@ export default function EditSupplier() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(supplier);
       await axios.put(`http://localhost:5000/suppliers/${id}`, supplier, {
         headers: {
-          Authorization: `${token}`,
+          Authorization: `${currentUser.token}`,
         },
       });
       navigate("/suppliers");
@@ -51,10 +55,10 @@ export default function EditSupplier() {
   };
 
   return (
-    <div className="editSupplierForm">
-      <h2>Editar proveedor: {supplier.name}</h2>
+    <div className="editForm">
+      <h2>Editar proveedor - {supplier.name}</h2>
       <form onSubmit={handleSubmit}>
-        <div className="formSupplierGroup">
+        <div className="formGroup">
           <label>Nombre</label>
           <input
             type="text"
@@ -64,7 +68,7 @@ export default function EditSupplier() {
             required
           />
         </div>
-        <div className="formSupplierGroup">
+        <div className="formGroup">
           <label>Contacto(Email o Telf.)</label>
           <input
             type="text"
@@ -74,7 +78,7 @@ export default function EditSupplier() {
             required
           />
         </div>
-        <button type="submit">Guardar cambios</button>
+        <button type="submit" className="editSupplierButton">Guardar cambios</button>
       </form>
     </div>
   );

@@ -5,8 +5,8 @@ import Register from "./Register/RegisterPage";
 /////////////
 
 import ProductPage from "./HomePage/ProductPage";
-import EditProduct from "./EditProduct";
-import AddProduct from "./AddProduct";
+import EditProduct from "./HomePage/EditProduct";
+import AddProduct from "./HomePage/AddProduct";
 
 /////////////
 

@@ -2,7 +2,7 @@ import "./AddProduct.css";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import AuthContext from "../context/AuthContext";
+import AuthContext from "../../context/AuthContext";
 
 export default function AddProduct() {
   const navigate = useNavigate();
