@@ -1,10 +1,12 @@
 import "./AddProduct.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import AuthContext from "../context/AuthContext";
 
 export default function AddProduct() {
   const navigate = useNavigate();
+  const { currentUser } = useContext(AuthContext);
   const [product, setProduct] = useState({
     name: "",
     type: "",
@@ -12,6 +14,7 @@ export default function AddProduct() {
     cost: "",
     pvp: "",
     notes: "",
+    userId: currentUser.userId,
     supplierId: "",
   });
   const [suppliers, setSuppliers] = useState([]);
@@ -19,9 +22,12 @@ export default function AddProduct() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const supplierRes = await axios.get("http://localhost:5000/suppliers", {
+        if(!currentUser.token){
+          navigate("/");
+        }
+        const supplierRes = await axios.get(`http://localhost:5000/suppliers/users/${currentUser.userId}`, {
           headers: {
-            Authorization: `${token}`,
+            Authorization: `${currentUser.token}`,
           },
         });
         setSuppliers(supplierRes.data.data);
@@ -43,12 +49,12 @@ export default function AddProduct() {
     try {
       await axios.post("http://localhost:5000/products", product, {
         headers: {
-          Authorization: `${token}`,
+          Authorization: `${currentUser.token}`,
         },
       });
       navigate("/home");
     } catch (error) {
-        console.error("Error añadiendo un producto:", error)
+        console.error("Error añadiendo un producto:", error.message)
     }
   };
 

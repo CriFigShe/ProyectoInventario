@@ -2,7 +2,6 @@ import "./ProductPage.css";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Burger, Drawer, Stack } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 
@@ -64,7 +63,7 @@ export default function ProductPage() {
     try {
       await axios.delete(`http://localhost:5000/products/${productId}`, {
         headers: {
-          Authorization: `${token}`,
+          Authorization: `${currentUser.token}`,
         },
       });
       setProducts(products.filter((product) => product.id !== productId));

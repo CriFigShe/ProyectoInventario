@@ -3,12 +3,13 @@ const { getConection } = require("../connection.js");
 const db = getConection();
 
 async function addSupplier(supplier){
-    const stmt = `INSERT INTO suppliers(id, name, contact) VALUES (?, ?, ?)`;
+    const stmt = `INSERT INTO suppliers(id, name, contact, userId) VALUES (?, ?, ?, ?)`;
 
     await db.execute(stmt, [
         supplier.id,
         supplier.name,
-        supplier.contact
+        supplier.contact,
+        supplier.userId
     ]);
 }
 

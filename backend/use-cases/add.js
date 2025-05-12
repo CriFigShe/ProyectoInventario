@@ -50,6 +50,7 @@ async function createSupplier(postPayload){
         id: generateUUID(),
         name: postPayload.name,
         contact: postPayload.contact,
+        userId: postPayload.userId
     }
 
     await addSupplier(post);
