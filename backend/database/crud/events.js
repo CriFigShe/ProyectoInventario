@@ -3,13 +3,14 @@ const { getConection } = require("../connection.js");
 const db = getConection();
 
 async function addEvent(event){
-    const stmt = `INSERT INTO events(id, name, date, description) VALUES (?, ?, ?, ?)`;
+    const stmt = `INSERT INTO events(id, name, date, description, userId) VALUES (?, ?, ?, ?, ?)`;
 
     await db.execute(stmt, [
         event.id,
         event.name,
         event.date,
-        event.description
+        event.description,
+        event.userId
     ]);
 }
 

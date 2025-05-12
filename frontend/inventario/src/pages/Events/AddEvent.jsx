@@ -1,14 +1,17 @@
 import "./AddEvent.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import AuthContext from "../../context/AuthContext";
 
 export default function AddEvent() {
   const navigate = useNavigate();
+  const { currentUser } = useContext(AuthContext);
   const [event, setEvent] = useState({
     name: "",
     date: "",
     description: "",
+    userId: currentUser.userId
   });
 
   const handleChange = (e) => {
@@ -21,7 +24,7 @@ export default function AddEvent() {
     try {
       await axios.post("http://localhost:5000/events", event, {
         headers: {
-          Authorization: `${token}`,
+          Authorization: `${currentUser.token}`,
         },
       });
       navigate("/events");
@@ -31,22 +34,22 @@ export default function AddEvent() {
   };
 
   return (
-    <div className="addEventForm">
+    <div className="addForm">
       <h2>Añadir evento</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="formEventGroup">
+      <form onSubmit={handleSubmit} noValidate>
+        <div className="formGroup">
           <label>Nombre</label>
           <input type="text" name="name" onChange={handleChange} required />
         </div>
-        <div className="formEventGroup">
+        <div className="formGroup">
           <label>Fecha</label>
           <input type="date" name="date" onChange={handleChange} required />
         </div>
-        <div className="formEventGroup">
+        <div className="formGroup">
           <label>Descripción</label>
           <textarea name="description" onChange={handleChange} required />
         </div>
-        <button type="submit">Guardar cambios</button>
+        <button type="submit" className="addEventButton">Añadir evento</button>
       </form>
     </div>
   );

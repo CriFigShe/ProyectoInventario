@@ -26,6 +26,7 @@ async function createEvent(postPayload){
         name: postPayload.name,
         date: postPayload.date,
         description: postPayload.date,
+        userId: postPayload.userId
     };
 
     await addEvent(post);
