@@ -4,6 +4,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
+import { IconX, IconCheck } from "@tabler/icons-react";
+import { Notification } from "@mantine/core";
 
 import { CiTrash } from "react-icons/ci";
 import { GoPencil } from "react-icons/go";
@@ -16,6 +18,11 @@ export default function ProductPage() {
   const navigate = useNavigate();
 
   const { currentUser } = useContext(AuthContext);
+
+  const [registerSucceed, setRegisterSucceed] = useState();
+
+  const xIcon = <IconX size={20} />;
+  const checkIcon = <IconCheck size={20} />;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -53,6 +60,15 @@ export default function ProductPage() {
     fetchProducts();
   }, [currentUser]);
 
+  useEffect(() => {
+    if (registerSucceed !== undefined) {
+      const timer = setTimeout(() => {
+        setRegisterSucceed(undefined);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [registerSucceed]);
+
   if (error) return <div>Error: {error}</div>;
 
   const handleDeleteProduct = async (productId) => {
@@ -66,9 +82,11 @@ export default function ProductPage() {
           Authorization: `${currentUser.token}`,
         },
       });
+      setRegisterSucceed(true);
       setProducts(products.filter((product) => product.id !== productId));
       setError(null);
     } catch (error) {
+      setRegisterSucceed(false);
       setError(`Error al eliminar el producto: ${error}`);
     }
   };
@@ -86,6 +104,24 @@ export default function ProductPage() {
         <Link to="/addProduct">
           <button className="addProduct">+</button>
         </Link>
+      </div>
+      <div className="notificationContainer">
+        {registerSucceed == false && (
+          <Notification
+            icon={xIcon}
+            color="red"
+            title="Error al eliminar un producto"
+            withCloseButton={false}
+          />
+        )}
+        {registerSucceed == true && (
+          <Notification
+            icon={checkIcon}
+            color="teal"
+            title="Producto eliminado con exito"
+            withCloseButton={false}
+          />
+        )}
       </div>
       <div>
         {products.length > 0 && (

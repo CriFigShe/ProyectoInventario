@@ -1,7 +1,8 @@
 import "./EditProduct.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
+import AuthContext from "../context/AuthContext";
 
 export default function EditProduct() {
   const { id } = useParams();
@@ -18,6 +19,8 @@ export default function EditProduct() {
   });
   const [suppliers, setSuppliers] = useState([]);
 
+  const { currentUser } = useContext(AuthContext);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,15 +28,15 @@ export default function EditProduct() {
           `http://localhost:5000/products/${id}`,
           {
             headers: {
-              Authorization: `${token}`,
+              Authorization: `${currentUser.token}`,
             },
           }
         );
         const suppliersRes = await axios.get(
-          "http://localhost:5000/suppliers",
+          `http://localhost:5000/suppliers/users/${currentUser.userId}`,
           {
             headers: {
-              Authorization: `${token}`,
+              Authorization: `${currentUser.token}`,
             },
           }
         );
@@ -57,7 +60,7 @@ export default function EditProduct() {
     try {
       await axios.put(`http://localhost:5000/products/${id}`, product, {
         headers: {
-          Authorization: `${token}`,
+          Authorization: `${currentUser.token}`,
         },
       });
       navigate("/home");
@@ -68,7 +71,7 @@ export default function EditProduct() {
 
   return (
     <div className="editForm">
-      <h2>Editar Producto: {product.name}</h2>
+      <h2>Editar Producto - {product.name}</h2>
       <form onSubmit={handleSubmit}>
         <div className="formGroup">
           <label>Nombre</label>
@@ -145,7 +148,7 @@ export default function EditProduct() {
             ))}
           </select>
         </div>
-        <button type="submit">Guardar cambios</button>
+        <button type="submit" className="editProductButton">Guardar cambios</button>
       </form>
     </div>
   );

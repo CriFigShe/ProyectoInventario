@@ -4,6 +4,14 @@
   padding: 20px;
   background: #f9f9f9;
   border-radius: 8px;
+  border: 2px solid #f5c858;
+  border-radius: 8px;
+  color: #00bcd9;
+}
+
+.editForm h2{
+  padding-bottom: 15px;
+  text-align: center;
 }
 
 .formGroup {
@@ -21,6 +29,22 @@
 .formGroup textarea {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #00bcd9;
   border-radius: 4px;
+  color: #00bcd9;
+}
+
+.editProductButton{
+  padding: 3px 5px;
+  background-color: #ffffff;
+  color: #f5c858;
+  border: 2px solid #f5c858;
+  border-radius: 5px;
+}
+
+.editProductButton:hover{
+  background-color: #f5c858;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  cursor: pointer;
 }

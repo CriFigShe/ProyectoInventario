@@ -98,7 +98,7 @@ export default function AddProduct() {
             ))}
           </select>
         </div>
-        <button type="submit">Guardar cambios</button>
+        <button type="submit" className="addProductButton">Añadir producto</button>
       </form>
     </div>
   );
