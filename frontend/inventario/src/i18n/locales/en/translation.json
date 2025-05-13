@@ -44,5 +44,17 @@
   "confirmRemoval": "Confirm removal",
   "confirmDeleteText": "Are you sure you want to delete \"{{name}}\"?",
   "cancel": "Cancel",
-  "delete": "Delete"
+  "delete": "Delete",
+
+  "sales": "Sales",
+  "errorRemovingSale": "Error removing a sale",
+  "successRemovingSale": "Sale successfully removed",
+  "saleDate": "Date",
+  "salePayment": "Payment method",
+  "saleTaxes": "Taxes",
+  "salePackagePrice": "Package Price",
+  "saleShippingPrice": "Shipping price",
+  "saleProfit": "Profit",
+  "saleActions": "Actions",
+  "noSales": "No saved sales"
 }

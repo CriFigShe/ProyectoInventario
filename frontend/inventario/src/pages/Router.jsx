@@ -20,8 +20,9 @@ import Events from "./Events/Events";
 import EditEvent from "./Events/EditEvent";
 import AddEvent from "./Events/AddEvent";
 
+/////////////
 
-
+import Sales from "./Sales/Sales";
 
 const Router = () => {
   return (
@@ -37,6 +38,7 @@ const Router = () => {
       <Route path="/events" element={<Events />}/>
       <Route path="/editEvent/:id" element={<EditEvent />}/>
       <Route path="/addEvents" element={<AddEvent />}/>
+      <Route path="/sales" element={<Sales />}/>
     </Routes>
   );
 };

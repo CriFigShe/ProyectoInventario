@@ -41,6 +41,7 @@ async function createSale(postPayload){
         package_price: postPayload.package_price,
         shipping_price: postPayload.shipping_price,
         profit: postPayload.profit,
+        userId: postPayload.userId
     }
 
     await addSale(post);

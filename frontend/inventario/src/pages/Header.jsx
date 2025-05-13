@@ -64,8 +64,8 @@ export default function Header() {
           <Link className="drawerLink" to="/events">
             {t("events")}
           </Link>
-          <Link className="drawerLink" to="#">
-            a
+          <Link className="drawerLink" to="/sales">
+            {t('sales')}
           </Link>
           <select
             className="drawerLinkLanguages"

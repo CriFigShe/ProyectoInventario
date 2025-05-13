@@ -3,7 +3,7 @@ const { getConection } = require("../connection.js");
 const db = getConection();
 
 async function addSale(sale){
-    const stmt = `INSERT INTO sales(id, date, payment, taxes, package_price, shipping_price, profit) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const stmt = `INSERT INTO sales(id, date, payment, taxes, package_price, shipping_price, profit, userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
     await db.execute(stmt, [
         sale.id,
@@ -12,7 +12,8 @@ async function addSale(sale){
         sale.taxes,
         sale.package_price,
         sale.shipping_price,
-        sale.profit
+        sale.profit,
+        sale.userId
     ]);
 }
 
@@ -23,7 +24,7 @@ async function deleteSale(id){
 }
 
 async function updateSale(sale){
-    const stmt = `UPDATE sales SET date = ?, payment = ?, taxes = ?, package_price = ?, shipping_price = ?, profit = ? WHERE id = ?`;
+    const stmt = `UPDATE sales SET date = ?, payment = ?, taxes = ?, package_price = ?, shipping_price = ?, profit = ?, userId = ? WHERE id = ?`;
 
     await db.execute(stmt, [
         sale.date,
@@ -32,6 +33,7 @@ async function updateSale(sale){
         sale.package_price,
         sale.shipping_price,
         sale.profit,
+        sale.userId,
         sale.id
     ]);
 }

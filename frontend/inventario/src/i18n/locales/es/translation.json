@@ -44,5 +44,17 @@
   "confirmRemoval": "Confirmar eliminación",
   "confirmDeleteText": "¿Estás seguro de que deseas eliminar \"{{name}}\"?",
   "cancel": "Cancelar",
-  "delete": "Eliminar"
+  "delete": "Eliminar",
+
+  "sales": "Ventas",
+  "errorRemovingSale": "Error al eliminar una venta",
+  "successRemovingSale": "Venta eliminada correctamente",
+  "saleDate": "Fecha",
+  "salePayment": "Metodo de pago",
+  "saleTaxes": "Impuestos",
+  "salePAckagePrice": "Precio del paquete",
+  "saleShippingPrice": "Gastos de envío",
+  "saleProfit": "Beneficio",
+  "saleActions": "Acciones",
+  "noSales": "No hay ventas guardadas"
 }

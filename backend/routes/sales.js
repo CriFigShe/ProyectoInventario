@@ -24,18 +24,19 @@ router.post(
 );
 
 router.get(
-    "/sales/:id",
+    "/sales/users/:userId",
+    authGuard,
     handleAsyncError(async (req, res) => {
-        const sale = await viewSale(req.params.id);
-        sendResponse(res, sale);
+       const sales = await listSales(req.params.userId);
+        sendResponse(res, sales);
     })
 );
 
 router.get(
-    "/sales/users/:userId",
+    "/sales/:id",
     handleAsyncError(async (req, res) => {
-       const sales = await listSales(req.params.userId);
-        sendResponse(res, sales);
+        const sale = await viewSale(req.params.id);
+        sendResponse(res, sale);
     })
 );
 
