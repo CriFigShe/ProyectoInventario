@@ -7,8 +7,18 @@
     "productStock": "Stock",
     "productCost": "Coste(€)",
     "productPrice": "Precio(€)",
+    "productPVP": "P.V.P",
     "productNotes": "Notas",
     "productSupplier": "Proveedor",
     "productActions": "Acciones",
-    "noProducts": "No hay productos guardados"
+    "noProducts": "No hay productos guardados",
+    "addProduct": "Añadir producto",
+    "addProductType": "Tipo de producto",
+    "editProduct": "Editar producto",
+    "saveChanges": "Guardar cambios",
+
+    "suppliers": "Proveedores",
+    "events": "Eventos",
+    "logOut": "Cerrar Sesión",
+    "inventory": "Inventario"
 }

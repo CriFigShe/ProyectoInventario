@@ -7,8 +7,18 @@
     "productStock": "Stock",
     "productCost": "Cost(€)",
     "productPrice": "Price(€)",
+    "productPVP": "P.V.P",
     "productNotes": "Notes",
     "productSupplier": "Supplier",
     "productActions": "Actions",
-    "noProducts": "No products saved"
+    "noProducts": "No products saved",
+    "addProduct": "Add product",
+    "addProductType": "Type of product",
+    "editProduct": "Edit product",
+    "saveChanges": "Save changes",
+
+    "suppliers": "Suppliers",
+    "events": "Events",
+    "logOut": "Log Out",
+    "inventory": "Inventory"
 }

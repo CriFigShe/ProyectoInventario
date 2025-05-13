@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import AuthContext from "../../context/AuthContext";
+import { useTranslation } from 'react-i18next';
 
 export default function AddProduct() {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ export default function AddProduct() {
     supplierId: "",
   });
   const [suppliers, setSuppliers] = useState([]);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,36 +64,36 @@ export default function AddProduct() {
 
   return (
     <div className="addForm">
-      <h2>Añadir un producto</h2>
+      <h2>{t('addProduct')}</h2>
       <form onSubmit={handleSubmit} noValidate>
         <div className="formGroup">
-          <label>Nombre</label>
+          <label>{t('productName')}</label>
           <input type="text" name="name" onChange={handleChange} required />
         </div>
         <div className="formGroup">
-          <label>Tipo de producto</label>
+          <label>{t('addProductType')}</label>
           <input type="text" name="type" onChange={handleChange} required />
         </div>
         <div className="formGroup">
-          <label>Stock</label>
+          <label>{t('productStock')}</label>
           <input type="number" name="stock" onChange={handleChange} required />
         </div>
         <div className="formGroup">
-          <label>Coste</label>
+          <label>{t('productCost')}</label>
           <input type="number" name="cost" onChange={handleChange} required />
         </div>
         <div className="formGroup">
-          <label>P.V.P</label>
+          <label>{t('productPVP')}</label>
           <input type="number" name="pvp" onChange={handleChange} required />
         </div>
         <div className="formGroup">
-          <label>Notas</label>
+          <label>{t('productNotes')}</label>
           <textarea name="notes" onChange={handleChange} required></textarea>
         </div>
         <div className="formGroup">
-          <label>Proveedor</label>
+          <label>{t('productSupplier')}</label>
           <select name="supplierId" onChange={handleChange} required>
-            <option value="">-- Proveedor --</option>
+            <option value="">-- {t('productSupplier')} --</option>
             {suppliers.map((supplier) => (
               <option key={supplier.id} value={supplier.id}>
                 {supplier.name}
@@ -98,7 +101,7 @@ export default function AddProduct() {
             ))}
           </select>
         </div>
-        <button type="submit" className="addProductButton">Añadir producto</button>
+        <button type="submit" className="addProductButton">{t('addProduct')}</button>
       </form>
     </div>
   );

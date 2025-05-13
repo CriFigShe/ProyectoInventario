@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import AuthContext from "../../context/AuthContext";
+import { useTranslation } from 'react-i18next';
 
 export default function EditProduct() {
   const { id } = useParams();
@@ -19,6 +20,8 @@ export default function EditProduct() {
     userId: currentUser.userId,
   });
   const [suppliers, setSuppliers] = useState([]);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,10 +73,10 @@ export default function EditProduct() {
 
   return (
     <div className="editForm">
-      <h2>Editar Producto - {product.name}</h2>
+      <h2>{t('editProduct')} - {product.name}</h2>
       <form onSubmit={handleSubmit} noValidate>
         <div className="formGroup">
-          <label>Nombre</label>
+          <label>{t('productName')}</label>
           <input
             type="text"
             name="name"
@@ -83,7 +86,7 @@ export default function EditProduct() {
           />
         </div>
         <div className="formGroup">
-          <label>Tipo de producto</label>
+          <label>{t('addProductType')}</label>
           <input
             type="text"
             name="type"
@@ -93,7 +96,7 @@ export default function EditProduct() {
           />
         </div>
         <div className="formGroup">
-          <label>Stock</label>
+          <label>{t('productStock')}</label>
           <input
             type="number"
             name="stock"
@@ -103,7 +106,7 @@ export default function EditProduct() {
           />
         </div>
         <div className="formGroup">
-          <label>Coste</label>
+          <label>{t('productCost')}</label>
           <input
             type="number"
             name="cost"
@@ -113,7 +116,7 @@ export default function EditProduct() {
           />
         </div>
         <div className="formGroup">
-          <label>P.V.P</label>
+          <label>{t('productPVP')}</label>
           <input
             type="number"
             name="pvp"
@@ -123,7 +126,7 @@ export default function EditProduct() {
           />
         </div>
         <div className="formGroup">
-          <label>Notas</label>
+          <label>{t('productNotes')}</label>
           <textarea
             name="notes"
             value={product.notes}
@@ -132,14 +135,14 @@ export default function EditProduct() {
           />
         </div>
         <div className="formGroup">
-          <label>Proveedor</label>
+          <label>{t('productSupplier')}</label>
           <select
             name="supplierId"
             value={product.supplierId}
             onChange={handleChange}
             required
           >
-            <option value="">-- Proveedor --</option>
+            <option value="">-- {t('productSupplier')} --</option>
             {suppliers.map((supplier) => (
               <option key={supplier.id} value={supplier.id}>
                 {supplier.name}
@@ -147,7 +150,7 @@ export default function EditProduct() {
             ))}
           </select>
         </div>
-        <button type="submit" className="editProductButton">Guardar cambios</button>
+        <button type="submit" className="editProductButton">{t('saveChanges')}</button>
       </form>
     </div>
   );

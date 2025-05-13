@@ -8,9 +8,7 @@ import i18n from "../i18n/i18n";
 export default function Header() {
   const [opened, setOpened] = useState(false);
 
-  function languageSelector() {
-    const { i18n } = useTranslation();
-  }
+  const { i18n, t } = useTranslation();
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -58,13 +56,13 @@ export default function Header() {
       >
         <Stack>
           <Link className="drawerLink" to="/home">
-            Productos
+            {t('products')}
           </Link>
           <Link className="drawerLink" to="/suppliers">
-            Proveedores
+            {t('suppliers')}
           </Link>
           <Link className="drawerLink" to="/events">
-            Eventos
+            {t('events')}
           </Link>
           <Link className="drawerLink" to="#">
             a
@@ -85,12 +83,12 @@ export default function Header() {
               navigate("/");
             }}
           >
-            Cerrar Sesión
+            {t('logOut')}
           </div>
         </Stack>
       </Drawer>
       <p className="hidden">Espanol , Ingles</p>
-      <h1>Inventario</h1>
+      <h1>{t('inventory')}</h1>
       <p className="hidden">Espanol , Ingles</p>
     </header>
   );
