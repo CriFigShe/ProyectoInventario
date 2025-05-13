@@ -1,26 +1,50 @@
-.editEventForm {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 8px;
-  }
-  
-  .formEventGroup {
-    margin-bottom: 15px;
-  }
-  
-  .formEventGroup label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .formEventGroup input,
-  .formEventGroup textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
+.editForm {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 2px solid #f5c858;
+  border-radius: 8px;
+  color: #00bcd9;
+}
+
+.editForm h2{
+  padding-bottom: 15px;
+  text-align: center;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #00bcd9;
+  border-radius: 4px;
+  color: #00bcd9;
+}
+
+.editEventButton{
+  padding: 3px 5px;
+  background-color: #ffffff;
+  color: #f5c858;
+  border: 2px solid #f5c858;
+  border-radius: 5px;
+}
+
+.editEventButton:hover{
+  background-color: #f5c858;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  cursor: pointer;
+}

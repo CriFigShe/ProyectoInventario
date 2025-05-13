@@ -37,6 +37,7 @@ async function viewEvent(eventId){
         name: event.name,
         date: event.date,
         description: event.description,
+        userId: event.userId
     }
 
     return view;

@@ -1,15 +1,18 @@
 import "./EditEvent.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
+import AuthContext from "../../context/AuthContext";
 
 export default function EditEvent() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { currentUser } = useContext(AuthContext);
   const [event, setEvent] = useState({
     name: "",
     date: "",
     description: "",
+    userId: currentUser.userId
   });
 
   useEffect(() => {
@@ -17,7 +20,7 @@ export default function EditEvent() {
       try {
         const response = await axios.get(`http://localhost:5000/events/${id}`, {
           headers: {
-            Authorization: `${token}`,
+            Authorization: `${currentUser.token}`,
           },
         });
         setEvent(response.data.data);
@@ -27,7 +30,7 @@ export default function EditEvent() {
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,9 +40,10 @@ export default function EditEvent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(event);
       await axios.put(`http://localhost:5000/events/${id}`, event, {
         headers: {
-          Authorization: `${token}`,
+          Authorization: `${currentUser.token}`,
         },
       });
       navigate("/events");
@@ -49,10 +53,10 @@ export default function EditEvent() {
   };
 
   return (
-    <div className="editEventForm">
+    <div className="editForm">
       <h2>Editar evento: {event.name}</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="formEventGroup">
+      <form onSubmit={handleSubmit} noValidate>
+        <div className="formGroup">
           <label>Nombre</label>
           <input
             type="text"
@@ -62,7 +66,7 @@ export default function EditEvent() {
             required
           />
         </div>
-        <div className="formEventGroup">
+        <div className="formGroup">
           <label>Fecha</label>
           <input
             type="date"
@@ -72,7 +76,7 @@ export default function EditEvent() {
             required
           />
         </div>
-        <div className="formEventGroup">
+        <div className="formGroup">
           <label>Descripción</label>
           <textarea
             name="description"
@@ -81,7 +85,7 @@ export default function EditEvent() {
             required
           />
         </div>
-        <button type="submit">Guardar cambios</button>
+        <button type="submit" className="editEventButton">Guardar cambios</button>
       </form>
     </div>
   );

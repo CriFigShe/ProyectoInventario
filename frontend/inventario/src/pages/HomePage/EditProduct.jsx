@@ -57,7 +57,6 @@ export default function EditProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(product);
       await axios.put(`http://localhost:5000/products/${id}`, product, {
         headers: {
           Authorization: `${currentUser.token}`,

@@ -27,7 +27,6 @@ export default function Login() {
         "http://localhost:5000/users/login",
         payload
       );
-      console.log(response.data);
       localStorage.setItem('userId', response.data.data.token.user);
       localStorage.setItem('token', response.data.data.token.token);
       setCurrentUser({ userId:response.data.data.token.user , token:response.data.data.token.token });

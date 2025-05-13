@@ -87,7 +87,7 @@ export default function Events() {
     <main className="eventPage">
       <div className="eventsTitle">
         <h2>Eventos</h2>
-        <Link to="/addEvent">
+        <Link to="/addEvents">
           <button className="addEvents">+</button>
         </Link>
       </div>

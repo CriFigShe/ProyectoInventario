@@ -56,6 +56,7 @@ async function editEvent(payload, eventId){
         name: payload.name || event.name,
         date: payload.date ||event.date,
         description: payload.description || event.description,
+        userId: payload.userId,
     }
 
     await updateEvent(updatedEvent);
