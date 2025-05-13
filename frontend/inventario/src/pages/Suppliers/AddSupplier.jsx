@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import AuthContext from "../../context/AuthContext";
+import { useTranslation } from 'react-i18next';
 
 export default function AddSupplier() {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ export default function AddSupplier() {
     contact: "",
     userId: currentUser.userId
   });
+
+  const { t } = useTranslation();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,17 +37,17 @@ export default function AddSupplier() {
 
   return (
     <div className="addForm">
-      <h2>Añadir un proveedor</h2>
+      <h2>{t('addSupplier')}</h2>
       <form onSubmit={handleSubmit}>
         <div className="formGroup">
-          <label>Nombre</label>
+          <label>{t('supplierName')}</label>
           <input type="text" name="name" onChange={handleChange} required />
         </div>
         <div className="formGroup">
-          <label>Contacto(Email o Telf.)</label>
+          <label>{t('supplierContact')}(Email o Telf.)</label>
           <input type="text" name="contact" onChange={handleChange} required />
         </div>
-        <button type="submit" className="addSupplierButton">Guardar cambios</button>
+        <button type="submit" className="addSupplierButton">{t('addSupplier')}</button>
       </form>
     </div>
   );

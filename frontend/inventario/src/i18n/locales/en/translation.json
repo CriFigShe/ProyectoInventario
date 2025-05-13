@@ -1,7 +1,7 @@
 {
     "products": "Products",
     "errorRemovingProduct": "Error removing a product",
-    "successRemovingProduct": "Product successfully eliminated",
+    "successRemovingProduct": "Product successfully removed",
     "productName": "Name",
     "productType": "Type",
     "productStock": "Stock",
@@ -18,6 +18,15 @@
     "saveChanges": "Save changes",
 
     "suppliers": "Suppliers",
+    "errorRemovingSupplier": "Error removing a supplier",
+    "successRemovingSupplier": "Supplier successfully removed",
+    "supplierName": "Name",
+    "supplierContact": "Contact",
+    "supplierActions": "Actions",
+    "noSuppliers": "No suppliers saved",
+    "addSupplier": "Add supplier",
+    "editSupplier": "Edit supplier",
+
     "events": "Events",
     "logOut": "Log Out",
     "inventory": "Inventory"

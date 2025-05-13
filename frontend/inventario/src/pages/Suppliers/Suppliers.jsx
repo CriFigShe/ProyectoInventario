@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import { IconX, IconCheck } from "@tabler/icons-react";
 import { Notification } from "@mantine/core";
+import { useTranslation } from 'react-i18next';
 
 import { CiTrash } from "react-icons/ci";
 import { GoPencil } from "react-icons/go";
@@ -20,6 +21,8 @@ export default function Suppliers() {
   const { currentUser } = useContext(AuthContext);
 
   const [registerSucceed, setRegisterSucceed] = useState();
+
+  const { t } = useTranslation();
 
   const xIcon = <IconX size={20} />;
   const checkIcon = <IconCheck size={20} />;
@@ -85,7 +88,7 @@ export default function Suppliers() {
   return (
     <main className="suppliersPage">
       <div className="suppliersTitle">
-        <h2>Proveedores</h2>
+        <h2>{t('suppliers')}</h2>
         <Link to="/addSupplier">
           <button className="addSupplier">+</button>
         </Link>
@@ -96,7 +99,7 @@ export default function Suppliers() {
           <Notification
             icon={xIcon}
             color="red"
-            title="Error al eliminar un proveedor"
+            title={t('errorRemovingSupplier')}
             withCloseButton={false}
           />
         )}
@@ -104,7 +107,7 @@ export default function Suppliers() {
           <Notification
             icon={checkIcon}
             color="teal"
-            title="Proveedor eliminado con exito"
+            title={t('successRemovingSupplier')}
             withCloseButton={false}
           />
         )}
@@ -113,9 +116,9 @@ export default function Suppliers() {
         {suppliers.length > 0 && (
           <div className="suppliersContainer">
             <div className="listTitles">
-              <h3>Nombre</h3>
-              <h3>Contacto</h3>
-              <h3>Acciones</h3>
+              <h3>{t('supplierName')}</h3>
+              <h3>{t('supplierContact')}</h3>
+              <h3>{t('supplierActions')}</h3>
             </div>
             <div className="suppliersList">
               {suppliers.map((supplier) => (
@@ -140,7 +143,7 @@ export default function Suppliers() {
             </div>
           </div>
         )}
-        {suppliers.length == 0 && <p className="noSuppliers">No hay proveedores guardados.</p>}
+        {suppliers.length == 0 && <p className="noSuppliers">{t('noSuppliers')}</p>}
       </div>
     </main>
   );

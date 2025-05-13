@@ -18,6 +18,15 @@
     "saveChanges": "Guardar cambios",
 
     "suppliers": "Proveedores",
+    "errorRemovingSupplier": "Error al eliminar un proveedor",
+    "successRemovingSupplier": "Proveedor eliminado correctamente",
+    "supplierName": "Nombre",
+    "supplierContact": "Contacto",
+    "supplierActions": "Acciones",
+    "noSuppliers": "No hay proveedores guardados",
+    "addSupplier": "Añadir proveedor",
+    "editSupplier": "Editar proveedor",
+
     "events": "Eventos",
     "logOut": "Cerrar Sesión",
     "inventory": "Inventario"

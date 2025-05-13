@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import AuthContext from "../../context/AuthContext";
+import { useTranslation } from 'react-i18next';
 
 export default function EditSupplier() {
   const { id } = useParams();
@@ -14,6 +15,7 @@ export default function EditSupplier() {
     userId: currentUser.userId
   });
 
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,10 +59,10 @@ export default function EditSupplier() {
 
   return (
     <div className="editForm">
-      <h2>Editar proveedor - {supplier.name}</h2>
+      <h2>{t('editSupplier')} - {supplier.name}</h2>
       <form onSubmit={handleSubmit}>
         <div className="formGroup">
-          <label>Nombre</label>
+          <label>{t('supplierName')}</label>
           <input
             type="text"
             name="name"
@@ -70,7 +72,7 @@ export default function EditSupplier() {
           />
         </div>
         <div className="formGroup">
-          <label>Contacto(Email o Telf.)</label>
+          <label>{t('supplierContact')}(Email o Telf.)</label>
           <input
             type="text"
             name="contact"
@@ -79,7 +81,7 @@ export default function EditSupplier() {
             required
           />
         </div>
-        <button type="submit" className="editSupplierButton">Guardar cambios</button>
+        <button type="submit" className="editSupplierButton">{t('saveChanges')}</button>
       </form>
     </div>
   );
