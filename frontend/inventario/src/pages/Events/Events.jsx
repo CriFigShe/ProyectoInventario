@@ -6,7 +6,8 @@ import { useNavigate } from "react-router";
 import AuthContext from "../../context/AuthContext";
 import { IconX, IconCheck } from "@tabler/icons-react";
 import { Notification } from "@mantine/core";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import DeleteModal from "../../components/DeleteModal";
 
 import { CiTrash } from "react-icons/ci";
 import { GoPencil } from "react-icons/go";
@@ -20,6 +21,9 @@ export default function Events() {
   const { currentUser } = useContext(AuthContext);
 
   const [registerSucceed, setRegisterSucceed] = useState();
+
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [eventToDelete, setEventToDelete] = useState(null);
 
   const xIcon = <IconX size={20} />;
   const checkIcon = <IconCheck size={20} />;
@@ -60,23 +64,29 @@ export default function Events() {
 
   if (error) return <div>Error: {error}</div>;
 
-  const handleDeleteEvent = async (eventId) => {
-    if (!window.confirm("Estas seguro de eliminar este evento")) {
-      return;
-    }
+  const confirmDeleteEvent = (event) => {
+    setEventToDelete(event);
+    setDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!eventToDelete) return;
 
     try {
-      await axios.delete(`http://localhost:5000/events/${eventId}`, {
+      await axios.delete(`http://localhost:5000/events/${eventToDelete.id}`, {
         headers: {
           Authorization: `${currentUser.token}`,
         },
       });
       setRegisterSucceed(true);
-      setEvents(events.filter((event) => event.id !== eventId));
+      setEvents(events.filter((e) => e.id !== eventToDelete.id));
       setError(null);
     } catch (error) {
       setRegisterSucceed(false);
-      setError(`Error al eliminar el producto: ${error}`);
+      setError(`Error al eliminar el evento: ${error}`);
+    } finally {
+      setDeleteModalOpen(false);
+      setEventToDelete(null);
     }
   };
 
@@ -88,8 +98,15 @@ export default function Events() {
 
   return (
     <main className="eventPage">
+      <DeleteModal
+        opened={deleteModalOpen}
+        onClose={() => setDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        itemName={eventToDelete?.name}
+      />
+
       <div className="eventsTitle">
-        <h2>{t('events')}</h2>
+        <h2>{t("events")}</h2>
         <Link to="/addEvents">
           <button className="addEvents">+</button>
         </Link>
@@ -99,7 +116,7 @@ export default function Events() {
           <Notification
             icon={xIcon}
             color="red"
-            title={t('errorRemovingEvent')}
+            title={t("errorRemovingEvent")}
             withCloseButton={false}
           />
         )}
@@ -107,7 +124,7 @@ export default function Events() {
           <Notification
             icon={checkIcon}
             color="teal"
-            title={t('successRemovingEvent')}
+            title={t("successRemovingEvent")}
             withCloseButton={false}
           />
         )}
@@ -116,10 +133,10 @@ export default function Events() {
         {events.length > 0 && (
           <div className="eventsContainer">
             <div className="listTitles">
-              <h3>{t('eventName')}</h3>
-              <h3>{t('eventDate')}</h3>
-              <h3>{t('eventDescription')}</h3>
-              <h3>{t('eventActions')}</h3>
+              <h3>{t("eventName")}</h3>
+              <h3>{t("eventDate")}</h3>
+              <h3>{t("eventDescription")}</h3>
+              <h3>{t("eventActions")}</h3>
             </div>
             <div className="eventsList">
               {events.map((event) => (
@@ -135,7 +152,7 @@ export default function Events() {
                     </Link>
                     <button
                       className="eventActionButton"
-                      onClick={() => handleDeleteEvent(event.id)}
+                      onClick={() => confirmDeleteEvent(event)}
                     >
                       <CiTrash />
                     </button>
@@ -145,9 +162,7 @@ export default function Events() {
             </div>
           </div>
         )}
-        {events.length == 0 && (
-          <p className="noEvents">{t('noEvents')}</p>
-        )}
+        {events.length == 0 && <p className="noEvents">{t("noEvents")}</p>}
       </div>
     </main>
   );

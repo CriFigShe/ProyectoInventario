@@ -1,0 +1,29 @@
+.deleteTitle{
+    color: #f5c858;
+}
+
+.deleteText{
+    color: #f5c858;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    margin-top: 20px;
+    gap: 2rem;
+}
+
+.cancelButton{
+    border: 1px solid #f5c858;
+}
+
+.cancelButton:hover{
+    background-color: #ebd396;
+    color: #ffffff;
+}
+
+.confirmButton:hover{
+    border: 1px solid #f5c858;
+}
