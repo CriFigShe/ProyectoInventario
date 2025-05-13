@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import AuthContext from "../../context/AuthContext";
+import { useTranslation } from 'react-i18next';
 
 export default function EditEvent() {
   const { id } = useParams();
@@ -14,6 +15,8 @@ export default function EditEvent() {
     description: "",
     userId: currentUser.userId
   });
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,10 +57,10 @@ export default function EditEvent() {
 
   return (
     <div className="editForm">
-      <h2>Editar evento: {event.name}</h2>
+      <h2>{t('editEvent')} - {event.name}</h2>
       <form onSubmit={handleSubmit} noValidate>
         <div className="formGroup">
-          <label>Nombre</label>
+          <label>{t('eventName')}</label>
           <input
             type="text"
             name="name"
@@ -67,7 +70,7 @@ export default function EditEvent() {
           />
         </div>
         <div className="formGroup">
-          <label>Fecha</label>
+          <label>{t('eventDate')}</label>
           <input
             type="date"
             name="date"
@@ -77,7 +80,7 @@ export default function EditEvent() {
           />
         </div>
         <div className="formGroup">
-          <label>Descripción</label>
+          <label>{t('eventDescription')}</label>
           <textarea
             name="description"
             value={event.description}
@@ -85,7 +88,7 @@ export default function EditEvent() {
             required
           />
         </div>
-        <button type="submit" className="editEventButton">Guardar cambios</button>
+        <button type="submit" className="editEventButton">{t('saveChanges')}</button>
       </form>
     </div>
   );

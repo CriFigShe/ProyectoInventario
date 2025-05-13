@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import AuthContext from "../../context/AuthContext";
+import { useTranslation } from 'react-i18next';
 
 export default function AddEvent() {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ export default function AddEvent() {
     description: "",
     userId: currentUser.userId
   });
+
+  const { t } = useTranslation();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,21 +38,21 @@ export default function AddEvent() {
 
   return (
     <div className="addForm">
-      <h2>Añadir evento</h2>
+      <h2>{t('addEvent')}</h2>
       <form onSubmit={handleSubmit} noValidate>
         <div className="formGroup">
-          <label>Nombre</label>
+          <label>{t('eventName')}</label>
           <input type="text" name="name" onChange={handleChange} required />
         </div>
         <div className="formGroup">
-          <label>Fecha</label>
+          <label>{t('eventDate')}</label>
           <input type="date" name="date" onChange={handleChange} required />
         </div>
         <div className="formGroup">
-          <label>Descripción</label>
+          <label>{t('eventDescription')}</label>
           <textarea name="description" onChange={handleChange} required />
         </div>
-        <button type="submit" className="addEventButton">Añadir evento</button>
+        <button type="submit" className="addEventButton">{t('addEvent')}</button>
       </form>
     </div>
   );

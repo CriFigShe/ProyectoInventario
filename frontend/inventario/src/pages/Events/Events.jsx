@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import AuthContext from "../../context/AuthContext";
 import { IconX, IconCheck } from "@tabler/icons-react";
 import { Notification } from "@mantine/core";
+import { useTranslation } from 'react-i18next';
 
 import { CiTrash } from "react-icons/ci";
 import { GoPencil } from "react-icons/go";
@@ -22,6 +23,8 @@ export default function Events() {
 
   const xIcon = <IconX size={20} />;
   const checkIcon = <IconCheck size={20} />;
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -86,7 +89,7 @@ export default function Events() {
   return (
     <main className="eventPage">
       <div className="eventsTitle">
-        <h2>Eventos</h2>
+        <h2>{t('events')}</h2>
         <Link to="/addEvents">
           <button className="addEvents">+</button>
         </Link>
@@ -96,7 +99,7 @@ export default function Events() {
           <Notification
             icon={xIcon}
             color="red"
-            title="Error al eliminar un evento"
+            title={t('errorRemovingEvent')}
             withCloseButton={false}
           />
         )}
@@ -104,7 +107,7 @@ export default function Events() {
           <Notification
             icon={checkIcon}
             color="teal"
-            title="Evento eliminado con exito"
+            title={t('successRemovingEvent')}
             withCloseButton={false}
           />
         )}
@@ -113,10 +116,10 @@ export default function Events() {
         {events.length > 0 && (
           <div className="eventsContainer">
             <div className="listTitles">
-              <h3>Nombre</h3>
-              <h3>Fecha</h3>
-              <h3>Descripción</h3>
-              <h3>Acciones</h3>
+              <h3>{t('eventName')}</h3>
+              <h3>{t('eventDate')}</h3>
+              <h3>{t('eventDescription')}</h3>
+              <h3>{t('eventActions')}</h3>
             </div>
             <div className="eventsList">
               {events.map((event) => (
@@ -143,7 +146,7 @@ export default function Events() {
           </div>
         )}
         {events.length == 0 && (
-          <p className="noEvents">No hay eventos guardados.</p>
+          <p className="noEvents">{t('noEvents')}</p>
         )}
       </div>
     </main>

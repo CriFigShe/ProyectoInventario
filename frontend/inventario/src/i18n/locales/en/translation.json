@@ -11,7 +11,7 @@
     "productNotes": "Notes",
     "productSupplier": "Supplier",
     "productActions": "Actions",
-    "noProducts": "No products saved",
+    "noProducts": "No saved products",
     "addProduct": "Add product",
     "addProductType": "Type of product",
     "editProduct": "Edit product",
@@ -23,11 +23,21 @@
     "supplierName": "Name",
     "supplierContact": "Contact",
     "supplierActions": "Actions",
-    "noSuppliers": "No suppliers saved",
+    "noSuppliers": "No saved suppliers",
     "addSupplier": "Add supplier",
     "editSupplier": "Edit supplier",
 
     "events": "Events",
+    "errorRemovingEvent": "Error removing an event",
+    "successRemovingEvent": "Event successfully removed",
+    "eventName": "Name",
+    "eventDate": "Date",
+    "eventDescription": "Description",
+    "eventActions": "Actions",
+    "noEvents": "No saved events",
+    "addEvent": "Add event",
+    "editEvent": "Edit event",
+
     "logOut": "Log Out",
     "inventory": "Inventory"
 }
