@@ -2,9 +2,20 @@ import { Burger, Drawer, Stack } from "@mantine/core";
 import { useState } from "react";
 import { Link } from "react-router";
 import "./Header.css";
+import { useTranslation } from "react-i18next";
+import i18n from "../i18n/i18n";
 
 export default function Header() {
   const [opened, setOpened] = useState(false);
+
+  function languageSelector() {
+    const { i18n } = useTranslation();
+  }
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+
   return (
     <header className="header">
       <Burger
@@ -58,6 +69,15 @@ export default function Header() {
           <Link className="drawerLink" to="#">
             a
           </Link>
+          <div className="drawerLink">
+            <select
+              onChange={(e) => changeLanguage(e.target.value)}
+              value={i18n.language}
+            >
+              <option value="es">Español</option>
+              <option value="en">English</option>
+            </select>
+          </div>
           <div
             className="drawerLink"
             onClick={() => {

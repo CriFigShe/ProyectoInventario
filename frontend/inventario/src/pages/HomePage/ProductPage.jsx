@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import { IconX, IconCheck } from "@tabler/icons-react";
 import { Notification } from "@mantine/core";
+import { useTranslation } from 'react-i18next';
 
 import { CiTrash } from "react-icons/ci";
 import { GoPencil } from "react-icons/go";
@@ -20,6 +21,8 @@ export default function ProductPage() {
   const { currentUser } = useContext(AuthContext);
 
   const [registerSucceed, setRegisterSucceed] = useState();
+
+  const { t } = useTranslation();
 
   const xIcon = <IconX size={20} />;
   const checkIcon = <IconCheck size={20} />;
@@ -100,7 +103,7 @@ export default function ProductPage() {
   return (
     <main className="productPage">
       <div className="productsTitle">
-        <h2>Productos</h2>
+        <h2>{t('products')}</h2>
         <Link to="/addProduct">
           <button className="addProduct">+</button>
         </Link>
@@ -110,7 +113,7 @@ export default function ProductPage() {
           <Notification
             icon={xIcon}
             color="red"
-            title="Error al eliminar un producto"
+            title={t('errorRemovingProduct')}
             withCloseButton={false}
           />
         )}
@@ -118,7 +121,7 @@ export default function ProductPage() {
           <Notification
             icon={checkIcon}
             color="teal"
-            title="Producto eliminado con exito"
+            title={t('succesRemovingProduct')}
             withCloseButton={false}
           />
         )}
@@ -127,14 +130,14 @@ export default function ProductPage() {
         {products.length > 0 && (
           <div className="productsContainer">
             <div className="listTitles">
-              <h3>Nombre</h3>
-              <h3>Tipo</h3>
-              <h3>Stock</h3>
-              <h3>Coste(€)</h3>
-              <h3>Precio(€)</h3>
-              <h3>Notas</h3>
-              <h3>Proveedor</h3>
-              <h3>Acciones</h3>
+              <h3>{t('productName')}</h3>
+              <h3>{t('productType')}</h3>
+              <h3>{t('productStock')}</h3>
+              <h3>{t('productCost')}</h3>
+              <h3>{t('productPrice')}</h3>
+              <h3>{t('productNotes')}</h3>
+              <h3>{t('productSupplier')}</h3>
+              <h3>{t('productActions')}</h3>
             </div>
             <div className="productsList">
               {products.map((product) => (
@@ -164,7 +167,7 @@ export default function ProductPage() {
             </div>
           </div>
         )}
-        {products.length == 0 && <p className="noProducts">No hay productos guardados.</p>}
+        {products.length == 0 && <p className="noProducts">{t('noProducts')}</p>}
       </div>
     </main>
   );

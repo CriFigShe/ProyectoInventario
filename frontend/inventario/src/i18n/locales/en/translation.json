@@ -1,0 +1,14 @@
+{
+    "products": "Products",
+    "errorRemovingProduct": "Error removing a product",
+    "successRemovingProduct": "Product successfully eliminated",
+    "productName": "Name",
+    "productType": "Type",
+    "productStock": "Stock",
+    "productCost": "Cost(€)",
+    "productPrice": "Price(€)",
+    "productNotes": "Notes",
+    "productSupplier": "Supplier",
+    "productActions": "Actions",
+    "noProducts": "No products saved"
+}

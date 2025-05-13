@@ -1,0 +1,14 @@
+{
+    "products": "Productos",
+    "errorRemovingProduct": "Error al eliminar un producto",
+    "successRemovingProduct": "Producto elimiando correctamente",
+    "productName": "Nombre",
+    "productType": "Tipo",
+    "productStock": "Stock",
+    "productCost": "Coste(€)",
+    "productPrice": "Precio(€)",
+    "productNotes": "Notas",
+    "productSupplier": "Proveedor",
+    "productActions": "Acciones",
+    "noProducts": "No hay productos guardados"
+}
