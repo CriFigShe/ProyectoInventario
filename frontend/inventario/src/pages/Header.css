@@ -1,17 +1,69 @@
-.header{
-    background-color: #f5c858;
-    width: 100%;
-    height: 15%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0
+.header {
+  background-color: #f5c858;
+  width: 100%;
+  height: 15%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
 }
 
-.hidden{
-    visibility: hidden;
+.hidden {
+  visibility: hidden;
 }
 
-h1{
-    color: white ;
+h1 {
+  color: white;
+}
+
+.drawerLink {
+  position: relative;
+  display: inline-block;
+  padding: 10px 8px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+  background-image: linear-gradient(to right, #eee, #eee);
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-position: left;
+  transition: background-size 0.4s ease, color 0.3s ease;
+}
+
+.drawerLink:hover {
+  background-size: 100% 100%;
+  color: #00bcd9;
+}
+
+.drawerLinkLanguages {
+  background-color: #00bcd9;
+  position: relative;
+  display: inline-block;
+  padding: 10px 8px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  border: 1px solid #00bcd9;
+  color: white;
+  text-decoration: none;
+  background-image: linear-gradient(to right, #eee, #eee);
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-position: left;
+  transition: background-size 0.4s ease, color 0.3s ease;
+}
+
+.drawerLinkLanguages:hover {
+  background-size: 100% 100%;
+  color: #00bcd9;
+}
+
+.languageOptions {
+    background-color: #00bcd9;
+    color: #eee;
+}
+
+.languageOptions:hover {
+    background-color: #eee;
+    color: #00bcd9;
 }

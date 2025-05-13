@@ -67,15 +67,14 @@ export default function Header() {
           <Link className="drawerLink" to="#">
             a
           </Link>
-          <div className="drawerLink">
             <select
+            className="drawerLinkLanguages"
               onChange={(e) => changeLanguage(e.target.value)}
               value={i18n.language}
             >
-              <option value="es">Español</option>
-              <option value="en">English</option>
+              <option value="es" className="languageOptions">Español</option>
+              <option value="en" className="languageOptions">English</option>
             </select>
-          </div>
           <div
             className="drawerLink"
             onClick={() => {

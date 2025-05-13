@@ -123,26 +123,6 @@ html {
   z-index: 10;
 }
 
-.drawerLink {
-  position: relative;
-  display: inline-block;
-  padding: 10px 8px;
-  font-size: 1.1rem;
-  border-radius: 10px;
-  color: white;
-  text-decoration: none;
-  background-image: linear-gradient(to right, #eee, #eee);
-  background-size: 0% 100%;
-  background-repeat: no-repeat;
-  background-position: left;
-  transition: background-size 0.4s ease, color 0.3s ease;
-}
-
-.drawerLink:hover {
-  background-size: 100% 100%;
-  color: #00bcd9;
-}
-
 .supplierActionButton {
   padding: 0 7px;
   margin: 0 5px;
