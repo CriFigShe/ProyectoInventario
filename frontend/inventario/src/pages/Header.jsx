@@ -27,7 +27,7 @@ export default function Header() {
       <Drawer
         opened={opened}
         onClose={() => setOpened(false)}
-        title="Menú"
+        title="Menu"
         padding="md"
         size="md"
         closeButtonProps={{
@@ -56,25 +56,29 @@ export default function Header() {
       >
         <Stack>
           <Link className="drawerLink" to="/home">
-            {t('products')}
+            {t("products")}
           </Link>
           <Link className="drawerLink" to="/suppliers">
-            {t('suppliers')}
+            {t("suppliers")}
           </Link>
           <Link className="drawerLink" to="/events">
-            {t('events')}
+            {t("events")}
           </Link>
           <Link className="drawerLink" to="#">
             a
           </Link>
-            <select
+          <select
             className="drawerLinkLanguages"
-              onChange={(e) => changeLanguage(e.target.value)}
-              value={i18n.language}
-            >
-              <option value="es" className="languageOptions">Español</option>
-              <option value="en" className="languageOptions">English</option>
-            </select>
+            onChange={(e) => changeLanguage(e.target.value)}
+            value={i18n.language}
+          >
+            <option value="es" className="languageOptions">
+              Español
+            </option>
+            <option value="en" className="languageOptions">
+              English
+            </option>
+          </select>
           <div
             className="drawerLink"
             onClick={() => {
@@ -82,12 +86,12 @@ export default function Header() {
               navigate("/");
             }}
           >
-            {t('logOut')}
+            {t("logOut")}
           </div>
         </Stack>
       </Drawer>
       <p className="hidden">Espanol , Ingles</p>
-      <h1>{t('inventory')}</h1>
+      <h1>{t("inventory")}</h1>
       <p className="hidden">Espanol , Ingles</p>
     </header>
   );

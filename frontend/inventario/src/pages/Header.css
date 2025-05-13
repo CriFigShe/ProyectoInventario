@@ -51,6 +51,7 @@ h1 {
   background-repeat: no-repeat;
   background-position: left;
   transition: background-size 0.4s ease, color 0.3s ease;
+  margin-top: 32rem;
 }
 
 .drawerLinkLanguages:hover {
@@ -59,11 +60,11 @@ h1 {
 }
 
 .languageOptions {
-    background-color: #00bcd9;
-    color: #eee;
+  background-color: #00bcd9;
+  color: #eee;
 }
 
 .languageOptions:hover {
-    background-color: #eee;
-    color: #00bcd9;
+  background-color: #eee;
+  color: #00bcd9;
 }
