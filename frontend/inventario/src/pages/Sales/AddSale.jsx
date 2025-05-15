@@ -96,7 +96,7 @@ export default function AddSale() {
         </div>
         <div className="formGroup">
           <label>{t('saleProfit')}</label>
-          <textarea name="notes" onChange={handleChange} required></textarea>
+          <input type="number" name="cost" onChange={handleChange} required />
         </div>
         {/* <div className="formGroup">
           <label>{t('saleProduct')}</label>
