@@ -52,9 +52,10 @@
   "saleDate": "Fecha",
   "salePayment": "Metodo de pago",
   "saleTaxes": "Impuestos",
-  "salePAckagePrice": "Precio del paquete",
+  "salePackagePrice": "Precio del paquete",
   "saleShippingPrice": "Gastos de envío",
   "saleProfit": "Beneficio",
   "saleActions": "Acciones",
-  "noSales": "No hay ventas guardadas"
+  "noSales": "No hay ventas guardadas",
+  "addSale": "Añadir venta"
 }

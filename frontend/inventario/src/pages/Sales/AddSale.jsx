@@ -66,14 +66,14 @@ export default function AddSale() {
 
   return (
     <div className="addForm">
-        <h2>Añadir venta</h2>
+        <h2>{t('addSale')}</h2>
         <form onSubmit={handleSubmit} noValidate>
         <div className="formGroup">
           <label>{t('saleDate')}</label>
           <input type="date" name="date" onChange={handleChange} required />
         </div>
         <div className="formGroup">
-          <label>{t('addSalePayment')}</label>
+          <label>{t('salePayment')}</label>
           <select name="payment" onChange={handleChange} required>
             <option value="">-- {t('salePayment')} --</option>
             <option value="tarjeta">Tarjeta</option>
@@ -83,33 +83,33 @@ export default function AddSale() {
           </select>
         </div>
         <div className="formGroup">
-          <label>{t('productStock')}</label>
+          <label>{t('saleTaxes')}</label>
           <input type="number" name="stock" onChange={handleChange} required />
         </div>
         <div className="formGroup">
-          <label>{t('productCost')}</label>
+          <label>{t('salePackagePrice')}</label>
           <input type="number" name="cost" onChange={handleChange} required />
         </div>
         <div className="formGroup">
-          <label>{t('productPVP')}</label>
+          <label>{t('saleShippingPrice')}</label>
           <input type="number" name="pvp" onChange={handleChange} required />
         </div>
         <div className="formGroup">
-          <label>{t('productNotes')}</label>
+          <label>{t('saleProfit')}</label>
           <textarea name="notes" onChange={handleChange} required></textarea>
         </div>
-        <div className="formGroup">
-          <label>{t('productSupplier')}</label>
-          <select name="supplierId" onChange={handleChange} required>
-            <option value="">-- {t('productSupplier')} --</option>
-            {suppliers.map((supplier) => (
-              <option key={supplier.id} value={supplier.id}>
-                {supplier.name}
+        {/* <div className="formGroup">
+          <label>{t('saleProduct')}</label>
+          <select name="productId" onChange={handleChange} required>
+            <option value="">-- {t('saleProduct')} --</option>
+            {products.map((product) => (
+              <option key={product.id} value={product.id}>
+                {product.name}
               </option>
             ))}
           </select>
-        </div>
-        <button type="submit" className="addProductButton">{t('addProduct')}</button>
+        </div> */}
+        <button type="submit" className="addSaleButton">{t('addSale')}</button>
       </form>
     </div>
   );

@@ -56,5 +56,6 @@
   "saleShippingPrice": "Shipping price",
   "saleProfit": "Profit",
   "saleActions": "Actions",
-  "noSales": "No saved sales"
+  "noSales": "No saved sales",
+  "addSale": "Add sale"
 }
