@@ -150,6 +150,7 @@ export default function Sales() {
               <h3>{t("salePackagePrice")}</h3>
               <h3>{t("saleShippingPrice")}</h3>
               <h3>{t("saleProfit")}</h3>
+              <h3>Productos</h3>
               <h3>{t("saleActions")}</h3>
             </div>
             <div className="salesList">
@@ -161,7 +162,6 @@ export default function Sales() {
                   <p>{sale.package_price}</p>
                   <p>{sale.shipping_price}</p>
                   <p>{sale.profit}</p>
-                  <p>{renderTextWithEllipsis(sale.notes)}</p>
                   {/* <p>{products[sale.productId]}</p> */}
                   <p>
                     <Link to={`/editSale/${sale.id}`}>

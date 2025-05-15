@@ -23,6 +23,7 @@ import AddEvent from "./Events/AddEvent";
 /////////////
 
 import Sales from "./Sales/Sales";
+import AddSale from "./Sales/AddSale";
 
 const Router = () => {
   return (
@@ -39,6 +40,7 @@ const Router = () => {
       <Route path="/editEvent/:id" element={<EditEvent />}/>
       <Route path="/addEvents" element={<AddEvent />}/>
       <Route path="/sales" element={<Sales />}/>
+      <Route path="/addSale" element={<AddSale />}/>
     </Routes>
   );
 };

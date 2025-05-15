@@ -58,4 +58,4 @@ async function createTables(pool) {
     )`);
 }
 
-module.exports = {createTables};
+module.exports = { createTables };
