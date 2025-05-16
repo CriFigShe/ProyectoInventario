@@ -11,14 +11,14 @@ export default function AddSale() {
   const [sale, setSale] = useState({
     date: "",
     payment: "",
-    taxes: "",
-    package_price: "",
-    shipping_price: "",
-    profit: "",
-    // products: "",
+    taxes: 0,
+    package_price: 0,
+    shipping_price: 0,
+    profit: 0,
+    products: [],
     userId: currentUser.userId,
   });
-  const [products, setProducts] = useTranslation([]);
+  const [products, setProducts] = useState([]);
 
   const { t } = useTranslation();
 
@@ -46,13 +46,20 @@ export default function AddSale() {
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setSale((prev) => ({ ...prev, [name]: value }));
+    const { name, value, multiple, selectedOptions } = e.target;
+
+    if (multiple) {
+      const values = Array.from(selectedOptions, (option) => option.value);
+      setSale((prev) => ({ ...prev, [name]: values }));
+    } else {
+      setSale((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(sale);
       await axios.post("http://localhost:5000/sales", sale, {
         headers: {
           Authorization: `${currentUser.token}`,
@@ -66,50 +73,72 @@ export default function AddSale() {
 
   return (
     <div className="addForm">
-        <h2>{t('addSale')}</h2>
-        <form onSubmit={handleSubmit} noValidate>
+      <h2>{t("addSale")}</h2>
+      <form onSubmit={handleSubmit} noValidate>
         <div className="formGroup">
-          <label>{t('saleDate')}</label>
+          <label>{t("saleDate")}</label>
           <input type="date" name="date" onChange={handleChange} required />
         </div>
         <div className="formGroup">
-          <label>{t('salePayment')}</label>
+          <label>{t("salePayment")}</label>
           <select name="payment" onChange={handleChange} required>
-            <option value="">-- {t('salePayment')} --</option>
-            <option value="tarjeta">Tarjeta</option>
-            <option value="efectivo">Efectivo</option>
-            <option value="transferencia">Tranferencia</option>
-            <option value="bizum">Bizum</option>
+            <option value="">-- {t("salePayment")} --</option>
+            <option value="Tarjeta">Tarjeta</option>
+            <option value="Efectivo">Efectivo</option>
+            <option value="Transferencia">Tranferencia</option>
+            <option value="Bizum">Bizum</option>
           </select>
         </div>
         <div className="formGroup">
-          <label>{t('saleTaxes')}</label>
-          <input type="number" name="stock" onChange={handleChange} required />
+          <label>{t("saleTaxes")}</label>
+          <input type="number" name="taxes" onChange={handleChange} required />
         </div>
         <div className="formGroup">
-          <label>{t('salePackagePrice')}</label>
-          <input type="number" name="cost" onChange={handleChange} required />
+          <label>{t("salePackagePrice")}</label>
+          <input
+            type="number"
+            name="package_price"
+            onChange={handleChange}
+            required
+          />
         </div>
         <div className="formGroup">
-          <label>{t('saleShippingPrice')}</label>
-          <input type="number" name="pvp" onChange={handleChange} required />
+          <label>{t("saleShippingPrice")}</label>
+          <input
+            type="number"
+            name="shipping_price"
+            onChange={handleChange}
+            required
+          />
         </div>
         <div className="formGroup">
-          <label>{t('saleProfit')}</label>
-          <input type="number" name="cost" onChange={handleChange} required />
+          <label>{t("saleProfit")}</label>
+          <input type="number" name="profit" onChange={handleChange} required />
         </div>
-        {/* <div className="formGroup">
-          <label>{t('saleProduct')}</label>
-          <select name="productId" onChange={handleChange} required>
-            <option value="">-- {t('saleProduct')} --</option>
+        <div className="formGroup">
+          <label>{t("products")}</label>
+          <select
+            className="selectProducts"
+            name="products"
+            multiple
+            onChange={(e) => {
+              const selected = Array.from(
+                e.target.selectedOptions,
+                (opt) => opt.value
+              );
+              setSale((prev) => ({ ...prev, products: selected }));
+            }}
+          >
             {products.map((product) => (
               <option key={product.id} value={product.id}>
                 {product.name}
               </option>
             ))}
           </select>
-        </div> */}
-        <button type="submit" className="addSaleButton">{t('addSale')}</button>
+        </div>
+        <button type="submit" className="addSaleButton">
+          {t("addSale")}
+        </button>
       </form>
     </div>
   );

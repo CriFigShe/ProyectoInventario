@@ -7,5 +7,6 @@ module.exports = Joi.object({
     package_price: Joi.number().precision(2).required(),
     shipping_price: Joi.number().precision(2).required(),
     profit: Joi.number().precision(2).required(),
+    products: Joi.array().items(Joi.string().uuid()).required(),
     userId: Joi.string().required()
 });

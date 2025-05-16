@@ -54,7 +54,7 @@ export default function Sales() {
         );
         const productsMap = {};
         productsResponse.data.data.forEach((product) => {
-          productsMap[product.id] = Suppliers.name;
+          productsMap[product.id] = products.name;
         });
         setProducts(productsMap);
         setSales(salesResponse.data.data);
@@ -150,7 +150,7 @@ export default function Sales() {
               <h3>{t("salePackagePrice")}</h3>
               <h3>{t("saleShippingPrice")}</h3>
               <h3>{t("saleProfit")}</h3>
-              <h3>Productos</h3>
+              <h3>{t("products")}</h3>
               <h3>{t("saleActions")}</h3>
             </div>
             <div className="salesList">
@@ -162,7 +162,7 @@ export default function Sales() {
                   <p>{sale.package_price}</p>
                   <p>{sale.shipping_price}</p>
                   <p>{sale.profit}</p>
-                  {/* <p>{products[sale.productId]}</p> */}
+                  <p>{products[sale.productId]}</p>
                   <p>
                     <Link to={`/editSale/${sale.id}`}>
                       <button className="saleActionButton">
@@ -181,9 +181,7 @@ export default function Sales() {
             </div>
           </div>
         )}
-        {sales.length == 0 && (
-          <p className="noSales">{t("noSales")}</p>
-        )}
+        {sales.length == 0 && <p className="noSales">{t("noSales")}</p>}
       </div>
     </main>
   );

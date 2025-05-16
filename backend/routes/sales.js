@@ -10,54 +10,64 @@ const { viewSale } = require("../use-cases/view-detail");
 const { createSale } = require("../use-cases/add");
 const { removeSale } = require("../use-cases/remove");
 const { listSales } = require("../use-cases/list");
+const { listSaleProducts } = require("../use-cases/list_sale_products");
 const router = Router();
 
 router.post(
-    "/sales",
-    json(),
-    authGuard,
-    validateBody(postSalePayload),
-    handleAsyncError(async (req, res) => {
-        await createSale(req.body);
-        sendResponse(res, undefined, 201);
-    })
+  "/sales",
+  json(),
+  authGuard,
+//   validateBody(postSalePayload),
+  handleAsyncError(async (req, res) => {
+    await createSale(req.body);
+    sendResponse(res, undefined, 201);
+  })
 );
 
 router.get(
-    "/sales/users/:userId",
-    authGuard,
-    handleAsyncError(async (req, res) => {
-       const sales = await listSales(req.params.userId);
-        sendResponse(res, sales);
-    })
+  "/sales/users/:userId",
+  authGuard,
+  handleAsyncError(async (req, res) => {
+    const sales = await listSales(req.params.userId);
+    sendResponse(res, sales);
+  })
 );
 
 router.get(
-    "/sales/:id",
-    handleAsyncError(async (req, res) => {
-        const sale = await viewSale(req.params.id);
-        sendResponse(res, sale);
-    })
+  "/sales/:id/products",
+  authGuard,
+  handleAsyncError(async (req, res) => {
+    const products = await listSaleProducts(req.params.id);
+    sendResponse(res, products);
+  })
+);
+
+router.get(
+  "/sales/:id",
+  handleAsyncError(async (req, res) => {
+    const sale = await viewSale(req.params.id);
+    sendResponse(res, sale);
+  })
 );
 
 router.put(
-    "/sales/:id",
-    json(),
-    authGuard,
-    validateBody(editSalePayload),
-    handleAsyncError(async (req, res) => {
-        await editSale(req.body, req.params.id);
-        sendResponse(res);
-    })
+  "/sales/:id",
+  json(),
+  authGuard,
+  validateBody(editSalePayload),
+  handleAsyncError(async (req, res) => {
+    await editSale(req.body, req.params.id);
+    sendResponse(res);
+  })
 );
 
 router.delete(
-    "/sales/:id",
-    authGuard,
-    handleAsyncError(async (req, res) => {
-        await removeSale(req.params.id);
-        sendResponse(res);
-    })
+  "/sales/:id",
+  authGuard,
+  handleAsyncError(async (req, res) => {
+    await removeSale(req.params.id);
+    sendResponse(res);
+  })
 );
 
 module.exports = router;
