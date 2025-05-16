@@ -13,7 +13,7 @@ async function addProductToSale(productSale){
 }
 
 async function getProductsBySale(saleId){
-    const stmt = `SELECT sp.*, p.name, p.type FROM product_sales ps JOIN products p ON ps.product_id = p.id WHERE ps.sale_id = ?`;
+   const stmt = `SELECT ps.*, p.name, p.type FROM product_sales ps JOIN products p ON ps.product_id = p.id WHERE ps.sales_id = ?`;
 
     const [rows] = await db.execute(stmt, [saleId]);
     return rows;
