@@ -1,0 +1,57 @@
+import "./Calendar.css";
+import { useState, useEffect, useContext } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import axios from "axios";
+import { useTranslation } from "react-i18next";
+import AuthContext from "../../context/AuthContext";
+import { useNavigate } from "react-router";
+
+export default function Calendario() {
+  const [events, setEvents] = useState([]);
+  const [value, setValue] = useState(new Date());
+
+  const navigate = useNavigate();
+
+  const { t } = useTranslation();
+
+  const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        if (!currentUser.token) {
+          navigate("/");
+        }
+        const response = await axios.get(
+          `http://localhost:5000/events/users/${currentUser.userId}`,
+          {
+            headers: {
+              Authorization: `${currentUser.token}`,
+            },
+          }
+        );
+        setEvents(response.data);
+      } catch (error) {
+        console.error("Error recogiendo los eventos", error.message);
+      }
+    };
+
+    fetchEvents();
+  }, [currentUser]);
+
+  const titleName = ({ date, view }) => {
+    if (view == "month") {
+      const hasEvents = events.some(
+        (event) => new Date(event.date).toDateString === date.toString()
+      );
+      return hasEvents ? "highlight" : null;
+    }
+  };
+
+  return (
+    <div>
+      <Calendar onChange={setValue} value={value} titleClassName={titleName} />
+    </div>
+  );
+}

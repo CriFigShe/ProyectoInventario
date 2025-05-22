@@ -33,6 +33,7 @@ async function createEvent(postPayload){
 }
 
 async function createSale(postPayload){
+    console.log(postPayload);
     const post = {
         id: generateUUID(),
         date: postPayload.date,

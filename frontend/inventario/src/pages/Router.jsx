@@ -19,6 +19,7 @@ import AddSupplier from "./Suppliers/AddSupplier";
 import Events from "./Events/Events";
 import EditEvent from "./Events/EditEvent";
 import AddEvent from "./Events/AddEvent";
+import Calendario from "./Events/Calendar";
 
 /////////////
 
@@ -39,6 +40,7 @@ const Router = () => {
       <Route path="/events" element={<Events />}/>
       <Route path="/editEvent/:id" element={<EditEvent />}/>
       <Route path="/addEvents" element={<AddEvent />}/>
+      <Route path="/calendar" element={<Calendario />}/>
       <Route path="/sales" element={<Sales />}/>
       <Route path="/addSale" element={<AddSale />}/>
     </Routes>

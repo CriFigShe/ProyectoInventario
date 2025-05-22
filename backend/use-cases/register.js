@@ -4,11 +4,6 @@ const { hashPassword, generateUUID, generateValidationCode } = require("../servi
 const { getTimestampMinutesFromNow } = require("../services/time");
 
 async function registerUser(userData){
-    // const oldUser = await getUserByEmail(userData.email);
-    // if(oldUser){
-    //     emailAlreadyRegistered();
-    // }
-
     const hashedPassword = await hashPassword(userData.password);
     const newUserId = generateUUID();
 

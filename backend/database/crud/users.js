@@ -3,7 +3,6 @@ const { getConection } = require("../connection.js");
 const db = getConection();
 
 
-//funciona
 async function saveUser(user){
     const stmt = `INSERT INTO users(id, name, password, email) VALUES (?, ?, ?, ?)`;
 
@@ -55,7 +54,6 @@ async function getAllUsers(){
     return rows;
 }
 
-//Funciones utilizadas en el login
 async function getPassword(email){
     const stmt = `SELECT password FROM users WHERE email = ?`;
 

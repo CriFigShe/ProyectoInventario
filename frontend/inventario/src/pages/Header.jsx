@@ -67,6 +67,9 @@ export default function Header() {
           <Link className="drawerLink" to="/sales">
             {t('sales')}
           </Link>
+          <Link className="drawerLink" to="/calendar">
+            {t('calendar')}
+          </Link>
           <select
             className="drawerLinkLanguages"
             onChange={(e) => changeLanguage(e.target.value)}

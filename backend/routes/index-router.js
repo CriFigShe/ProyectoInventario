@@ -1,4 +1,3 @@
-//Todas las rutas en un unico index
 const { Router } = require("express");
 const usersRouter = require("./users");
 const eventsRouter = require("./events");

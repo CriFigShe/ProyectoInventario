@@ -17,7 +17,7 @@ router.post(
   "/sales",
   json(),
   authGuard,
-//   validateBody(postSalePayload),
+  validateBody(postSalePayload),
   handleAsyncError(async (req, res) => {
     await createSale(req.body);
     sendResponse(res, undefined, 201);

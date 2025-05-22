@@ -59,5 +59,7 @@
   "noSales": "No hay ventas guardadas",
   "addSale": "Añadir venta",
 
-   "lowStockAlert": "El producto {{productName}} tiene poco stock{{count}}"
+   "lowStockAlert": "El producto {{productName}} tiene poco stock{{count}}",
+
+   "calendar": "Calendario"
 }

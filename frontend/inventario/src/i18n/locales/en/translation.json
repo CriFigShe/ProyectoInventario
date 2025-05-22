@@ -59,5 +59,7 @@
   "noSales": "No saved sales",
   "addSale": "Add sale",
 
-   "lowStockAlert": "The product {{productName}} has low stock{{count}}"
+   "lowStockAlert": "The product {{productName}} has low stock{{count}}",
+
+   "calendar": "Calendar"
 }
