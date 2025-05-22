@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
-import { IconX, IconCheck } from "@tabler/icons-react";
+import { IconX, IconCheck, IconAlertCircle } from "@tabler/icons-react";
 import { Notification } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import DeleteModal from "../../components/DeleteModal";
@@ -18,6 +18,7 @@ export default function ProductPage() {
   const [error, setError] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
+  const [alertaStockBajo, setAlertaStockBajo] = useState(false);
 
   const navigate = useNavigate();
 
@@ -29,6 +30,7 @@ export default function ProductPage() {
 
   const xIcon = <IconX size={20} />;
   const checkIcon = <IconCheck size={20} />;
+  const alertIcon = <IconAlertCircle size={20} />;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -67,10 +69,29 @@ export default function ProductPage() {
   }, [currentUser]);
 
   useEffect(() => {
+    if (products.length > 0 && !alertaStockBajo) {
+      const productosStockBajo = products.filter((p) => p.stock < 5);
+      if (productosStockBajo.length > 0) {
+        setAlertaStockBajo(true);
+        setRegisterSucceed({
+          type: "warning",
+          message: t("lowStockAlert", {
+            productName: productosStockBajo[0].name,
+            count:
+              productosStockBajo.length > 1
+                ? ` y ${productosStockBajo.length - 1} mas`
+                : "",
+          }),
+        });
+      }
+    }
+  }, [products, alertaStockBajo, t]);
+
+  useEffect(() => {
     if (registerSucceed !== undefined) {
       const timer = setTimeout(() => {
         setRegisterSucceed(undefined);
-      }, 3000);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [registerSucceed]);
@@ -85,11 +106,14 @@ export default function ProductPage() {
   const confirmDeleteProduct = async () => {
     if (!productToDelete) return;
     try {
-      await axios.delete(`http://localhost:5000/products/${productToDelete.id}`, {
-        headers: {
-          Authorization: `${currentUser.token}`,
-        },
-      });
+      await axios.delete(
+        `http://localhost:5000/products/${productToDelete.id}`,
+        {
+          headers: {
+            Authorization: `${currentUser.token}`,
+          },
+        }
+      );
       setRegisterSucceed(true);
       setProducts(products.filter((p) => p.id !== productToDelete.id));
       setError(null);
@@ -108,6 +132,17 @@ export default function ProductPage() {
     </span>
   );
 
+  const renderProductNameWithIndicator = (product) => {
+    return (
+      <div className="productNameContainer">
+        {product.stock < 5 && (
+          <span className="lowStockDot" title="Stock bajo"></span>
+        )}
+        <span>{product.name}</span>
+      </div>
+    );
+  };
+
   return (
     <main className="productPage">
       <DeleteModal
@@ -123,19 +158,27 @@ export default function ProductPage() {
         </Link>
       </div>
       <div className="notificationContainer">
-        {registerSucceed == false && (
+        {registerSucceed?.type === "error" && (
           <Notification
             icon={xIcon}
             color="red"
-            title={t("errorRemovingProduct")}
+            title={registerSucceed.message}
             withCloseButton={false}
           />
         )}
-        {registerSucceed == true && (
+        {registerSucceed?.type === "success" && (
           <Notification
             icon={checkIcon}
             color="teal"
-            title={t("succesRemovingProduct")}
+            title={registerSucceed.message}
+            withCloseButton={false}
+          />
+        )}
+        {registerSucceed?.type === "warning" && (
+          <Notification
+            icon={alertIcon}
+            color="yellow"
+            title={registerSucceed.message}
             withCloseButton={false}
           />
         )}
@@ -156,7 +199,7 @@ export default function ProductPage() {
             <div className="productsList">
               {products.map((product) => (
                 <div key={product.id} className="productCard">
-                  <p>{product.name}</p>
+                  <p>{renderProductNameWithIndicator(product)}</p>
                   <p>{product.type}</p>
                   <p>{product.stock}</p>
                   <p>{product.cost}</p>

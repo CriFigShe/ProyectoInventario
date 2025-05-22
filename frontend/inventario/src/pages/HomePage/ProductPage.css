@@ -142,3 +142,45 @@ html {
 .noProducts{
   color: #00bcd9;
 }
+
+.lowStockDot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #f5c858;
+  margin-left: 5px;
+}
+
+.stockIndicator {
+  display: flex;
+  align-items: center;
+}
+
+.notificationContainer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.productNameContainer {
+  position: relative;
+  display: inline-block;
+  padding-left: 15px;
+}
+
+.lowStockDot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #f5c858;
+  transform: translateY(-50%);
+}
+
+.productCard p {
+  position: relative;
+}

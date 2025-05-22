@@ -57,5 +57,7 @@
   "saleProfit": "Profit",
   "saleActions": "Actions",
   "noSales": "No saved sales",
-  "addSale": "Add sale"
+  "addSale": "Add sale",
+
+   "lowStockAlert": "The product {{productName}} has low stock{{count}}"
 }

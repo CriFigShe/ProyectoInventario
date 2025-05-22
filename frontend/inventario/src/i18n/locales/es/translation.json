@@ -57,5 +57,7 @@
   "saleProfit": "Beneficio",
   "saleActions": "Acciones",
   "noSales": "No hay ventas guardadas",
-  "addSale": "Añadir venta"
+  "addSale": "Añadir venta",
+
+   "lowStockAlert": "El producto {{productName}} tiene poco stock{{count}}"
 }
