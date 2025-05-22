@@ -166,19 +166,19 @@ export default function ProductPage() {
             withCloseButton={false}
           />
         )}
-        {registerSucceed?.type === "success" && (
+        {registerSucceed == false && (
           <Notification
-            icon={checkIcon}
-            color="teal"
-            title={registerSucceed.message}
+            icon={xIcon}
+            color="red"
+            title={t("errorRemovingProduct")}
             withCloseButton={false}
           />
         )}
-        {registerSucceed?.type === "warning" && (
+        {registerSucceed == true && (
           <Notification
-            icon={alertIcon}
-            color="yellow"
-            title={registerSucceed.message}
+            icon={checkIcon}
+            color="teal"
+            title={t("succesRemovingProduct")}
             withCloseButton={false}
           />
         )}
