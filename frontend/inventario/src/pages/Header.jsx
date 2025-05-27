@@ -1,8 +1,9 @@
 import { Burger, Drawer, Stack } from "@mantine/core";
-import { useState } from "react";
-import { Link } from "react-router";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router";
 import "./Header.css";
 import { useTranslation } from "react-i18next";
+import AuthContext from "../context/AuthContext";
 import i18n from "../i18n/i18n";
 
 export default function Header() {
@@ -10,8 +11,19 @@ export default function Header() {
 
   const { i18n, t } = useTranslation();
 
+  const { setCurrentUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
+    setCurrentUser();
+    navigate("/");
   };
 
   return (
@@ -65,10 +77,10 @@ export default function Header() {
             {t("events")}
           </Link>
           <Link className="drawerLink" to="/sales">
-            {t('sales')}
+            {t("sales")}
           </Link>
           <Link className="drawerLink" to="/calendar">
-            {t('calendar')}
+            {t("calendar")}
           </Link>
           <select
             className="drawerLinkLanguages"

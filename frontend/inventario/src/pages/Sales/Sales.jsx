@@ -54,10 +54,33 @@ export default function Sales() {
         );
         const productsMap = {};
         productsResponse.data.data.forEach((product) => {
-          productsMap[product.id] = products.name;
+          productsMap[product.id] = product.name;
         });
         setProducts(productsMap);
-        setSales(salesResponse.data.data);
+
+        const sales = salesResponse.data.data.map((sale) => {
+          let productIds = [];
+
+          if (typeof sale.products === "string") {
+            try {
+              productIds = JSON.parse(sale.products);
+            } catch (e) {
+              console.warn("Error parseando sale.products:", sale.products);
+            }
+          }
+
+          const productObjects = productIds.map((id) => ({
+            id,
+            name: productsMap[id] || "Producto desconocido",
+          }));
+
+          return {
+            ...sale,
+            products: productObjects,
+          };
+        });
+
+        setSales(sales);
       } catch (error) {
         setError(error.message);
       }
@@ -154,30 +177,34 @@ export default function Sales() {
               <h3>{t("saleActions")}</h3>
             </div>
             <div className="salesList">
-              {sales.map((sale) => (
-                <div key={sale.id} className="saleCard">
-                  <p>{sale.date}</p>
-                  <p>{sale.payment}</p>
-                  <p>{sale.taxes}</p>
-                  <p>{sale.package_price}</p>
-                  <p>{sale.shipping_price}</p>
-                  <p>{sale.profit}</p>
-                  <p>{products[sale.productId]}</p>
-                  <p>
-                    <Link to={`/editSale/${sale.id}`}>
-                      <button className="saleActionButton">
-                        <GoPencil />
+              {sales.map((sale) => {
+                  <div key={sale.id} className="saleCard">
+                    <p>{sale.date}</p>
+                    <p>{sale.payment}</p>
+                    <p>{sale.taxes}</p>
+                    <p>{sale.package_price}</p>
+                    <p>{sale.shipping_price}</p>
+                    <p>{sale.profit}</p>
+                    <div className="products">
+                    {sale.products.map((product) => (
+                      <p key={product.id}>{product.name}</p>
+                    ))}
+                    </div>
+                    <p>
+                      <Link to={`/editSale/${sale.id}`}>
+                        <button className="saleActionButton">
+                          <GoPencil />
+                        </button>
+                      </Link>
+                      <button
+                        className="saleActionButton"
+                        onClick={() => openDeleteModal(sale)}
+                      >
+                        <CiTrash />
                       </button>
-                    </Link>
-                    <button
-                      className="saleActionButton"
-                      onClick={() => openDeleteModal(sale)}
-                    >
-                      <CiTrash />
-                    </button>
-                  </p>
-                </div>
-              ))}
+                    </p>
+                  </div>
+              })}
             </div>
           </div>
         )}

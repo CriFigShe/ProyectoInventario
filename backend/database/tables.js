@@ -36,6 +36,7 @@ async function createTables(pool) {
     package_price FLOAT NOT NULL,
     shipping_price FLOAT NOT NULL,
     profit FLOAT NOT NULL,
+    products VARCHAR(255),
     userId VARCHAR(100),
     FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
     )`);
