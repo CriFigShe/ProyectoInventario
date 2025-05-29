@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import AuthContext from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
+import { MultiSelect } from "@mantine/core";
 
 export default function AddSale() {
   const navigate = useNavigate();
@@ -71,6 +72,11 @@ export default function AddSale() {
     }
   };
 
+  const productOptions = products.map((product) => ({
+    value: product.id.toString(),
+    label: product.name,
+  }));
+
   return (
     <div className="addForm">
       <h2>{t("addSale")}</h2>
@@ -115,27 +121,19 @@ export default function AddSale() {
           <label>{t("saleProfit")}</label>
           <input type="number" name="profit" onChange={handleChange} required />
         </div>
-        <div className="formGroup">
-          <label>{t("products")}</label>
-          <select
-            className="selectProducts"
-            name="products"
-            multiple
-            onChange={(e) => {
-              const selected = Array.from(
-                e.target.selectedOptions,
-                (opt) => opt.value
-              );
-              setSale((prev) => ({ ...prev, products: selected }));
-            }}
-          >
-            {products.map((product) => (
-              <option key={product.id} value={product.id}>
-                {product.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <label>{t("products")}</label>
+        <MultiSelect
+          className="selectProducts"
+          data={productOptions}
+          value={sale.products || []}
+          onChange={(selected) =>
+            setSale((prev) => ({ ...prev, products: selected }))
+          }
+          placeholder="Selecciona productos"
+          searchable
+          nothingFound="No se encontraron productos"
+          clearable
+        />
         <button type="submit" className="addSaleButton">
           {t("addSale")}
         </button>

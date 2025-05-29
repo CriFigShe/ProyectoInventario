@@ -142,7 +142,7 @@ export default function Events() {
               {events.map((event) => (
                 <div key={event.id} className="eventCard">
                   <p>{event.name}</p>
-                  <p>{event.date}</p>
+                  <p>{new Date(event.date).toLocaleDateString("en-CA")}</p>
                   <p>{event.description}</p>
                   <p>
                     <Link to={`/editEvent/${event.id}`}>

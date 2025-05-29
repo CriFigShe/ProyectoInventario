@@ -51,3 +51,9 @@
   color: #ffffff;
   cursor: pointer;
 }
+
+.selectProducts{
+  border: 1px solid #00bcd9;
+  border-radius: 5px;
+  color: #00bcd9;
+}

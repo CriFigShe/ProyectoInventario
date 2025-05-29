@@ -158,7 +158,7 @@ export default function Sales() {
           <Notification
             icon={checkIcon}
             color="teal"
-            title={t("succesRemovingSale")}
+            title={t("successRemovingSale")}
             withCloseButton={false}
           />
         )}
@@ -178,17 +178,18 @@ export default function Sales() {
             </div>
             <div className="salesList">
               {sales.map((sale) => {
+                return (
                   <div key={sale.id} className="saleCard">
-                    <p>{sale.date}</p>
+                    <p>{new Date(sale.date).toLocaleDateString("en-CA")}</p>
                     <p>{sale.payment}</p>
                     <p>{sale.taxes}</p>
                     <p>{sale.package_price}</p>
                     <p>{sale.shipping_price}</p>
                     <p>{sale.profit}</p>
                     <div className="products">
-                    {sale.products.map((product) => (
-                      <p key={product.id}>{product.name}</p>
-                    ))}
+                      {sale.products.map((product) => (
+                        <p key={product.id}>{product.name}</p>
+                      ))}
                     </div>
                     <p>
                       <Link to={`/editSale/${sale.id}`}>
@@ -204,6 +205,7 @@ export default function Sales() {
                       </button>
                     </p>
                   </div>
+                );
               })}
             </div>
           </div>
