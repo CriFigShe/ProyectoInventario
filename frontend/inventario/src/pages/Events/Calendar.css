@@ -1,5 +1,30 @@
+.contenedorCalendario{
+  height: 100vh;
+  background-color: aqua;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.react-calendar{
+  border: 2px solid #f5c858 !important;
+  border-radius: 10px;
+}
+
 .highlight {
-  background: #007bff !important;
+  height: 40px;
+  width: 40px;
+  background: #00bcd9 !important;
   color: white !important;
   border-radius: 50%;
+}
+
+.react-calendar__month-view__weekdays{
+  color: #00bcd9;
+  text-decoration: none;
+}
+
+.react-calendar__month-view__days{
+  color: #f5c858;
 }

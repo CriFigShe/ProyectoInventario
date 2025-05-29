@@ -12,9 +12,7 @@ export default function Calendario() {
   const [value, setValue] = useState(new Date());
 
   const navigate = useNavigate();
-
   const { t } = useTranslation();
-
   const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
@@ -31,7 +29,8 @@ export default function Calendario() {
             },
           }
         );
-        setEvents(response.data);
+        console.log(response.data.data);
+        setEvents(response.data.data);
       } catch (error) {
         console.error("Error recogiendo los eventos", error.message);
       }
@@ -40,18 +39,24 @@ export default function Calendario() {
     fetchEvents();
   }, [currentUser]);
 
-  const titleName = ({ date, view }) => {
-    if (view == "month") {
-      const hasEvents = events.some(
-        (event) => new Date(event.date).toDateString === date.toString()
+  const tileClassName = ({ date, view }) => {
+    if (view === "month") {
+      const dayHasEvent = events.some(
+        (event) =>
+          new Date(event.date).toDateString() === date.toDateString()
       );
-      return hasEvents ? "highlight" : null;
+      return dayHasEvent ? "highlight" : null;
     }
   };
 
   return (
-    <div>
-      <Calendar onChange={setValue} value={value} titleClassName={titleName} />
+    <div className="contenedorCalendario">
+      <Calendar
+      className="cal"
+        onChange={setValue}
+        value={value}
+        tileClassName={tileClassName}
+      />
     </div>
   );
 }
