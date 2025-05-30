@@ -2,15 +2,18 @@ require("dotenv").config();
 
 const cors = require("cors");
 const express = require("express");
-const indexRouter = require("./routes/index-router")
+const indexRouter = require("./routes/index-router");
 const { sendError } = require("./services/errors.js");
-const {validateToken} = require("./middleware/validate-token.js")
+const { validateToken } = require("./middleware/validate-token.js");
 
 ////////////////////////////////////////////////////////////////////////////////////
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+
+const path = require("path");
+
 app.listen(PORT, () => {
-    console.log(`Server iniciado en el puerto ${PORT}...`);
+  console.log(`Server iniciado en el puerto ${PORT}...`);
 });
 
 app.use(cors({ origin: "http://localhost:5173" }));
@@ -20,15 +23,14 @@ app.use(indexRouter);
 
 /////////////////////MANEJO DE ERRORES EN LOS ENDPOINTS////////////////////////////
 app.use((err, req, res, next) => {
-    console.error(err);
-    sendError(res, err);
+  console.error(err);
+  sendError(res, err);
 });
 
 app.use((req, res, next) => {
-    sendError(res, {
-        status: 404,
-        code: "UNKNOWN_ENDPOINT",
-        message: `Endpoint desconocido: ${req.method} ${req.path}`,
-    });
+  sendError(res, {
+    status: 404,
+    code: "UNKNOWN_ENDPOINT",
+    message: `Endpoint desconocido: ${req.method} ${req.path}`,
+  });
 });
-
