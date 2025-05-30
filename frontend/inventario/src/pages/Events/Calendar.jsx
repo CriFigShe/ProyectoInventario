@@ -39,13 +39,13 @@ export default function Calendario() {
     fetchEvents();
   }, [currentUser]);
 
-  const tileClassName = ({ date, view }) => {
+  const tileContent = ({ date, view }) => {
     if (view === "month") {
       const dayHasEvent = events.some(
         (event) =>
           new Date(event.date).toDateString() === date.toDateString()
       );
-      return dayHasEvent ? "highlight" : null;
+      return dayHasEvent ? <div className="highlight-dot"></div> : null;
     }
   };
 
@@ -55,7 +55,7 @@ export default function Calendario() {
       className="cal"
         onChange={setValue}
         value={value}
-        tileClassName={tileClassName}
+        tileContent={tileContent}
       />
     </div>
   );
