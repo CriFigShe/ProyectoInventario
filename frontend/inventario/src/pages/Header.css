@@ -69,3 +69,16 @@ h1 {
   color: #00bcd9;
 }
 
+.categorias{
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.otros{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+

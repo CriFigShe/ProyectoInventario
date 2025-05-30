@@ -53,12 +53,15 @@ export default function Header() {
         styles={{
           content: {
             backgroundColor: "#00bcd9",
+            overflow: "hidden"
           },
           header: {
             backgroundColor: "#00bcd9",
+            overflow: "hidden"
           },
           body: {
             backgroundColor: "#00bcd9",
+            overflow: "hidden"
           },
           title: {
             color: "white",
@@ -67,21 +70,24 @@ export default function Header() {
         }}
       >
         <Stack>
-          <Link className="drawerLink" to="/home">
-            {t("products")}
-          </Link>
-          <Link className="drawerLink" to="/suppliers">
-            {t("suppliers")}
-          </Link>
-          <Link className="drawerLink" to="/events">
-            {t("events")}
-          </Link>
-          <Link className="drawerLink" to="/sales">
-            {t("sales")}
-          </Link>
-          <Link className="drawerLink" to="/calendar">
-            {t("calendar")}
-          </Link>
+          <div className="categorias">
+            <Link className="drawerLink" to="/home">
+              {t("products")}
+            </Link>
+            <Link className="drawerLink" to="/suppliers">
+              {t("suppliers")}
+            </Link>
+            <Link className="drawerLink" to="/events">
+              {t("events")}
+            </Link>
+            <Link className="drawerLink" to="/sales">
+              {t("sales")}
+            </Link>
+            <Link className="drawerLink" to="/calendar">
+              {t("calendar")}
+            </Link>
+          </div>
+          <div className="otros">
           <select
             className="drawerLinkLanguages"
             onChange={(e) => changeLanguage(e.target.value)}
@@ -102,6 +108,7 @@ export default function Header() {
             }}
           >
             {t("logOut")}
+          </div>
           </div>
         </Stack>
       </Drawer>
