@@ -187,10 +187,24 @@ export default function Sales() {
                     <p>{sale.shipping_price}</p>
                     <p>{sale.profit}</p>
                     <div className="products">
-                      {sale.products.map((product) => (
-                        <p key={product.id}>{product.name}</p>
+                      {Object.entries(
+                        sale.products.reduce((acc, product) => {
+                          if (!acc[product.id]) {
+                            acc[product.id] = { ...product, count: 1 };
+                          } else {
+                            acc[product.id].count++;
+                          }
+                          return acc;
+                        }, {})
+                      ).map(([id, product]) => (
+                        <p key={id}>
+                          {product.count > 1
+                            ? `${product.count}x ${product.name}`
+                            : product.name}
+                        </p>
                       ))}
                     </div>
+
                     <p>
                       <Link to={`/editSale/${sale.id}`}>
                         <button className="saleActionButton">

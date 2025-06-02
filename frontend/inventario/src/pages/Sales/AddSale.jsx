@@ -9,6 +9,8 @@ import { MultiSelect } from "@mantine/core";
 export default function AddSale() {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
+  const { t } = useTranslation();
+
   const [sale, setSale] = useState({
     date: "",
     payment: "",
@@ -19,9 +21,10 @@ export default function AddSale() {
     products: [],
     userId: currentUser.userId,
   });
-  const [products, setProducts] = useState([]);
 
-  const { t } = useTranslation();
+  const [products, setProducts] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [productQuantities, setProductQuantities] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,9 +62,18 @@ export default function AddSale() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const expandedProducts = selectedProducts.flatMap((productId) =>
+      Array(productQuantities[productId] || 1).fill(productId)
+    );
+
+    const finalSale = {
+      ...sale,
+      products: expandedProducts,
+    };
+
     try {
-      console.log(sale);
-      await axios.post("http://localhost:5000/sales", sale, {
+      await axios.post("http://localhost:5000/sales", finalSale, {
         headers: {
           Authorization: `${currentUser.token}`,
         },
@@ -76,6 +88,26 @@ export default function AddSale() {
     value: product.id.toString(),
     label: product.name,
   }));
+
+  const handleProductSelect = (values) => {
+    setSelectedProducts(values);
+
+    const updatedQuantities = { ...productQuantities };
+    values.forEach((id) => {
+      if (!updatedQuantities[id]) {
+        updatedQuantities[id] = 1;
+      }
+    });
+
+    // Eliminar cantidades de productos deseleccionados
+    Object.keys(updatedQuantities).forEach((id) => {
+      if (!values.includes(id)) {
+        delete updatedQuantities[id];
+      }
+    });
+
+    setProductQuantities(updatedQuantities);
+  };
 
   return (
     <div className="addForm">
@@ -121,19 +153,45 @@ export default function AddSale() {
           <label>{t("saleProfit")}</label>
           <input type="number" name="profit" onChange={handleChange} required />
         </div>
-        <label>{t("products")}</label>
-        <MultiSelect
-          className="selectProducts"
-          data={productOptions}
-          value={sale.products || []}
-          onChange={(selected) =>
-            setSale((prev) => ({ ...prev, products: selected }))
-          }
-          placeholder="Selecciona productos"
-          searchable
-          nothingFound="No se encontraron productos"
-          clearable
-        />
+
+        <div className="formGroup">
+          <label>{t("products")}</label>
+          <MultiSelect
+            className="selectProducts"
+            data={productOptions}
+            value={selectedProducts}
+            onChange={handleProductSelect}
+            placeholder="Selecciona productos"
+            searchable
+            nothingfound="No se encontraron productos"
+            clearable
+          />
+        </div>
+
+        {selectedProducts.map((productId) => {
+          const product = products.find(
+            (p) => p.id.toString() === productId
+          );
+          return (
+            <div key={productId} className="formGroup">
+              <label>
+                {product?.name || "Producto"} - {t("quantity")}
+              </label>
+              <input
+                type="number"
+                min="1"
+                value={productQuantities[productId] || 1}
+                onChange={(e) =>
+                  setProductQuantities((prev) => ({
+                    ...prev,
+                    [productId]: parseInt(e.target.value),
+                  }))
+                }
+              />
+            </div>
+          );
+        })}
+
         <button type="submit" className="addSaleButton">
           {t("addSale")}
         </button>
