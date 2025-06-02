@@ -37,7 +37,7 @@ export default function Sales() {
           navigate("/");
         }
         const salesResponse = await axios.get(
-          `http://localhost:5000/sales/users/${currentUser.userId}`,
+          `https://proyectoinventario.onrender.com/sales/users/${currentUser.userId}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
@@ -45,7 +45,7 @@ export default function Sales() {
           }
         );
         const productsResponse = await axios.get(
-          `http://localhost:5000/products/users/${currentUser.userId}`,
+          `https://proyectoinventario.onrender.com/products/users/${currentUser.userId}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
@@ -108,7 +108,7 @@ export default function Sales() {
   const confirmDeleteSale = async () => {
     if (!saleToDelete) return;
     try {
-      await axios.delete(`http://localhost:5000/sales/${saleToDelete.id}`, {
+      await axios.delete(`https://proyectoinventario.onrender.com/sales/${saleToDelete.id}`, {
         headers: {
           Authorization: `${currentUser.token}`,
         },

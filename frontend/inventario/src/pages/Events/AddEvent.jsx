@@ -26,7 +26,7 @@ export default function AddEvent() {
     e.preventDefault();
     try {
       console.log("Evento a guardar: ",event);
-      await axios.post("http://localhost:5000/events", event, {
+      await axios.post("https://proyectoinventario.onrender.com/events", event, {
         headers: {
           Authorization: `${currentUser.token}`,
         },

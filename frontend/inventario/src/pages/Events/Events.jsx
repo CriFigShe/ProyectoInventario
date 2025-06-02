@@ -37,7 +37,7 @@ export default function Events() {
           navigate("/");
         }
         const response = await axios.get(
-          `http://localhost:5000/events/users/${currentUser.userId}`,
+          `https://proyectoinventario.onrender.com/events/users/${currentUser.userId}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
@@ -74,7 +74,7 @@ export default function Events() {
     if (!eventToDelete) return;
 
     try {
-      await axios.delete(`http://localhost:5000/events/${eventToDelete.id}`, {
+      await axios.delete(`https://proyectoinventario.onrender.com/events/${eventToDelete.id}`, {
         headers: {
           Authorization: `${currentUser.token}`,
         },

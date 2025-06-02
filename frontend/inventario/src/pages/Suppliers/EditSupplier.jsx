@@ -21,7 +21,7 @@ export default function EditSupplier() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/suppliers/${id}`,
+          `https://proyectoinventario.onrender.com/suppliers/${id}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
@@ -46,7 +46,7 @@ export default function EditSupplier() {
     e.preventDefault();
     try {
       console.log(supplier);
-      await axios.put(`http://localhost:5000/suppliers/${id}`, supplier, {
+      await axios.put(`https://proyectoinventario.onrender.com/suppliers/${id}`, supplier, {
         headers: {
           Authorization: `${currentUser.token}`,
         },

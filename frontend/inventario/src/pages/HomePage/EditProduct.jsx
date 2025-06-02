@@ -27,7 +27,7 @@ export default function EditProduct() {
     const fetchData = async () => {
       try {
         const productRes = await axios.get(
-          `http://localhost:5000/products/${id}`,
+          `https://proyectoinventario.onrender.com/products/${id}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
@@ -35,7 +35,7 @@ export default function EditProduct() {
           }
         );
         const suppliersRes = await axios.get(
-          `http://localhost:5000/suppliers/users/${currentUser.userId}`,
+          `https://proyectoinventario.onrender.com/suppliers/users/${currentUser.userId}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
@@ -60,7 +60,7 @@ export default function EditProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/products/${id}`, product, {
+      await axios.put(`https://proyectoinventario.onrender.com/products/${id}`, product, {
         headers: {
           Authorization: `${currentUser.token}`,
         },

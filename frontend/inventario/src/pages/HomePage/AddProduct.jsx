@@ -28,7 +28,7 @@ export default function AddProduct() {
         if(!currentUser.token){
           navigate("/");
         }
-        const supplierRes = await axios.get(`http://localhost:5000/suppliers/users/${currentUser.userId}`, {
+        const supplierRes = await axios.get(`https://proyectoinventario.onrender.com/suppliers/users/${currentUser.userId}`, {
           headers: {
             Authorization: `${currentUser.token}`,
           },
@@ -50,7 +50,7 @@ export default function AddProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/products", product, {
+      await axios.post("https://proyectoinventario.onrender.com/products", product, {
         headers: {
           Authorization: `${currentUser.token}`,
         },

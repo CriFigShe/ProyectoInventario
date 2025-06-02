@@ -37,7 +37,7 @@ export default function Suppliers() {
           navigate("/");
         }
         const response = await axios.get(
-          `http://localhost:5000/suppliers/users/${currentUser.userId}`,
+          `https://proyectoinventario.onrender.com/suppliers/users/${currentUser.userId}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
@@ -74,7 +74,7 @@ export default function Suppliers() {
 
     try {
       await axios.delete(
-        `http://localhost:5000/suppliers/${supplierToDelete.id}`,
+        `https://proyectoinventario.onrender.com/suppliers/${supplierToDelete.id}`,
         {
           headers: {
             Authorization: `${currentUser.token}`,

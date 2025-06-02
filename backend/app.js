@@ -12,11 +12,34 @@ const PORT = process.env.PORT || 5000;
 
 const path = require("path");
 
+// Servir archivos estáticos del frontend
+app.use(express.static(path.join(__dirname, "dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+
+
 app.listen(PORT, () => {
   console.log(`Server iniciado en el puerto ${PORT}...`);
 });
 
-app.use(cors({ origin: "http://localhost:5173" }));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://inventariio.netlify.app"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
+
 
 app.use(validateToken);
 app.use(indexRouter);
