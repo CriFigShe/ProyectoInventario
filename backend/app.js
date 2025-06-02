@@ -12,14 +12,6 @@ const PORT = process.env.PORT || 5000;
 
 const path = require("path");
 
-// Servir archivos estáticos del frontend
-app.use(express.static(path.join(__dirname, "dist")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/inventario/dist", "index.html"));
-});
-
-
 app.listen(PORT, () => {
   console.log(`Server iniciado en el puerto ${PORT}...`);
 });
