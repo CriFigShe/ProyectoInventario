@@ -44,6 +44,7 @@ export default function Events() {
             },
           }
         );
+        console.log("Eventos cargados: ",response.data.data);
         setEvents(response.data.data);
       } catch (error) {
         setError(error.message);

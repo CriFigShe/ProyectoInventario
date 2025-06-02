@@ -25,6 +25,7 @@ export default function AddEvent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log("Evento a guardar: ",event);
       await axios.post("http://localhost:5000/events", event, {
         headers: {
           Authorization: `${currentUser.token}`,
