@@ -113,7 +113,7 @@ export default function Header() {
         </Stack>
       </Drawer>
       <p className="hidden">Espanol , Ingles</p>
-      <h1>{t("inventory")}</h1>
+      <h1>StockIt!</h1>
       <p className="hidden">Espanol , Ingles</p>
     </header>
   );
