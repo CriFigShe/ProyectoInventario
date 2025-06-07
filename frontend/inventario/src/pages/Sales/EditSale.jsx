@@ -1,13 +1,14 @@
-import "./AddSale.css";
+import "./EditSale.css";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import AuthContext from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import { MultiSelect } from "@mantine/core";
 
-export default function AddSale() {
+export default function EditSale() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const { currentUser } = useContext(AuthContext);
   const { t } = useTranslation();
 
@@ -28,11 +29,13 @@ export default function AddSale() {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    const fetchData = async () => {
+    if (!currentUser.token) {
+      navigate("/");
+      return;
+    }
+
+    const fetchProducts = async () => {
       try {
-        if (!currentUser.token) {
-          navigate("/");
-        }
         const productsRes = await axios.get(
           `http://localhost:5000/products/users/${currentUser.userId}`,
           {
@@ -43,12 +46,49 @@ export default function AddSale() {
         );
         setProducts(productsRes.data.data);
       } catch (error) {
-        console.error("Error recogiendo los productos", error);
+        console.error("Error fetching products", error);
       }
     };
 
-    fetchData();
-  }, []);
+    const fetchSale = async () => {
+      try {
+        const saleRes = await axios.get(`http://localhost:5000/sales/${id}`, {
+          headers: {
+            Authorization: `${currentUser.token}`,
+          },
+        });
+        const saleData = saleRes.data.data;
+
+        setSale({
+          date: saleData.date.slice(0, 10),
+          payment: saleData.payment,
+          taxes: saleData.taxes.toString(),
+          package_price: saleData.package_price.toString(),
+          shipping_price: saleData.shipping_price.toString(),
+          profit: saleData.profit.toString(),
+          products: saleData.products,
+          userId: saleData.userId,
+        });
+
+        const counts = {};
+        if (Array.isArray(saleData.products)) {
+          saleData.products.forEach((productId) => {
+            const idStr = productId.toString();
+            counts[idStr] = (counts[idStr] || 0) + 1;
+          });
+        }
+
+        const uniqueProducts = Object.keys(counts);
+        setSelectedProducts(uniqueProducts);
+        setProductQuantities(counts);
+      } catch (error) {
+        console.error("Error fetching sale", error);
+      }
+    };
+
+    fetchProducts();
+    fetchSale();
+  }, [currentUser, navigate, id]);
 
   const validateField = (name, value) => {
     let error = "";
@@ -184,18 +224,24 @@ export default function AddSale() {
 
     const finalSale = {
       ...sale,
+      taxes: Number(sale.taxes),
+      package_price: Number(sale.package_price),
+      shipping_price: Number(sale.shipping_price),
+      profit: Number(sale.profit),
       products: expandedProducts,
+      userId: currentUser.userId
     };
 
     try {
-      await axios.post("http://localhost:5000/sales", finalSale, {
+        console.log(finalSale);
+      await axios.put(`http://localhost:5000/sales/${id}`, finalSale, {
         headers: {
           Authorization: `${currentUser.token}`,
         },
       });
       navigate("/sales");
     } catch (error) {
-      console.error("Error añadiendo una venta", error.message);
+      console.error("Error actualizando la venta", error);
     }
   };
 
@@ -205,8 +251,8 @@ export default function AddSale() {
   }));
 
   return (
-    <div className="addForm">
-      <h2>{t("addSale")}</h2>
+    <div className="editForm">
+      <h2>{t("editSale")}</h2>
       <form onSubmit={handleSubmit} noValidate>
         <div className="formGroup">
           <label>{t("saleDate")}</label>
@@ -314,19 +360,20 @@ export default function AddSale() {
                 type="number"
                 min="1"
                 value={productQuantities[productId] || 1}
-                onChange={(e) =>
+                onChange={(e) => {
+                  const qty = Math.max(1, Number(e.target.value));
                   setProductQuantities((prev) => ({
                     ...prev,
-                    [productId]: parseInt(e.target.value) || 1,
-                  }))
-                }
+                    [productId]: qty,
+                  }));
+                }}
               />
             </div>
           );
         })}
 
-        <button type="submit" className="addSaleButton">
-          {t("addSale")}
+        <button type="submit" className="btnSave">
+          {t("editSale")}
         </button>
       </form>
     </div>

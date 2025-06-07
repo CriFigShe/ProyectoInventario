@@ -58,6 +58,7 @@
   "saleActions": "Actions",
   "noSales": "No saved sales",
   "addSale": "Add sale",
+  "editSale": "Edit sale",
 
   "lowStockAlert": "The product {{productName}} has low stock{{count}}",
 
@@ -67,5 +68,7 @@
   "errorPositive": "It should be a positive number",
   "errorStock": "Stock has to be 0 or more",
   "errorMinLength": "It has to has at least {{count}} characters.",
-  "errorPvpGreaterThanCost": "P.V.P has to be grater than cost"
+  "errorPvpGreaterThanCost": "P.V.P has to be grater than cost",
+  "errorDatePast": "The date can't be on the past",
+  "errorSelectAtLeastOneProduct": "You have to select at least one product"
 }

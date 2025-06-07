@@ -25,6 +25,7 @@ import Calendario from "./Events/Calendar";
 
 import Sales from "./Sales/Sales";
 import AddSale from "./Sales/AddSale";
+import EditSale from "./Sales/EditSale";
 
 const Router = () => {
   return (
@@ -43,6 +44,7 @@ const Router = () => {
       <Route path="/calendar" element={<Calendario />}/>
       <Route path="/sales" element={<Sales />}/>
       <Route path="/addSale" element={<AddSale />}/>
+      <Route path="/editSale/:id" element={<EditSale />}/>
     </Routes>
   );
 };
