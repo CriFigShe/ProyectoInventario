@@ -12,14 +12,15 @@ export default function EditProduct() {
   const [product, setProduct] = useState({
     name: "",
     type: "",
-    stock: 0,
-    cost: 0,
-    pvp: 0,
+    stock: "",
+    cost: "",
+    pvp: "",
     notes: "",
     supplierId: "",
     userId: currentUser.userId,
   });
   const [suppliers, setSuppliers] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const { t } = useTranslation();
 
@@ -27,7 +28,7 @@ export default function EditProduct() {
     const fetchData = async () => {
       try {
         const productRes = await axios.get(
-          `https://proyectoinventario.onrender.com/products/${id}`,
+          `http://localhost:5000/products/${id}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
@@ -35,14 +36,19 @@ export default function EditProduct() {
           }
         );
         const suppliersRes = await axios.get(
-          `https://proyectoinventario.onrender.com/suppliers/users/${currentUser.userId}`,
+          `http://localhost:5000/suppliers/users/${currentUser.userId}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
             },
           }
         );
-        setProduct(productRes.data.data);
+        setProduct({
+          ...productRes.data.data,
+          stock: productRes.data.data.stock.toString(),
+          cost: productRes.data.data.cost.toString(),
+          pvp: productRes.data.data.pvp.toString(),
+        });
         setSuppliers(suppliersRes.data.data);
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -50,17 +56,126 @@ export default function EditProduct() {
     };
 
     fetchData();
-  }, [id]);
+  }, [id, currentUser.token, currentUser.userId]);
+
+  const validateField = (name, value) => {
+    let error = "";
+
+    if (name === "name" || name === "type") {
+      if (!value.trim()) {
+        error = t("errorRequired");
+      } else if (value.trim().length < 3) {
+        error = t("errorMinLength", { count: 3 });
+      }
+    }
+
+    if (name === "stock") {
+      if (value === "") {
+        error = t("errorRequired");
+      } else if (Number(value) < 0) {
+        error = t("errorStock");
+      }
+    }
+
+    if (name === "cost") {
+      if (value === "") {
+        error = t("errorRequired");
+      } else if (Number(value) < 0) {
+        error = t("errorPositive");
+      }
+    }
+
+    if (name === "pvp") {
+      if (value === "") {
+        error = t("errorRequired");
+      } else if (Number(value) < 0) {
+        error = t("errorPositive");
+      } else if (Number(value) <= Number(product.cost)) {
+        error = t("errorPvpGreaterThanCost");
+      }
+    }
+
+    if (name === "supplierId" && !value) {
+      error = t("errorRequired");
+    }
+
+    setErrors((prev) => ({ ...prev, [name]: error }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!product.name.trim()) {
+      newErrors.name = t("errorRequired");
+    } else if (product.name.trim().length < 3) {
+      newErrors.name = t("errorMinLength", { count: 3 });
+    }
+
+    if (!product.type.trim()) {
+      newErrors.type = t("errorRequired");
+    } else if (product.type.trim().length < 3) {
+      newErrors.type = t("errorMinLength", { count: 3 });
+    }
+
+    if (product.stock === "") {
+      newErrors.stock = t("errorRequired");
+    } else if (Number(product.stock) < 0) {
+      newErrors.stock = t("errorStock");
+    }
+
+    if (product.cost === "") {
+      newErrors.cost = t("errorRequired");
+    } else if (Number(product.cost) < 0) {
+      newErrors.cost = t("errorPositive");
+    }
+
+    if (product.pvp === "") {
+      newErrors.pvp = t("errorRequired");
+    } else if (Number(product.pvp) < 0) {
+      newErrors.pvp = t("errorPositive");
+    } else if (Number(product.pvp) <= Number(product.cost)) {
+      newErrors.pvp = t("errorPvpGreaterThanCost");
+    }
+
+    if (!product.supplierId) {
+      newErrors.supplierId = t("errorRequired");
+    }
+
+    return newErrors;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct((prev) => ({ ...prev, [name]: value }));
+
+    if (errors[name]) {
+      validateField(name, value);
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    validateField(name, value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    setErrors({});
+
+    const payload = {
+      ...product,
+      stock: Number(product.stock),
+      cost: Number(product.cost),
+      pvp: Number(product.pvp),
+    };
+
     try {
-      await axios.put(`https://proyectoinventario.onrender.com/products/${id}`, product, {
+      await axios.put(`http://localhost:5000/products/${id}`, payload, {
         headers: {
           Authorization: `${currentUser.token}`,
         },
@@ -82,8 +197,10 @@ export default function EditProduct() {
             name="name"
             value={product.name}
             onChange={handleChange}
+            onBlur={handleBlur}
             required
           />
+          {errors.name && <span className="error">{errors.name}</span>}
         </div>
         <div className="formGroup">
           <label>{t('addProductType')}</label>
@@ -92,8 +209,10 @@ export default function EditProduct() {
             name="type"
             value={product.type}
             onChange={handleChange}
+            onBlur={handleBlur}
             required
           />
+          {errors.type && <span className="error">{errors.type}</span>}
         </div>
         <div className="formGroup">
           <label>{t('productStock')}</label>
@@ -102,8 +221,10 @@ export default function EditProduct() {
             name="stock"
             value={product.stock}
             onChange={handleChange}
+            onBlur={handleBlur}
             required
           />
+          {errors.stock && <span className="error">{errors.stock}</span>}
         </div>
         <div className="formGroup">
           <label>{t('productCost')}</label>
@@ -112,8 +233,10 @@ export default function EditProduct() {
             name="cost"
             value={product.cost}
             onChange={handleChange}
+            onBlur={handleBlur}
             required
           />
+          {errors.cost && <span className="error">{errors.cost}</span>}
         </div>
         <div className="formGroup">
           <label>{t('productPVP')}</label>
@@ -122,8 +245,10 @@ export default function EditProduct() {
             name="pvp"
             value={product.pvp}
             onChange={handleChange}
+            onBlur={handleBlur}
             required
           />
+          {errors.pvp && <span className="error">{errors.pvp}</span>}
         </div>
         <div className="formGroup">
           <label>{t('productNotes')}</label>
@@ -131,7 +256,6 @@ export default function EditProduct() {
             name="notes"
             value={product.notes}
             onChange={handleChange}
-            required
           />
         </div>
         <div className="formGroup">
@@ -140,6 +264,7 @@ export default function EditProduct() {
             name="supplierId"
             value={product.supplierId}
             onChange={handleChange}
+            onBlur={handleBlur}
             required
           >
             <option value="">-- {t('productSupplier')} --</option>
@@ -149,6 +274,7 @@ export default function EditProduct() {
               </option>
             ))}
           </select>
+          {errors.supplierId && <span className="error">{errors.supplierId}</span>}
         </div>
         <button type="submit" className="editProductButton">{t('saveChanges')}</button>
       </form>

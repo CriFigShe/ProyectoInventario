@@ -59,7 +59,13 @@
   "noSales": "No saved sales",
   "addSale": "Add sale",
 
-   "lowStockAlert": "The product {{productName}} has low stock{{count}}",
+  "lowStockAlert": "The product {{productName}} has low stock{{count}}",
 
-   "calendar": "Calendar"
+  "calendar": "Calendar",
+
+  "errorRequired": "This field is required",
+  "errorPositive": "It should be a positive number",
+  "errorStock": "Stock has to be 0 or more",
+  "errorMinLength": "It has to has at least {{count}} characters.",
+  "errorPvpGreaterThanCost": "P.V.P has to be grater than cost"
 }

@@ -24,7 +24,7 @@ export default function AddSupplier() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      await axios.post("https://proyectoinventario.onrender.com/suppliers", supplier, {
+      await axios.post("http://localhost:5000/suppliers", supplier, {
         headers: {
           Authorization: `${currentUser.token}`,
         },

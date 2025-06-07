@@ -39,7 +39,7 @@ export default function ProductPage() {
           navigate("/");
         }
         const productsResponse = await axios.get(
-          `https://proyectoinventario.onrender.com/products/users/${currentUser.userId}`,
+          `http://localhost:5000/products/users/${currentUser.userId}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
@@ -47,7 +47,7 @@ export default function ProductPage() {
           }
         );
         const suppliersResponse = await axios.get(
-          `https://proyectoinventario.onrender.com/suppliers/users/${currentUser.userId}`,
+          `http://localhost:5000/suppliers/users/${currentUser.userId}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
@@ -107,7 +107,7 @@ export default function ProductPage() {
     if (!productToDelete) return;
     try {
       await axios.delete(
-        `https://proyectoinventario.onrender.com/products/${productToDelete.id}`,
+        `http://localhost:5000/products/${productToDelete.id}`,
         {
           headers: {
             Authorization: `${currentUser.token}`,
@@ -178,7 +178,7 @@ export default function ProductPage() {
           <Notification
             icon={checkIcon}
             color="teal"
-            title={t("succesRemovingProduct")}
+            title={t("successRemovingProduct")}
             withCloseButton={false}
           />
         )}

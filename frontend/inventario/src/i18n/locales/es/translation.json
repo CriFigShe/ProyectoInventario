@@ -59,7 +59,13 @@
   "noSales": "No hay ventas guardadas",
   "addSale": "Añadir venta",
 
-   "lowStockAlert": "El producto {{productName}} tiene poco stock{{count}}",
+  "lowStockAlert": "El producto {{productName}} tiene poco stock{{count}}",
 
-   "calendar": "Calendario"
+  "calendar": "Calendario",
+
+  "errorRequired": "Este campo es obligatorio.",
+  "errorPositive": "Debe ser un número positivo.",
+  "errorStock": "El stock debe ser 0 o más.",
+  "errorMinLength": "Debe tener al menos {{count}} caracteres.",
+  "errorPvpGreaterThanCost": "El P.V.P tiene que ser mayor que el coste"
 }

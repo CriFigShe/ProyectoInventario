@@ -47,3 +47,9 @@
   color: #ffffff;
   cursor: pointer;
 }
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+}
+

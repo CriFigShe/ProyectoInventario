@@ -33,7 +33,7 @@ export default function AddSale() {
           navigate("/");
         }
         const productsRes = await axios.get(
-          `https://proyectoinventario.onrender.com/products/users/${currentUser.userId}`,
+          `http://localhost:5000/products/users/${currentUser.userId}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
@@ -73,7 +73,7 @@ export default function AddSale() {
     };
 
     try {
-      await axios.post("https://proyectoinventario.onrender.com/sales", finalSale, {
+      await axios.post("http://localhost:5000/sales", finalSale, {
         headers: {
           Authorization: `${currentUser.token}`,
         },
