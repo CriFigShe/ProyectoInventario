@@ -32,6 +32,24 @@ app.use(cors({
   credentials: true
 }));
 
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
+
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+  next();
+});
+
 
 app.use(validateToken);
 app.use(indexRouter);
@@ -43,9 +61,8 @@ app.use((err, req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  sendError(res, {
-    status: 404,
-    code: "UNKNOWN_ENDPOINT",
-    message: `Endpoint desconocido: ${req.method} ${req.path}`,
-  });
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+  next();
 });
