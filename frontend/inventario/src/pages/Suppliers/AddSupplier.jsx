@@ -66,7 +66,7 @@ export default function AddSupplier() {
     setErrors({});
 
     try {
-      await axios.post("http://localhost:5000/suppliers", supplier, {
+      await axios.post("https://proyectoinventario.onrender.com/suppliers", supplier, {
         headers: {
           Authorization: `${currentUser.token}`,
         },

@@ -25,7 +25,7 @@ async function deleteSale(id){
 }
 
 async function updateSale(sale){
-    const stmt = `UPDATE sales SET date = ?, payment = ?, taxes = ?, package_price = ?, shipping_price = ?, profit = ?, userId = ? WHERE id = ?`;
+    const stmt = `UPDATE sales SET date = ?, payment = ?, taxes = ?, package_price = ?, shipping_price = ?, profit = ?, userId = ?, products = ? WHERE id = ?`;
 
     await db.execute(stmt, [
         sale.date,
@@ -34,6 +34,7 @@ async function updateSale(sale){
         sale.package_price,
         sale.shipping_price,
         sale.profit,
+        sale.products,
         sale.userId,
         sale.id
     ]);

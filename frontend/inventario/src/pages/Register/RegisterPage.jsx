@@ -22,7 +22,7 @@ export default function Register() {
     event.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/users/register", payload);
+      await axios.post("https://proyectoinventario.onrender.com/users/register", payload);
       setRegisterSucceed(true);
       setTimeout(() => navigate('/'), 1000);
     } catch (error) {

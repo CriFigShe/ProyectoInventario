@@ -37,7 +37,7 @@ export default function EditSale() {
     const fetchProducts = async () => {
       try {
         const productsRes = await axios.get(
-          `http://localhost:5000/products/users/${currentUser.userId}`,
+          `https://proyectoinventario.onrender.com/products/users/${currentUser.userId}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
@@ -52,7 +52,7 @@ export default function EditSale() {
 
     const fetchSale = async () => {
       try {
-        const saleRes = await axios.get(`http://localhost:5000/sales/${id}`, {
+        const saleRes = await axios.get(`https://proyectoinventario.onrender.com/sales/${id}`, {
           headers: {
             Authorization: `${currentUser.token}`,
           },
@@ -96,13 +96,6 @@ export default function EditSale() {
     if (name === "date") {
       if (!value) {
         error = t("errorRequired");
-      } else {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const selectedDate = new Date(value);
-        if (selectedDate < today) {
-          error = t("errorDatePast");
-        }
       }
     }
 
@@ -128,13 +121,6 @@ export default function EditSale() {
 
     if (!sale.date) {
       newErrors.date = t("errorRequired");
-    } else {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const selectedDate = new Date(sale.date);
-      if (selectedDate < today) {
-        newErrors.date = t("errorDatePast");
-      }
     }
 
     if (!sale.payment) {
@@ -229,12 +215,12 @@ export default function EditSale() {
       shipping_price: Number(sale.shipping_price),
       profit: Number(sale.profit),
       products: expandedProducts,
-      userId: currentUser.userId
+      userId: currentUser.userId,
     };
 
     try {
-        console.log(finalSale);
-      await axios.put(`http://localhost:5000/sales/${id}`, finalSale, {
+      console.log(finalSale);
+      await axios.put(`https://proyectoinventario.onrender.com/sales/${id}`, finalSale, {
         headers: {
           Authorization: `${currentUser.token}`,
         },

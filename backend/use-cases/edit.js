@@ -77,6 +77,7 @@ async function editSale(payload, saleId){
         package_price: payload.package_price || sale.package_price,
         shipping_price: payload.shipping_price || sale.shipping_price,
         profit: payload.profit || sale.profit,
+        products: payload.products,
         userId: payload.supplierId,
     }
 

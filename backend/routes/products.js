@@ -12,54 +12,53 @@ const { removeProduct } = require("../use-cases/remove");
 const { listProducts } = require("../use-cases/list");
 const router = Router();
 
-
 router.post(
-    "/products",
-    json(),
-    authGuard,
-    validateBody(postProductPayload),
-    handleAsyncError(async (req, res) => {
-        await createProduct(req.body);
-        sendResponse(res, undefined, 201);
-    })
+  "/products",
+  json(),
+  authGuard,
+  validateBody(postProductPayload),
+  handleAsyncError(async (req, res) => {
+    await createProduct(req.body);
+    sendResponse(res, undefined, 201);
+  })
 );
 
 router.get(
-    "/products/users/:userId",
-    authGuard,
-    handleAsyncError(async (req, res) => {
-        const products = await listProducts(req.params.userId);
-        sendResponse(res, products);
-    })
+  "/products/users/:userId",
+  authGuard,
+  handleAsyncError(async (req, res) => {
+    const products = await listProducts(req.params.userId);
+    sendResponse(res, products);
+  })
 );
 
 router.get(
-    "/products/:id",
-    authGuard,
-    handleAsyncError(async (req, res) => {
-        const product = await viewProduct(req.params.id);
-        sendResponse(res, product);
-    })
+  "/products/:id",
+  authGuard,
+  handleAsyncError(async (req, res) => {
+    const product = await viewProduct(req.params.id);
+    sendResponse(res, product);
+  })
 );
 
 router.put(
-    "/products/:id",
-    json(),
-    authGuard,
-    validateBody(editProductPayload),
-        handleAsyncError(async (req, res) => {
-        await editProduct(req.body, req.params.id);
-        sendResponse(res);
-    })
+  "/products/:id",
+  json(),
+  authGuard,
+  validateBody(editProductPayload),
+  handleAsyncError(async (req, res) => {
+    await editProduct(req.body, req.params.id);
+    sendResponse(res);
+  })
 );
 
 router.delete(
-    "/products/:id",
-    authGuard,
-    handleAsyncError(async (req, res) => {
-        await removeProduct(req.params.id);
-        sendResponse(res);
-    })
+  "/products/:id",
+  authGuard,
+  handleAsyncError(async (req, res) => {
+    await removeProduct(req.params.id);
+    sendResponse(res);
+  })
 );
 
 module.exports = router;

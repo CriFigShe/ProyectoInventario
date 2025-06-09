@@ -24,7 +24,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/users/login",
+        "https://proyectoinventario.onrender.com/users/login",
         payload
       );
       localStorage.setItem('userId', response.data.data.token.user);

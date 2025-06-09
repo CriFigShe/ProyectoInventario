@@ -30,7 +30,7 @@ export default function AddProduct() {
           navigate("/");
         }
         const supplierRes = await axios.get(
-          `http://localhost:5000/suppliers/users/${currentUser.userId}`,
+          `https://proyectoinventario.onrender.com/suppliers/users/${currentUser.userId}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
@@ -50,39 +50,39 @@ export default function AddProduct() {
     const newErrors = {};
 
     if (!product.name.trim()) {
-      newErrors.name = t("errorRequired");
+      newErrors.name = "errorRequired";
     } else if (product.name.trim().length < 3) {
-      newErrors.name = t("errorMinLength", { count: 3 });
+      newErrors.name = { key: "errorMinLength", values: { count: 3 } };
     }
 
     if (!product.type.trim()) {
-      newErrors.type = t("errorRequired");
+      newErrors.type = "errorRequired";
     } else if (product.type.trim().length < 3) {
-      newErrors.type = t("errorMinLength", { count: 3 });
+      newErrors.type = { key: "errorMinLength", values: { count: 3 } };
     }
 
     if (product.stock === "") {
-      newErrors.stock = t("errorRequired");
+      newErrors.stock = "errorRequired";
     } else if (Number(product.stock) < 0) {
-      newErrors.stock = t("errorStock");
+      newErrors.stock = "errorStock";
     }
 
     if (product.cost === "") {
-      newErrors.cost = t("errorRequired");
+      newErrors.cost = "errorRequired";
     } else if (Number(product.cost) < 0) {
-      newErrors.cost = t("errorPositive");
+      newErrors.cost = "errorPositive";
     }
 
     if (product.pvp === "") {
-      newErrors.pvp = t("errorRequired");
+      newErrors.pvp = "errorRequired";
     } else if (Number(product.pvp) < 0) {
-      newErrors.pvp = t("errorPositive");
+      newErrors.pvp = "errorPositive";
     } else if (Number(product.pvp) <= Number(product.cost)) {
-      newErrors.pvp = t("errorPvpGreaterThanCost");
+      newErrors.pvp = "errorPvpGreaterThanCost";
     }
 
     if (!product.supplierId) {
-      newErrors.supplierId = t("errorRequired");
+      newErrors.supplierId = "errorRequired";
     }
 
     return newErrors;
@@ -93,40 +93,40 @@ export default function AddProduct() {
 
     if (name === "name" || name === "type") {
       if (!value.trim()) {
-        error = t("errorRequired");
+        error = "errorRequired";
       } else if (value.trim().length < 3) {
-        error = t("errorMinLength", { count: 3 });
+        error = { key: "errorMinLength", values: { count: 3 } };
       }
     }
 
     if (name === "stock") {
       if (value === "") {
-        error = t("errorRequired");
+        error = "errorRequired";
       } else if (Number(value) < 0) {
-        error = t("errorStock");
+        error = "errorStock";
       }
     }
 
     if (name === "cost") {
       if (value === "") {
-        error = t("errorRequired");
+        error = "errorRequired";
       } else if (Number(value) < 0) {
-        error = t("errorPositive");
+        error = "errorPositive";
       }
     }
 
     if (name === "pvp") {
       if (value === "") {
-        error = t("errorRequired");
+        error = "errorRequired";
       } else if (Number(value) < 0) {
-        error = t("errorPositive");
+        error = "errorPositive";
       } else if (Number(value) <= Number(product.cost)) {
-        error = t("errorPvpGreaterThanCost");
+        error = "errorPvpGreaterThanCost";
       }
     }
 
     if (name === "supplierId" && !value) {
-      error = t("errorRequired");
+      error = "errorRequired";
     }
 
     setErrors((prev) => ({ ...prev, [name]: error }));
@@ -149,7 +149,7 @@ export default function AddProduct() {
     }
     setErrors({});
     try {
-      await axios.post("http://localhost:5000/products", product, {
+      await axios.post("https://proyectoinventario.onrender.com/products", product, {
         headers: {
           Authorization: `${currentUser.token}`,
         },
@@ -158,6 +158,13 @@ export default function AddProduct() {
     } catch (error) {
       console.error("Error añadiendo un producto:", error.message);
     }
+  };
+
+  const renderError = (error) => {
+    if (!error) return null;
+    return typeof error === "string"
+      ? t(error)
+      : t(error.key, error.values || {});
   };
 
   return (
@@ -172,7 +179,7 @@ export default function AddProduct() {
             onChange={handleChange}
             onBlur={(e) => validateField(e.target.name, e.target.value)}
           />
-          {errors.name && <span className="error">{errors.name}</span>}
+          {errors.name && <span className="error">{renderError(errors.name)}</span>}
         </div>
         <div className="formGroup">
           <label>{t("addProductType")}</label>
@@ -180,10 +187,9 @@ export default function AddProduct() {
             type="text"
             name="type"
             onChange={handleChange}
-            required
             onBlur={(e) => validateField(e.target.name, e.target.value)}
           />
-          {errors.type && <span className="error">{errors.type}</span>}
+          {errors.type && <span className="error">{renderError(errors.type)}</span>}
         </div>
         <div className="formGroup">
           <label>{t("productStock")}</label>
@@ -193,7 +199,7 @@ export default function AddProduct() {
             onChange={handleChange}
             onBlur={(e) => validateField(e.target.name, e.target.value)}
           />
-          {errors.stock && <span className="error">{errors.stock}</span>}
+          {errors.stock && <span className="error">{renderError(errors.stock)}</span>}
         </div>
         <div className="formGroup">
           <label>{t("productCost")}</label>
@@ -201,10 +207,9 @@ export default function AddProduct() {
             type="number"
             name="cost"
             onChange={handleChange}
-            required
             onBlur={(e) => validateField(e.target.name, e.target.value)}
           />
-          {errors.cost && <span className="error">{errors.cost}</span>}
+          {errors.cost && <span className="error">{renderError(errors.cost)}</span>}
         </div>
         <div className="formGroup">
           <label>{t("productPVP")}</label>
@@ -212,18 +217,17 @@ export default function AddProduct() {
             type="number"
             name="pvp"
             onChange={handleChange}
-            required
             onBlur={(e) => validateField(e.target.name, e.target.value)}
           />
-          {errors.pvp && <span className="error">{errors.pvp}</span>}
+          {errors.pvp && <span className="error">{renderError(errors.pvp)}</span>}
         </div>
         <div className="formGroup">
           <label>{t("productNotes")}</label>
-          <textarea name="notes" onChange={handleChange} required></textarea>
+          <textarea name="notes" onChange={handleChange}></textarea>
         </div>
         <div className="formGroup">
           <label>{t("productSupplier")}</label>
-          <select name="supplierId" onChange={handleChange} required>
+          <select name="supplierId" onChange={handleChange}>
             <option value="">-- {t("productSupplier")} --</option>
             {suppliers.map((supplier) => (
               <option key={supplier.id} value={supplier.id}>
@@ -232,7 +236,7 @@ export default function AddProduct() {
             ))}
           </select>
           {errors.supplierId && (
-            <span className="error">{errors.supplierId}</span>
+            <span className="error">{renderError(errors.supplierId)}</span>
           )}
         </div>
         <button type="submit" className="addProductButton">
