@@ -27,6 +27,7 @@ router.get(
   "/products/users/:userId",
   authGuard,
   handleAsyncError(async (req, res) => {
+    console.log("llego a la ruta")
     const products = await listProducts(req.params.userId);
     sendResponse(res, products);
   })
