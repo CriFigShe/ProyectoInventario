@@ -56,7 +56,6 @@ router.put(
   authGuard,
   validateBody(editSalePayload),
   handleAsyncError(async (req, res) => {
-    console.log(req.body);
     await editSale(req.body, req.params.id);
     sendResponse(res);
   })

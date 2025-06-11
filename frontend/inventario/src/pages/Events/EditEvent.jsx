@@ -23,7 +23,7 @@ export default function EditEvent() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://proyectoinventario.onrender.com/events/${id}`, {
+        const response = await axios.get(`http://localhost:5000/events/${id}`, {
           headers: {
             Authorization: `${currentUser.token}`,
           },
@@ -119,7 +119,7 @@ export default function EditEvent() {
 
     try {
       console.log(event);
-      await axios.put(`https://proyectoinventario.onrender.com/events/${id}`, event, {
+      await axios.put(`http://localhost:5000/events/${id}`, event, {
         headers: {
           Authorization: `${currentUser.token}`,
         },

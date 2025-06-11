@@ -22,7 +22,7 @@ export default function Calendario() {
           navigate("/");
         }
         const response = await axios.get(
-          `https://proyectoinventario.onrender.com/events/users/${currentUser.userId}`,
+          `http://localhost:5000/events/users/${currentUser.userId}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,

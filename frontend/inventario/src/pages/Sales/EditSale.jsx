@@ -37,7 +37,7 @@ export default function EditSale() {
     const fetchProducts = async () => {
       try {
         const productsRes = await axios.get(
-          `https://proyectoinventario.onrender.com/products/users/${currentUser.userId}`,
+          `http://localhost:5000/products/users/${currentUser.userId}`,
           {
             headers: {
               Authorization: `${currentUser.token}`,
@@ -52,7 +52,7 @@ export default function EditSale() {
 
     const fetchSale = async () => {
       try {
-        const saleRes = await axios.get(`https://proyectoinventario.onrender.com/sales/${id}`, {
+        const saleRes = await axios.get(`http://localhost:5000/sales/${id}`, {
           headers: {
             Authorization: `${currentUser.token}`,
           },
@@ -220,7 +220,7 @@ export default function EditSale() {
 
     try {
       console.log(finalSale);
-      await axios.put(`https://proyectoinventario.onrender.com/sales/${id}`, finalSale, {
+      await axios.put(`http://localhost:5000/sales/${id}`, finalSale, {
         headers: {
           Authorization: `${currentUser.token}`,
         },
