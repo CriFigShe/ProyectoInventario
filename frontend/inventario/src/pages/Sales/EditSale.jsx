@@ -1,5 +1,5 @@
 import "./EditSale.css";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import AuthContext from "../../context/AuthContext";
@@ -27,6 +27,7 @@ export default function EditSale() {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [productQuantities, setProductQuantities] = useState({});
   const [errors, setErrors] = useState({});
+  const initialSelectedProductsRef = useRef([]);
 
   useEffect(() => {
     if (!currentUser.token) {
@@ -79,10 +80,27 @@ export default function EditSale() {
         }
 
         const uniqueProducts = Object.keys(counts);
-        setSelectedProducts(uniqueProducts);
+        initialSelectedProductsRef.current = uniqueProducts;
         setProductQuantities(counts);
+
+        const productsRes = await axios.get(
+          `http://localhost:3000/products/users/${currentUser.userId}`,
+          {
+            headers: {
+              Authorization: `${currentUser.token}`,
+            },
+          }
+        );
+        const allProducts = productsRes.data.data;
+        setProducts(allProducts);
+
+        const validIds = allProducts.map((p) => p.id.toString());
+        const filteredSelected = uniqueProducts.filter((id) =>
+          validIds.includes(id)
+        );
+        setSelectedProducts(filteredSelected);
       } catch (error) {
-        console.error("Error fetching sale", error);
+        console.error("Error fetching sale or products", error);
       }
     };
 
@@ -219,7 +237,6 @@ export default function EditSale() {
     };
 
     try {
-      console.log(finalSale);
       await axios.put(`http://localhost:3000/sales/${id}`, finalSale, {
         headers: {
           Authorization: `${currentUser.token}`,
@@ -235,6 +252,9 @@ export default function EditSale() {
     value: product.id.toString(),
     label: product.name,
   }));
+
+  console.log(productOptions);
+  console.log(selectedProducts.length);
 
   return (
     <div className="editForm">

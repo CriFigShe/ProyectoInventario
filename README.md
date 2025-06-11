@@ -10,6 +10,8 @@ Lo primero que deberemos hacer antes de cualquier otra cosa será crear un archi
 
 Esta variable es la palabra clave que necesita JWT para generar el token que usaremos en toda la aplicación.
 
+Además tendremos que tener Docker Desktop, en el caso de Windows, abierto y corriendo.
+
 ## Clonar proyecto
 
 Lo primero que tendremos que hacer será clonar el proyecto desde GitHub. Para esto, abriremos Visual Studio Code y abriremos la terminal incorporada.
