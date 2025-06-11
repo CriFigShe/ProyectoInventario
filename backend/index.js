@@ -2,11 +2,11 @@ require("dotenv").config();
 
 const cors = require("cors");
 const express = require("express");
-const indexRouter = require("./routes/index-router");
+const indexRouter = require("./routes/index-router.js");
 const { sendError } = require("./services/errors.js");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 const allowedOrigins = [
   "http://localhost:5173",
