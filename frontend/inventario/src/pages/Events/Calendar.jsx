@@ -29,6 +29,7 @@ export default function Calendario() {
             },
           }
         );
+        console.log(response.data.data);
         setEvents(response.data.data);
       } catch (error) {
         console.error("Error recogiendo los eventos", error.message);
@@ -38,20 +39,27 @@ export default function Calendario() {
     fetchEvents();
   }, [currentUser]);
 
-  const tileContent = ({ date, view }) => {
-    if (view === "month") {
-      const dayHasEvent = events.some(
-        (event) =>
-          new Date(event.date).toDateString() === date.toDateString()
-      );
-      return dayHasEvent ? <div className="highlight-dot"></div> : null;
-    }
-  };
+ const formatLocalDate = (d) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+
+const tileContent = ({ date, view }) => {
+  if (view === "month") {
+    const localDateStr = formatLocalDate(date);
+
+    const dayHasEvent = events.some((event) => {
+      const eventLocalDate = formatLocalDate(new Date(event.date));
+      return eventLocalDate === localDateStr;
+    });
+
+    return dayHasEvent ? <div className="highlight-dot"></div> : null;
+  }
+};
+
 
   return (
     <div className="contenedorCalendario">
       <Calendar
-      className="cal"
+        className="cal"
         onChange={setValue}
         value={value}
         tileContent={tileContent}
