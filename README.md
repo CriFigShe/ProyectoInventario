@@ -38,7 +38,9 @@ Para instalar todas las dependencias necesarias, tanto en el front como en el ba
 
 Lo siguiente que haremos será poner en marcha el contenedor de docker que contiene el backend y la base de datos.
 
-Para ellos solo tendremos que ir a la carpeta del backend con `cd backend`, luego pondremos el comando `docker compose up --build` para contruir el contenedore de docker.
+Primero tendremos que ejecutar el comando `docker exec -it backend_container node database/init.js` dentro del directorio del backend para que se cree la base de datos.
+
+Luego pondremos el comando `docker compose up --build` para contruir el contenedore de docker.
 
 Una vez acabe de contruirse ya tendremos el backend y la base de datos disponibles.
 
