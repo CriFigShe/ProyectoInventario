@@ -2,6 +2,14 @@
 
 Para poder usar este proyecto tendremos que seguirn unos pasos:
 
+## Clonar proyecto
+
+Lo primero que tendremos que hacer será clonar el proyecto desde GitHub. Para esto, abriremos Visual Studio Code y abriremos la terminal incorporada.
+
+A continuación, ejecutaremos el comando `git clone https://github.com/CriFigShe/ProyectoInventario.git` en el directorio en el que queramos que este el proyecto.
+
+Después, ejecutaremos el comando `cd ProyectoInventario` para ubicarnos en la carpeta del proyecto.
+
 ## Variables de entorno
 
 Lo primero que deberemos hacer antes de cualquier otra cosa será crear un archivo .env en la carpeta del backend haciendo click derecho sobre esta. Después tendremos que añadir una variable de entorno de la siguiente manera:
@@ -11,14 +19,6 @@ Lo primero que deberemos hacer antes de cualquier otra cosa será crear un archi
 Esta variable es la palabra clave que necesita JWT para generar el token que usaremos en toda la aplicación.
 
 Además tendremos que tener Docker Desktop, en el caso de Windows, abierto y corriendo.
-
-## Clonar proyecto
-
-Lo primero que tendremos que hacer será clonar el proyecto desde GitHub. Para esto, abriremos Visual Studio Code y abriremos la terminal incorporada.
-
-A continuación, ejecutaremos el comando `git clone https://github.com/CriFigShe/ProyectoInventario.git` en el directorio en el que queramos que este el proyecto.
-
-Después, ejecutaremos el comando `cd ProyectoInventario` para ubicarnos en la carpeta del proyecto.
 
 ## Instalar depencias
 
